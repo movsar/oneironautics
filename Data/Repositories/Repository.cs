@@ -11,46 +11,72 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class Repository<TEntity>
+    public class Repository<TEntity> where TEntity : RealmObject, new()
     {
-        private Realm _realm;
+        private Realm _realmInstance;
 
-        internal Repository(Realm realm) { 
-            _realm = realm;
+        internal Repository(Realm realm)
+        {
+            _realmInstance = realm;
         }
 
-        public void Add(TEntity entity)
-        {
-            var dream = new DreamEntity(entity as IDream);
+        #region Generic CRUD
 
-            _realm.Write(() =>
+        public TModel GetById<TModel>(string id)
+        {
+            var result = _realmInstance.Find<TEntity>(id);
+            return EntitiesToModels<TEntity, TModel>(result);
+        }
+
+        public void Add<TModel>(TModel model) where TModel : IModelBase
+        {
+            dynamic entity = new TEntity();
+            entity.SetFromModel(model);
+
+            _realmInstance.Write(() =>
             {
-                _realm.Add(dream);
+                _realmInstance.Add(entity);
+            });
+
+            model.Id = entity.Id;
+        }
+
+        public void Update<TModel>(TModel model) where TModel : IModelBase
+        {
+            dynamic entity = _realmInstance.Find<TEntity>(model.Id);
+            _realmInstance.Write(() =>
+            {
+                entity.SetFromModel(model);
             });
         }
 
-        public void Delete(TEntity entity)
+        public void Delete<TModel>(TModel model) where TModel : IModelBase
         {
-            _realm.Remove(entity as RealmObject);
-        }
-
-        public void Update(IDream dream)
-        {
-            var dreamEntity = _realm.Find<DreamEntity>(dream.Id);
-            _realm.Write(() =>
+            var entity = _realmInstance.Find<TEntity>(model.Id);
+            _realmInstance.Write(() =>
             {
-                dreamEntity.Content = dream.Content;
-                dreamEntity.Title = dream.Title;
-                dreamEntity.Notes = dream.Notes;
-                dreamEntity.Position = dream.Position;
+                _realmInstance.Remove(entity);
             });
-            
         }
 
-        public IEnumerable<TTarget> ToPlainObjects<TSource, TTarget> (IEnumerable<TSource> realmObjects)
+        #endregion
+
+        #region EntitiesToModels
+
+        // These method takes RealmObjects and turns them into plain model objects
+
+        public IEnumerable<TTarget> EntitiesToModels<TSource, TTarget>(IEnumerable<TSource> realmObjects)
         {
             string jsonString = JsonSerializer.Serialize(realmObjects);
             return JsonSerializer.Deserialize<IEnumerable<TTarget>>(jsonString);
         }
+        public TTarget EntitiesToModels<TSource, TTarget>(TSource realmObject)
+        {
+            string jsonString = JsonSerializer.Serialize(realmObject);
+            return JsonSerializer.Deserialize<TTarget>(jsonString);
+        }
+
+        #endregion
+
     }
 }

@@ -25,4 +25,13 @@ namespace Data.Models
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset ModifiedAt { get; set;  }
     }
+
+    public enum SleepingPosition
+    {
+        Unknown,
+        Right,
+        Back,
+        Left,
+        Stomach
+    }
 }

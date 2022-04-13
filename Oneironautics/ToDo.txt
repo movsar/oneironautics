@@ -1,0 +1,7 @@
+1. Create MVVM Structure with two screens:
+	* Dream Listing
+	* Dream Editor (add, update, remove)
+
+2. Add Dream Signs Manager
+	* Dream Signs Listing View
+	* Dream Sign Editor (add, update, remove)

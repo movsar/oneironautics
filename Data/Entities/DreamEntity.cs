@@ -9,20 +9,8 @@ using Realms;
 
 namespace Data.Entities
 {
-    internal class DreamEntity : RealmObject, IDream
+    public class DreamEntity : RealmObject, IDream
     {
-        public DreamEntity()
-        {
-        }
-        public DreamEntity(IDream dream)
-        {
-            Content = dream.Content;
-            Title = dream.Title;
-            Notes = dream.Notes;
-            PositionId = (int)dream.Position;
-            Position = dream.Position;
-        }
-
         [PrimaryKey]
         public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
@@ -41,5 +29,15 @@ namespace Data.Entities
 
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
         public DateTimeOffset ModifiedAt { get; set; } = DateTimeOffset.Now;
+
+        // A utility metohd to assist when converting from RealmObject to a plain object and vice versa
+        public void SetFromModel(IDream dream)
+        {
+            Content = dream.Content;
+            Title = dream.Title;
+            Notes = dream.Notes;
+            Position = dream.Position;
+            ModifiedAt = DateTime.Now;
+        }
     }
 }

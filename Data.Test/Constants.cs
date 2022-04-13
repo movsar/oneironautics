@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Models
+namespace Data.Test
 {
-    public enum SleepingPosition
+    internal static class Constants
     {
-        Unknown,
-        Right,
-        Back,
-        Left,
-        Stomach
+        internal const string DbPath = "TestDatabase.realm";
     }
 }

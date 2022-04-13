@@ -2,6 +2,7 @@
 using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,19 +48,16 @@ namespace Oneironautics
 
             Storage.DreamsRepository.Update(myDream);
 
-            myDream = Storage.DreamsRepository.FindByTitle(myDream.Title).FirstOrDefault();
+            myDream = Storage.DreamsRepository.GetById<Dream>(myDream.Id);
             ShowDreamInfo(myDream);
-
-            //myDream = Storage.DreamsRepository.Find(dream => dream.Content.StartsWith("I was")).FirstOrDefault();
-            //ShowDreamInfo(myDream);
 
             void ShowDreamInfo(IDream dream)
             {
-                Console.WriteLine(dream.Title);
-                Console.WriteLine($"CreatedAt: { dream.CreatedAt}");
-                Console.WriteLine($"ModifiedAt: { dream.ModifiedAt}");
+                Debug.WriteLine("=================================");
+                Debug.WriteLine(dream.Title);
+                Debug.WriteLine($"CreatedAt: { dream.CreatedAt}");
+                Debug.WriteLine($"ModifiedAt: { dream.ModifiedAt}");
             }
-;
 
         }
     }
