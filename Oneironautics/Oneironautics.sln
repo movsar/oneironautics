@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oneironautics", "Oneironautics.csproj", "{8AE1E495-BA33-432D-8A95-F16B73F8A83F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\Data\Data.csproj", "{160CD607-85F0-4348-BAC3-A9F36B75BB2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "..\Data\Data.csproj", "{160CD607-85F0-4348-BAC3-A9F36B75BB2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Test", "..\Data.Test\Data.Test.csproj", "{5BF16C53-6791-4E46-AFCD-BFBB2CDDEAD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{160CD607-85F0-4348-BAC3-A9F36B75BB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{160CD607-85F0-4348-BAC3-A9F36B75BB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{160CD607-85F0-4348-BAC3-A9F36B75BB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF16C53-6791-4E46-AFCD-BFBB2CDDEAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF16C53-6791-4E46-AFCD-BFBB2CDDEAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF16C53-6791-4E46-AFCD-BFBB2CDDEAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF16C53-6791-4E46-AFCD-BFBB2CDDEAD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
