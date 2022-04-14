@@ -1,12 +1,89 @@
-﻿<Window x:Class="Oneironautics.Views.DreamListingView"
+﻿<UserControl x:Class="Oneironautics.Views.DreamListingView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Oneironautics.Views"
-        mc:Ignorable="d"
-        Title="DreamListingView" Height="450" Width="800">
+        mc:Ignorable="d">
     <Grid>
-        <Label>adsfsadf</Label>
+        <ListView>
+            <ListViewItem>
+                <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Horizontal"
+                                >
+                        
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Style>
+                        </StackPanel.Resources>
+                            
+                        <TextBlock Text="#1"/>
+                        <TextBlock Text="20.03.2022 14:30"/>
+                        <TextBlock Text="My Amazing dream"/>
+                        <TextBlock Text="Position: Right"/>
+                        <TextBlock Text="Lucidity: God-Like"/>
+                    </StackPanel>
+
+                    <TextBlock 
+                        Grid.Row="1"
+                        Margin="5 0 0 0"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
+                        Width="750"
+                        Height="100"
+                        Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+                        />
+
+                    <Grid Grid.Row="2" Margin="0 -15 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" 
+                                Orientation="Horizontal"
+                                FlowDirection="LeftToRight">
+                          
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5" />
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Foreground" Value="Purple"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            
+                            <TextBlock Text="~Autumn"/>
+                            <TextBlock Text="~Snakes"/>
+                            <TextBlock Text="~Surgery"/>
+                            <TextBlock Text="~Sex"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" 
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5" />
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Foreground" Value="DarkCyan"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="Remove"/>
+                            <TextBlock Text="Edit"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ListViewItem>
+        </ListView>
     </Grid>
-</Window>
+</UserControl>

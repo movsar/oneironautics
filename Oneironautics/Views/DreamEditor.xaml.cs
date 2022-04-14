@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Oneironautics.Views
 {
     /// <summary>
-    /// Interaction logic for DreamListingView.xaml
+    /// Interaction logic for DreamEditor.xaml
     /// </summary>
-    public partial class DreamListingView : UserControl
+    public partial class DreamEditor : UserControl
     {
-        public DreamListingView()
+        public DreamEditor()
         {
             InitializeComponent();
         }
