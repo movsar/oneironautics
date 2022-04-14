@@ -17,9 +17,9 @@ namespace Oneironautics.Views
     /// <summary>
     /// Interaction logic for DreamEditor.xaml
     /// </summary>
-    public partial class DreamEditor : UserControl
+    public partial class DreamEditorView : UserControl
     {
-        public DreamEditor()
+        public DreamEditorView()
         {
             InitializeComponent();
         }

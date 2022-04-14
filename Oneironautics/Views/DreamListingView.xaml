@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:Oneironautics.Views"
         mc:Ignorable="d">
     <Grid>
-        <ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <ListView Grid.Row="0">
             <ListViewItem>
                 <Grid Grid.IsSharedSizeScope="True">
                     <Grid.RowDefinitions>
@@ -54,7 +59,7 @@
                                 Orientation="Horizontal"
                                 FlowDirection="LeftToRight">
                           
-                            <StackPanel.Resources>
+                            <!--<StackPanel.Resources>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Margin" Value="5" />
                                     <Setter Property="FontSize" Value="12"/>
@@ -65,7 +70,7 @@
                             <TextBlock Text="~Autumn"/>
                             <TextBlock Text="~Snakes"/>
                             <TextBlock Text="~Surgery"/>
-                            <TextBlock Text="~Sex"/>
+                            <TextBlock Text="~Sex"/>-->
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" 
@@ -78,12 +83,27 @@
                                     <Setter Property="Foreground" Value="DarkCyan"/>
                                 </Style>
                             </StackPanel.Resources>
-                            <TextBlock Text="Remove"/>
-                            <TextBlock Text="Edit"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
             </ListViewItem>
+
         </ListView>
+
+        <StackPanel 
+                Grid.Row="1"
+                Margin="0 10 0 0"
+                Orientation="Horizontal"
+                FlowDirection="RightToLeft">
+
+            <Button 
+                Content="Add Dream"
+                Cursor="Hand"
+                Height="30"
+                Width="150"
+                >
+            </Button>
+        </StackPanel>
+      
     </Grid>
 </UserControl>

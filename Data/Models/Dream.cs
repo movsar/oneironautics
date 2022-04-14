@@ -14,7 +14,14 @@ namespace Data.Models
         public string Content { get; set; }
         public string Title { get; set; }
         public string Notes { get; set; }
-        public int Lucidity { get; set; }
+
+        private int LucidityId { get; set; }
+        public LucidityLevel Lucidity
+        {
+            get { return (LucidityLevel)LucidityId; }
+            set { LucidityId = (int)value; }
+        }
+
         private int PositionId { get; set; }
         public SleepingPosition Position
         {
@@ -33,5 +40,14 @@ namespace Data.Models
         Back,
         Left,
         Stomach
+    }
+
+    public enum LucidityLevel
+    {
+        None,
+        Transient,
+        Foggy,
+        Clear,
+        Total
     }
 }

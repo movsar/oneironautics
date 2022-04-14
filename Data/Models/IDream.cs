@@ -7,10 +7,9 @@ namespace Data.Models
     {
         string Title { get; set; }
         string Content { get; set; }
-     
-        int Lucidity { get; set; }
         string Notes { get; set; }
-
+        
+        LucidityLevel Lucidity { get; set; }
         SleepingPosition Position { get; set; }
     }
 }
