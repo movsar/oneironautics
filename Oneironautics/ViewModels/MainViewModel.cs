@@ -13,7 +13,7 @@ namespace Oneironautics.ViewModels
     {
         public ViewModelBase CurrentViewModel { get; }
         public MainViewModel() {
-            CurrentViewModel = new DreamEditorViewModel();
+            CurrentViewModel = new DreamListingViewModel();
 
 
 

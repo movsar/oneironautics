@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="560" Width="850">
     <Grid>
-        <views:DreamEditorView Margin="15,15,11,15" DataContext="{Binding CurrentViewModel}"/>
+        <views:DreamListingView Margin="15,15,11,15" DataContext="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

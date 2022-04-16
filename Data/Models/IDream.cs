@@ -5,10 +5,12 @@ namespace Data.Models
 {
     public interface IDream : IModelBase
     {
+        int DreamId { get; set; }
         string Title { get; set; }
         string Content { get; set; }
         string Notes { get; set; }
-        
+        DateTimeOffset DreamDateTime { get; set; }
+
         LucidityLevel Lucidity { get; set; }
         SleepingPosition Position { get; set; }
     }

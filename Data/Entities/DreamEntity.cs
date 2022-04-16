@@ -12,13 +12,17 @@ namespace Data.Entities
     public class DreamEntity : RealmObject, IDream
     {
         [PrimaryKey]
-        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+        public string Id { get; set; } = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+
+        public int DreamId { get; set; }
 
         [Required]
         public string Content { get; set; }
 
         public string Title { get; set; }
         public string Notes { get; set; }
+
+        public DateTimeOffset DreamDateTime { get; set; } = DateTime.Now;
 
         private int LucidityId { get; set; }
         public LucidityLevel Lucidity

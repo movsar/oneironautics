@@ -37,7 +37,6 @@ namespace Data.Repositories
             {
                 _realmInstance.Add(entity);
             });
-
             model.Id = entity.Id;
         }
 

@@ -11,9 +11,11 @@ namespace Data.Models
     public class Dream : IDream
     {
         public string Id { get; set; }
+        public int DreamId { get; set; }
         public string Content { get; set; }
         public string Title { get; set; }
         public string Notes { get; set; }
+        public DateTimeOffset DreamDateTime { get; set; }
 
         private int LucidityId { get; set; }
         public LucidityLevel Lucidity
