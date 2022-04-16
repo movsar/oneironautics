@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oneironautics", "Oneironautics.csproj", "{8AE1E495-BA33-432D-8A95-F16B73F8A83F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopApp", "DesktopApp.csproj", "{8AE1E495-BA33-432D-8A95-F16B73F8A83F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "..\Data\Data.csproj", "{160CD607-85F0-4348-BAC3-A9F36B75BB2C}"
 EndProject

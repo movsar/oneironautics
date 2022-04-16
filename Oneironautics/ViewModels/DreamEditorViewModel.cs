@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using DesktopApp.Stores;
 using Oneironautics.Commands;
 using Oneironautics.Stores;
 using System;
@@ -92,9 +93,9 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        public DreamEditorViewModel(NavigationStore navigationStore)
+        public DreamEditorViewModel(NavigationStore navigationStore, JournalStore journalStore)
         {
-            SaveDreamAction = new DreamEditorCommands.SaveDream(this, navigationStore);
+            SaveDreamAction = new DreamEditorCommands.SaveDream(this, navigationStore, journalStore);
         }
     }
 }

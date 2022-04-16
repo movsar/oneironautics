@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Models;
+using DesktopApp.Stores;
 using Oneironautics.Commands;
 using Oneironautics.Stores;
 using System;
@@ -15,21 +16,24 @@ namespace Oneironautics.ViewModels
 {
     internal class DreamListingViewModel : ViewModelBase
     {
-        public readonly ObservableCollection<IDream> _dreams;
         public ICommand AddNewDreamAction { get; }
+        
+        public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
 
-        public IEnumerable<IDream> Dreams => _dreams;
-
-        public DreamListingViewModel(NavigationStore navigationStore)
+        public DreamListingViewModel(NavigationStore navigationStore, JournalStore journalStore)
         {
-            _dreams = new ObservableCollection<IDream>();
+            AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
 
-            foreach (var dream in Storage.DreamsRepository.GetAll<Dream>())
-            {
-                _dreams.Add(dream);
-            }
-            AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore);
+            UpdateDreams(journalStore.GetAllDreams());
         }
 
+        private void UpdateDreams(IEnumerable<IDream> dreamsFromJournalStore)
+        {
+            Dreams.Clear();
+            foreach (var dream in dreamsFromJournalStore)
+            {
+                Dreams.Add(dream);
+            }
+        }
     }
 }

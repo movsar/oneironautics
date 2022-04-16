@@ -9,9 +9,9 @@ namespace Oneironautics.Stores
 {
     internal class NavigationStore
     {
-        private ViewModelBase _currentViewModel;
+        private ViewModelBase? _currentViewModel;
 
-        public ViewModelBase CurrentViewModel
+        public ViewModelBase? CurrentViewModel
         {
             get { return _currentViewModel; }
             set
@@ -26,7 +26,7 @@ namespace Oneironautics.Stores
             CurrentViewModelChanged?.Invoke();
         }
 
-        public event Action CurrentViewModelChanged;
+        public event Action? CurrentViewModelChanged;
 
     }
 }
