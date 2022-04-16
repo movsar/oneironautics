@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Oneironautics.Commands;
+using Oneironautics.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace Oneironautics.ViewModels
 {
     internal class DreamEditorViewModel : ViewModelBase
     {
+        public ICommand SaveDreamAction { get; }
+
         private string _title = "";
         public string Title
         {
@@ -74,20 +78,23 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        private DateTime dateTime = DateTime.Now;
-        public DateTime DateTime
+        private DateTime _dreamDateTime = DateTime.Now;
+        public DateTime DreamDateTime
         {
             get
             {
-                return dateTime;
+                return _dreamDateTime;
             }
             set
             {
-                dateTime = value;
-                OnPropertyChanged(nameof(DateTime));
+                _dreamDateTime = value;
+                OnPropertyChanged(nameof(DreamDateTime));
             }
         }
 
-        public ICommand OkCommand { get; }
+        public DreamEditorViewModel(NavigationStore navigationStore)
+        {
+            SaveDreamAction = new DreamEditorCommands.SaveDream(this, navigationStore);
+        }
     }
 }

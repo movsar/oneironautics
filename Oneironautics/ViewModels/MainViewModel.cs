@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Models;
+using Oneironautics.Stores;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,43 +12,18 @@ namespace Oneironautics.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
-        public MainViewModel() {
-            CurrentViewModel = new DreamListingViewModel();
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
+        public MainViewModel(NavigationStore navigationStore)
+        {
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
 
-
-            //Storage.Initialize(cleanStart: true);
-
-            //// Add new Dream
-            //Dream myDream = new Dream()
-            //{
-            //    Content = "I was dreaming and dreamt about something weird",
-            //    Lucidity = 2,
-            //    Position = SleepingPosition.Left,
-            //    Title = "Weirdness"
-            //};
-
-            //Storage.DreamsRepository.Add(myDream);
-            //myDream = Storage.DreamsRepository.FindByTitle(myDream.Title).FirstOrDefault();
-            //ShowDreamInfo(myDream);
-
-            //// Update Title
-            //myDream.Title = "New Title";
-
-            //Storage.DreamsRepository.Update(myDream);
-
-            //myDream = Storage.DreamsRepository.GetById<Dream>(myDream.Id);
-            //ShowDreamInfo(myDream);
-
-            //void ShowDreamInfo(IDream dream)
-            //{
-            //    Debug.WriteLine("=================================");
-            //    Debug.WriteLine(dream.Title);
-            //    Debug.WriteLine($"CreatedAt: { dream.CreatedAt}");
-            //    Debug.WriteLine($"ModifiedAt: { dream.ModifiedAt}");
-            //}
-
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

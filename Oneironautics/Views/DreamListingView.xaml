@@ -101,7 +101,7 @@
 
             <Button 
                 Content="Add Dream"
-                Cursor="Hand"
+                Command="{Binding AddNewDreamAction}"
                 Height="30"
                 Width="150"
                 >

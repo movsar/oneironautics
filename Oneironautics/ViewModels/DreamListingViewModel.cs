@@ -1,31 +1,45 @@
-﻿using Data.Models;
+﻿using Data;
+using Data.Models;
+using Oneironautics.Commands;
+using Oneironautics.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Oneironautics.ViewModels
 {
     internal class DreamListingViewModel : ViewModelBase
     {
-        public readonly ObservableCollection<DreamViewModel> _dreams;
-        public IEnumerable<DreamViewModel> Dreams => _dreams;
+        public readonly ObservableCollection<IDream> _dreams;
+        public ICommand AddNewDreamAction { get; }
 
-        public DreamListingViewModel()
+        public IEnumerable<IDream> Dreams => _dreams;
+
+        public DreamListingViewModel(NavigationStore navigationStore)
         {
-            _dreams = new ObservableCollection<DreamViewModel>();
+            _dreams = new ObservableCollection<IDream>();
 
-            _dreams.Add(new DreamViewModel(new Dream()
+            foreach (var dream in Storage.DreamsRepository.GetAll<Dream>())
             {
-                DreamId = 1,
-                Title = "Whatever",
-                Content = "Lorem ipsum",
-                DreamDateTime = DateTime.Now.AddDays(-2),
-                Lucidity = LucidityLevel.Transient,
-                Position = SleepingPosition.Left
-            }));
+                _dreams.Add(dream);
+            }
+            AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore);
+
+            //_dreams.Add(new Dream()
+            //{
+            //    DreamId = 1,
+            //    Title = "Whatever",
+            //    Content = "Lorem ipsum",
+            //    DreamDateTime = DateTime.Now.AddDays(-2),
+            //    Lucidity = LucidityLevel.Transient,
+            //    Position = SleepingPosition.Left
+            //});
         }
+
     }
 }

@@ -3,10 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Oneironautics" xmlns:views="clr-namespace:Oneironautics.Views"
+        xmlns:vms="clr-namespace:Oneironautics.ViewModels" 
+        xmlns:views="clr-namespace:Oneironautics.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="560" Width="850">
     <Grid>
-        <views:DreamListingView Margin="15,15,11,15" DataContext="{Binding CurrentViewModel}"/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:DreamEditorViewModel}">
+                <views:DreamEditorView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:DreamListingViewModel}">
+                <views:DreamListingView/>
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

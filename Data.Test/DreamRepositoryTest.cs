@@ -22,7 +22,7 @@ namespace Data.Test
             Dream myDream = new Dream()
             {
                 Content = "I was dreaming and dreamt about something weird",
-                Lucidity = 2,
+                Lucidity = LucidityLevel.Transient,
                 Position = SleepingPosition.Left,
                 Title = "Weirdness"
             };
@@ -41,7 +41,7 @@ namespace Data.Test
             Dream myDream = new Dream()
             {
                 Content = "I was dreaming and dreamt about something weird",
-                Lucidity = 2,
+                Lucidity = LucidityLevel.Clear,
                 Position = SleepingPosition.Left,
                 Title = "Weirdness"
             };

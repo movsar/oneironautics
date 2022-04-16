@@ -58,13 +58,19 @@ namespace Data.Repositories
             });
         }
 
+        public IEnumerable<TModel> GetAll<TModel>() where TModel : IModelBase
+        {
+            var entities = EntitiesToModels<TEntity, TModel>(_realmInstance.All<TEntity>());
+            return entities;
+        }
+
         #endregion
 
         #region EntitiesToModels
 
         // These method takes RealmObjects and turns them into plain model objects
 
-        public IEnumerable<TTarget> EntitiesToModels<TSource, TTarget>(IEnumerable<TSource> realmObjects)
+        internal IEnumerable<TTarget> EntitiesToModels<TSource, TTarget>(IEnumerable<TSource> realmObjects)
         {
             string jsonString = JsonSerializer.Serialize(realmObjects);
             return JsonSerializer.Deserialize<IEnumerable<TTarget>>(jsonString);
