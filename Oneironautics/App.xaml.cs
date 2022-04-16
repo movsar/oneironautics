@@ -11,9 +11,6 @@ using System.Windows;
 
 namespace Oneironautics
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         private readonly NavigationStore _navigationStore;

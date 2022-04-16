@@ -17,8 +17,6 @@ namespace Oneironautics.Commands
             private readonly NavigationStore _navigationStore;
             private readonly DreamEditorViewModel _dreamEditorViewModel;
 
-            private readonly Dream _dream;
-
             public SaveDream(DreamEditorViewModel dreamEditorViewModel, NavigationStore navigationStore)
             {
                 _dreamEditorViewModel = dreamEditorViewModel;
@@ -27,7 +25,7 @@ namespace Oneironautics.Commands
 
             public override void Execute(object? parameter)
             {
-                Dream dream = new Dream()
+                var dream = new Dream()
                 {
                     Title = _dreamEditorViewModel.Title,
                     Content = _dreamEditorViewModel.Content,
