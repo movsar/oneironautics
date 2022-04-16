@@ -14,7 +14,7 @@ namespace Data.Entities
         [PrimaryKey]
         public string Id { get; set; } = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-        public int DreamId { get; set; }
+        public int Index { get; set; }
 
         [Required]
         public string Content { get; set; }
@@ -44,10 +44,12 @@ namespace Data.Entities
         // A utility metohd to assist when converting from RealmObject to a plain object and vice versa
         public void SetFromModel(IDream dream)
         {
-            Content = dream.Content;
+            Index = dream.Index;
             Title = dream.Title;
-            Notes = dream.Notes;
             Position = dream.Position;
+            Lucidity = dream.Lucidity;
+            Content = dream.Content;
+            Notes = dream.Notes;
             ModifiedAt = DateTime.Now;
         }
     }

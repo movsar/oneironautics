@@ -29,16 +29,6 @@ namespace Oneironautics.ViewModels
                 _dreams.Add(dream);
             }
             AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore);
-
-            //_dreams.Add(new Dream()
-            //{
-            //    DreamId = 1,
-            //    Title = "Whatever",
-            //    Content = "Lorem ipsum",
-            //    DreamDateTime = DateTime.Now.AddDays(-2),
-            //    Lucidity = LucidityLevel.Transient,
-            //    Position = SleepingPosition.Left
-            //});
         }
 
     }

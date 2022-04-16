@@ -5,7 +5,7 @@ namespace Data.Models
 {
     public interface IDream : IModelBase
     {
-        int DreamId { get; set; }
+        int Index { get; set; }
         string Title { get; set; }
         string Content { get; set; }
         string Notes { get; set; }

@@ -28,7 +28,7 @@ namespace Data.Repositories
             return EntitiesToModels<TEntity, TModel>(result);
         }
 
-        public void Add<TModel>(TModel model) where TModel : IModelBase
+        public virtual void Add<TModel>(TModel model) where TModel : IModelBase
         {
             dynamic entity = new TEntity();
             entity.SetFromModel(model);
@@ -37,6 +37,8 @@ namespace Data.Repositories
             {
                 _realmInstance.Add(entity);
             });
+
+            // Set the Id for the inserted object
             model.Id = entity.Id;
         }
 
@@ -60,8 +62,8 @@ namespace Data.Repositories
 
         public IEnumerable<TModel> GetAll<TModel>() where TModel : IModelBase
         {
-            var entities = EntitiesToModels<TEntity, TModel>(_realmInstance.All<TEntity>());
-            return entities;
+            var entries = _realmInstance.All<TEntity>();
+            return EntitiesToModels<TEntity, TModel>(entries);
         }
 
         #endregion

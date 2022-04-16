@@ -22,7 +22,13 @@ namespace Oneironautics
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            Storage.Initialize(false);
+            try
+            {
+                Storage.Initialize(false);
+            } catch {
+                Storage.Initialize(true);
+
+            }
             _navigationStore.CurrentViewModel = new DreamListingViewModel(_navigationStore);
 
             MainWindow = new MainWindow()
