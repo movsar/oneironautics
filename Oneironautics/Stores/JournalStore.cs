@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.Stores
 {
-    internal class JournalStore
+    public class JournalStore
     {
         private readonly Journal _journal;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Oneironautics.Stores
 {
-    internal class NavigationStore
+    public class NavigationStore
     {
         private ViewModelBase? _currentViewModel;
 

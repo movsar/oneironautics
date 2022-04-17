@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.Models
 {
-    internal class Journal
+    public class Journal
     {
-        internal void AddDream(IDream dream)
+        public void AddDream(IDream dream)
         {
             Storage.DreamsRepository.Add(dream);
         }
 
-        internal IEnumerable<IDream> GetAllDreams()
+        public IEnumerable<IDream> GetAllDreams()
         {
             return Storage.DreamsRepository.GetAll<Dream>();
         }

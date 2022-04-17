@@ -9,9 +9,6 @@
         Title="MainWindow" Height="560" Width="850">
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:DreamEditorViewModel}">
-                <views:DreamEditorView/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:DreamListingViewModel}">
                 <views:DreamListingView/>
             </DataTemplate>

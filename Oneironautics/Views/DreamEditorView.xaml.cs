@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DesktopApp.Stores;
+using Oneironautics.Stores;
+using Oneironautics.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +20,13 @@ namespace Oneironautics.Views
     /// <summary>
     /// Interaction logic for DreamEditor.xaml
     /// </summary>
-    public partial class DreamEditorView : UserControl
+    public partial class DreamEditorView : Window
     {
-        public DreamEditorView()
+        public DreamEditorView(NavigationStore navigationStore, JournalStore journalStore)
         {
             InitializeComponent();
+
+            DataContext = new DreamEditorViewModel(navigationStore, journalStore);
         }
     }
 }

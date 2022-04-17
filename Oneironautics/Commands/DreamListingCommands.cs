@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Oneironautics.ViewModels;
 using DesktopApp.Stores;
+using Oneironautics.Views;
 
 namespace Oneironautics.Commands
 {
@@ -24,7 +25,8 @@ namespace Oneironautics.Commands
 
             public override void Execute(object? parameter)
             {
-                _navigationStore.CurrentViewModel = new DreamEditorViewModel(_navigationStore, _journalStore);
+                var dreamEditorWindow = new DreamEditorView(_navigationStore, _journalStore);
+                dreamEditorWindow.Show();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Models;
+using Oneironautics.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,6 +27,8 @@ namespace Oneironautics
         public MainWindow()
         {
             InitializeComponent();
+
+            
         }
     }
 }
