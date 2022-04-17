@@ -10,6 +10,12 @@
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Grid>
+        <Grid.InputBindings>
+            <KeyBinding Modifiers="Ctrl" 
+                        Key="N"
+                        Command="{Binding AddNewDreamAction}"/>
+        </Grid.InputBindings>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -17,7 +23,14 @@
         <ListView Grid.Row="0"
                   Name="lvDreams"
                   ItemsSource="{Binding Dreams}">
-            
+
+
+            <ListView.Background>
+                <ImageBrush ImageSource="/Views/Images/no-dreams-bg.jpg"
+                            Stretch="UniformToFill"
+                            />
+            </ListView.Background>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
@@ -33,6 +46,11 @@
 
             </i:Interaction.Triggers>
 
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Grid.IsSharedSizeScope="True" 
@@ -58,7 +76,6 @@
 
                             <TextBlock Text="{Binding Index}"/>
                             <TextBlock Text="{Binding DreamDateTime}"/>
-                            <TextBlock Text="{Binding Title}"/>
                             <TextBlock Text="{Binding Position}"/>
                             <TextBlock Text="{Binding Lucidity}"/>
                         </StackPanel>

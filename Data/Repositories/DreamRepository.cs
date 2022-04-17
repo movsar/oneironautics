@@ -31,9 +31,9 @@ namespace Data.Repositories
             base.Add(dream);
         }
 
-        public IEnumerable<Dream> FindByTitle(string title)
+        public IEnumerable<Dream> FindByContents(string str)
         {
-            var result = _realmInstance.All<DreamEntity>().Where(dreamEntity => dreamEntity.Title.Contains(title));
+            var result = _realmInstance.All<DreamEntity>().Where(dreamEntity => dreamEntity.Content.Contains(str));
             return EntitiesToModels<DreamEntity, Dream>(result);
         }
     }

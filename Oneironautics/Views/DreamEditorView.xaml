@@ -10,7 +10,19 @@
         Width="625"
         Height="474"
         >
+
+    <mah:MetroWindow.InputBindings>
+        <KeyBinding Key="Esc"
+                    Command="{Binding CloseWindowAction}"/>
+
+        <KeyBinding Modifiers="Ctrl" 
+                    Key="Return"
+                    Command="{Binding SaveDreamAction}"/>
+    </mah:MetroWindow.InputBindings>
+
     <Grid Grid.IsSharedSizeScope="True" Margin="10,0,10,10" Height="auto" Width="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
+
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="719*"/>
             <ColumnDefinition Width="81*"/>

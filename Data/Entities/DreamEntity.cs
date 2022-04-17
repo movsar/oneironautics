@@ -19,7 +19,6 @@ namespace Data.Entities
         [Required]
         public string Content { get; set; }
 
-        public string Title { get; set; }
         public string Notes { get; set; }
 
         public DateTimeOffset DreamDateTime { get; set; } = DateTime.Now;
@@ -45,7 +44,6 @@ namespace Data.Entities
         public void SetFromModel(IDream dream)
         {
             Index = dream.Index;
-            Title = dream.Title;
             Position = dream.Position;
             Lucidity = dream.Lucidity;
             Content = dream.Content;

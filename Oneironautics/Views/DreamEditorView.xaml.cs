@@ -1,5 +1,6 @@
 ﻿using ControlzEx.Theming;
 using Data.Models;
+using DesktopApp.Models;
 using DesktopApp.Stores;
 using MahApps.Metro.Controls;
 using Oneironautics.Stores;
@@ -29,7 +30,8 @@ namespace Oneironautics.Views
         {
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
-            DataContext = dream is null ? new DreamEditorViewModel(navigationStore, journalStore) : new DreamEditorViewModel(navigationStore, journalStore, dream);
+            WindowActions windowActions = new WindowActions(() => { this.Close(); });
+            DataContext = new DreamEditorViewModel(navigationStore, journalStore, windowActions, dream);
         }
     }
 }

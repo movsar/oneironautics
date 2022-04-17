@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using DesktopApp.Models;
 using DesktopApp.Stores;
 using Oneironautics.Commands;
 using Oneironautics.Stores;
@@ -13,18 +14,8 @@ namespace Oneironautics.ViewModels
 {
     internal class DreamEditorViewModel : ViewModelBase
     {
+        public ICommand CloseWindowAction { get; }
         public ICommand SaveDreamAction { get; }
-
-        private string _title = "";
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
 
         public IEnumerable<string> SleepingPositions { get; set; } = Enum.GetNames(typeof(SleepingPosition));
         public IEnumerable<string> LucidityLevels { get; set; } = Enum.GetNames(typeof(LucidityLevel));
@@ -93,20 +84,20 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        public DreamEditorViewModel(NavigationStore navigationStore, JournalStore journalStore, IDream? dream = null)
+        public DreamEditorViewModel(NavigationStore navigationStore, JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
         {
             // Load dream data (when opening existing dream)
             if (dream != null)
             {
-                Title = dream.Title;
                 Content = dream.Content;
                 Notes = dream.Notes;
                 DreamDateTime = new DateTime(dream.DreamDateTime.Ticks);
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
             }
-           
-            SaveDreamAction = new DreamEditorCommands.Save(navigationStore, journalStore, this, dream);
+            
+            CloseWindowAction = new DreamEditorCommands.Close(windowActions);
+            SaveDreamAction = new DreamEditorCommands.Save(navigationStore, journalStore, windowActions, this, dream);
         }
     }
 }

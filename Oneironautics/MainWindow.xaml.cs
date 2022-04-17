@@ -31,16 +31,9 @@ namespace Oneironautics
         {
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
-        }
 
-        private void SetCustomTheme()
-        {
-            ThemeManager.Current.AddLibraryTheme(
-               new LibraryTheme(
-                   new Uri("pack://application:,,,/DesktopApp;component/Views/CustomLightTheme.xaml"),
-                   MahAppsLibraryThemeProvider.DefaultInstance
-                   )
-               );
+            // Move focus from window to the view
+            Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Last));
         }
     }
 }
