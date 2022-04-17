@@ -12,28 +12,41 @@ namespace DesktopApp.Stores
 {
     internal class JournalStore
     {
-        public Journal Journal { get; }
-        public List<IDream> Dreams { get; }
+        private readonly Journal _journal;
 
+        private readonly List<IDream> _dreams;
+        public IEnumerable<IDream> Dreams => _dreams;
+        
         public JournalStore(Journal journal)
         {
-            Journal = journal;
-            Dreams = new List<IDream>();
+            _journal = journal;
+            _dreams = new List<IDream>();
+
+            Initialize();
         }
 
-        public void AddDream(IDream dream)
+        private void Initialize()
         {
-            Journal.AddDream(dream);
+            LoadAllDreams();
         }
 
-        internal IEnumerable<IDream>? GetAllDreams()
+        internal void AddDream(IDream dream)
         {
-            IEnumerable<IDream> dreamsFromDb = Journal.GetAllDreams();
+            // Add to DB
+            _journal.AddDream(dream);
+            
+            // Add to collection
+            _dreams.Add(dream);
+        }
 
-            Dreams.Clear();
-            Dreams.AddRange(dreamsFromDb);
+        internal void LoadAllDreams()
+        {
+            // Load from DB
+            IEnumerable<IDream> dreamsFromDb = _journal.GetAllDreams();
 
-            return Dreams;
+            // Refresh collection
+            _dreams.Clear();
+            _dreams.AddRange(dreamsFromDb);
         }
     }
 }

@@ -20,20 +20,22 @@ namespace Oneironautics
         private readonly Journal _journal;
         public App()
         {
+            try
+            {
+                Storage.Initialize(false);
+            }
+            catch
+            {
+                Storage.Initialize(true);
+            }
+
             _journal = new Journal();
-            _navigationStore = new NavigationStore();
             _journalStore = new JournalStore(_journal);
+            _navigationStore = new NavigationStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            try
-            {
-                Storage.Initialize(false);
-            } catch {
-                Storage.Initialize(true);
-
-            }
             _navigationStore.CurrentViewModel = new DreamListingViewModel(_navigationStore, _journalStore);
 
             MainWindow = new MainWindow()

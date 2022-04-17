@@ -23,8 +23,8 @@ namespace Oneironautics.ViewModels
         public DreamListingViewModel(NavigationStore navigationStore, JournalStore journalStore)
         {
             AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
-
-            UpdateDreams(journalStore.GetAllDreams());
+            
+            UpdateDreams(journalStore.Dreams);
         }
 
         private void UpdateDreams(IEnumerable<IDream> dreamsFromJournalStore)
