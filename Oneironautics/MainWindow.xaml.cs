@@ -2,6 +2,7 @@
 using Data;
 using Data.Models;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Theming;
 using Oneironautics.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,17 @@ namespace Oneironautics
         public MainWindow()
         {
             InitializeComponent();
+            ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
+        }
 
-            ThemeManager.Current.ChangeTheme(this, "Dark.Cyan");
+        private void SetCustomTheme()
+        {
+            ThemeManager.Current.AddLibraryTheme(
+               new LibraryTheme(
+                   new Uri("pack://application:,,,/DesktopApp;component/Views/CustomLightTheme.xaml"),
+                   MahAppsLibraryThemeProvider.DefaultInstance
+                   )
+               );
         }
     }
 }

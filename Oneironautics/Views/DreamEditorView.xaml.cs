@@ -27,8 +27,7 @@ namespace Oneironautics.Views
         public DreamEditorView(NavigationStore navigationStore, JournalStore journalStore)
         {
             InitializeComponent();
-            ThemeManager.Current.ChangeTheme(this, "Dark.Cyan");
-
+            ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
             DataContext = new DreamEditorViewModel(navigationStore, journalStore);
         }
     }

@@ -18,7 +18,7 @@
                   ItemsSource="{Binding Dreams}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Grid.IsSharedSizeScope="True">
+                    <Grid Grid.IsSharedSizeScope="True" Margin="0 5 0 5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -45,13 +45,15 @@
                         </StackPanel>
 
                         <TextBlock 
-                        Grid.Row="1"
-                        Margin="5 0 0 0"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="Wrap"
-                        Width="750"
-                        Height="auto"
-                        Text="{Binding Content}"
+                            Grid.Row="1"
+                            FontSize="14"
+                            FontFamily="Verdana"
+                            Margin="5 0 0 0"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap"
+                            Width="750"
+                            Height="auto"
+                            Text="{Binding Content}"
                             HorizontalAlignment="Left"
                         />
 
