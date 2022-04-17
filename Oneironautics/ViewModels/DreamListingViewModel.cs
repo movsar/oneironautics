@@ -18,13 +18,15 @@ namespace Oneironautics.ViewModels
     internal class DreamListingViewModel : ViewModelBase
     {
         public ICommand AddNewDreamAction { get; }
-        
+        public ICommand OpenDreamAction { get; }
+
         public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
+     //   public IDream SelectedDream => 
 
         public DreamListingViewModel(NavigationStore navigationStore, JournalStore journalStore)
         {
             AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
-            
+            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(navigationStore, journalStore, this);
             ShowDreams(journalStore.Dreams);
         }
 

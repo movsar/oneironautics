@@ -79,8 +79,8 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        private DateTime _dreamDateTime = DateTime.Now;
-        public DateTime DreamDateTime
+        private DateTimeOffset _dreamDateTime = DateTime.Now;
+        public DateTimeOffset DreamDateTime
         {
             get
             {
@@ -93,9 +93,20 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        public DreamEditorViewModel(NavigationStore navigationStore, JournalStore journalStore)
+        public DreamEditorViewModel(NavigationStore navigationStore, JournalStore journalStore, IDream? dream = null)
         {
-            SaveDreamAction = new DreamEditorCommands.SaveDream(this, navigationStore, journalStore);
+            // Load dream data (when opening existing dream)
+            if (dream != null)
+            {
+                Title = dream.Title;
+                Content = dream.Content;
+                Notes = dream.Notes;
+                DreamDateTime = dream.DreamDateTime;
+                SleepingPosition = dream.Position;
+                LucidityLevel = dream.Lucidity;
+            }
+           
+            SaveDreamAction = new DreamEditorCommands.Save(navigationStore, journalStore, this, dream);
         }
     }
 }

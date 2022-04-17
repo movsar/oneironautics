@@ -1,4 +1,5 @@
 ﻿using ControlzEx.Theming;
+using Data.Models;
 using DesktopApp.Stores;
 using MahApps.Metro.Controls;
 using Oneironautics.Stores;
@@ -24,11 +25,11 @@ namespace Oneironautics.Views
     /// </summary>
     public partial class DreamEditorView : MetroWindow
     {
-        public DreamEditorView(NavigationStore navigationStore, JournalStore journalStore)
+        public DreamEditorView(NavigationStore navigationStore, JournalStore journalStore, IDream? dream = null)
         {
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
-            DataContext = new DreamEditorViewModel(navigationStore, journalStore);
+            DataContext = dream is null ? new DreamEditorViewModel(navigationStore, journalStore) : new DreamEditorViewModel(navigationStore, journalStore, dream);
         }
     }
 }

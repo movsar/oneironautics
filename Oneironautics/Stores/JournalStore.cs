@@ -48,5 +48,10 @@ namespace DesktopApp.Stores
             _dreams.Clear();
             _dreams.AddRange(dreamsFromDb);
         }
+
+        internal void UpdateDream(IDream dream)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

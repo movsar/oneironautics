@@ -15,6 +15,7 @@
         </Grid.RowDefinitions>
 
         <ListView Grid.Row="0"
+                  Name="lvDreams"
                   ItemsSource="{Binding Dreams}">
             <ListView.ItemTemplate>
                 <DataTemplate>

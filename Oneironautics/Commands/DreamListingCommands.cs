@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Oneironautics.ViewModels;
 using DesktopApp.Stores;
 using Oneironautics.Views;
+using Data.Models;
 
 namespace Oneironautics.Commands
 {
@@ -30,5 +31,24 @@ namespace Oneironautics.Commands
             }
         }
 
+        internal class OpenDreamEditor : CommandBase
+        {
+            private static NavigationStore? _navigationStore;
+            private static JournalStore? _journalStore;
+            private DreamListingViewModel _dreamListingViewModel;
+
+            public OpenDreamEditor(NavigationStore navigationStore, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            {
+                _navigationStore = navigationStore;
+                _journalStore = journalStore;
+                _dreamListingViewModel = dreamListingViewModel;
+            }
+
+            public override void Execute(object? parameter)
+            {
+                var dreamEditorWindow = new DreamEditorView(_navigationStore, _journalStore, _dreamListingViewModel.SelectedDream);
+                dreamEditorWindow.Show();
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Test", "..\Data.Test\D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C020CCF-5A24-4FD7-A78C-0BAAE64B0E66}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		ToDo.txt = ToDo.txt
 	EndProjectSection
 EndProject
