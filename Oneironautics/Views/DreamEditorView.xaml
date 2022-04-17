@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Oneironautics.Views" xmlns:viewmodels="clr-namespace:Oneironautics.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
-             mc:Ignorable="d"        
-        Margin="15 15 15 15" Width="810" Height="460"
+             mc:Ignorable="d"      
+        Width="835"
+        Height="470"
         >
-    <Grid Grid.IsSharedSizeScope="True">
+    <Grid Grid.IsSharedSizeScope="True" Margin="10,0,10,10" Height="460" Width="800" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -157,7 +158,7 @@
 
             <Button Content="Ok" 
                     Width="100"
-                    Command="{Binding SaveDreamAction}"
+                    Command="{Binding SaveDreamAction}" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                     />
 
         </StackPanel>

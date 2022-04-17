@@ -24,10 +24,10 @@ namespace Oneironautics.ViewModels
         {
             AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
             
-            UpdateDreams(journalStore.Dreams);
+            ShowDreams(journalStore.Dreams);
         }
 
-        private void UpdateDreams(IEnumerable<IDream> dreamsFromJournalStore)
+        private void ShowDreams(IEnumerable<IDream> dreamsFromJournalStore)
         {
             Dreams.Clear();
             foreach (var dream in dreamsFromJournalStore)

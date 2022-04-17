@@ -27,8 +27,6 @@ namespace Oneironautics
         public MainWindow()
         {
             InitializeComponent();
-
-            
         }
     }
 }
