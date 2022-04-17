@@ -6,21 +6,19 @@
         xmlns:local="clr-namespace:Oneironautics.Views"
         xmlns:viewmodels="clr-namespace:Oneironautics.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:DreamListingViewModel}"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/dream-listing-bg.jpg"/>
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+
         <ListView Grid.Row="0"
                   ItemsSource="{Binding Dreams}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Grid.IsSharedSizeScope="True" Background="AliceBlue" >
+                    <Grid Grid.IsSharedSizeScope="True">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -34,8 +32,8 @@
                             <StackPanel.Resources>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Margin" Value="5" />
-                                    <Setter Property="FontSize" Value="12"/>
-                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Setter Property="FontSize" Value="10"/>
+                                    <Setter Property="Foreground" Value="#FFC9C9C9"/>
                                 </Style>
                             </StackPanel.Resources>
 
@@ -54,6 +52,7 @@
                         Width="750"
                         Height="auto"
                         Text="{Binding Content}"
+                            HorizontalAlignment="Left"
                         />
 
                         <Grid Grid.Row="2" Margin="0 -15 0 0">
@@ -98,20 +97,17 @@
 
         </ListView>
 
-        <StackPanel 
+        <Button 
                 Grid.Row="1"
-                Margin="0 10 0 0"
-                Orientation="Horizontal"
-                FlowDirection="RightToLeft">
-
-            <Button 
+                Margin="0 0 20 20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
                 Content="Add Dream"
                 Command="{Binding AddNewDreamAction}"
                 Height="30"
-                Width="150"
+                Width="100"
                 >
-            </Button>
-        </StackPanel>
-      
+        </Button>
+
     </Grid>
 </UserControl>

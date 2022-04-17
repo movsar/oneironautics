@@ -1,4 +1,6 @@
-﻿using DesktopApp.Stores;
+﻿using ControlzEx.Theming;
+using DesktopApp.Stores;
+using MahApps.Metro.Controls;
 using Oneironautics.Stores;
 using Oneironautics.ViewModels;
 using System;
@@ -20,11 +22,12 @@ namespace Oneironautics.Views
     /// <summary>
     /// Interaction logic for DreamEditor.xaml
     /// </summary>
-    public partial class DreamEditorView : Window
+    public partial class DreamEditorView : MetroWindow
     {
         public DreamEditorView(NavigationStore navigationStore, JournalStore journalStore)
         {
             InitializeComponent();
+            ThemeManager.Current.ChangeTheme(this, "Dark.Cyan");
 
             DataContext = new DreamEditorViewModel(navigationStore, journalStore);
         }

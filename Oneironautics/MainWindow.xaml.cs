@@ -1,5 +1,7 @@
-﻿using Data;
+﻿using ControlzEx.Theming;
+using Data;
 using Data.Models;
+using MahApps.Metro.Controls;
 using Oneironautics.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,11 +24,13 @@ namespace Oneironautics
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+
+            ThemeManager.Current.ChangeTheme(this, "Dark.Cyan");
         }
     }
 }
