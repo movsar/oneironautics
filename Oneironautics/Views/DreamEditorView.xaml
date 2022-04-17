@@ -7,10 +7,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Oneironautics.Views" xmlns:viewmodels="clr-namespace:Oneironautics.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
              mc:Ignorable="d"      
-        Width="835"
-        Height="525"
+        Width="625"
+        Height="474"
         >
-    <Grid Grid.IsSharedSizeScope="True" Margin="10,0,10,10" Height="auto" Width="800" >
+    <Grid Grid.IsSharedSizeScope="True" Margin="10,0,10,10" Height="auto" Width="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="719*"/>
+            <ColumnDefinition Width="81*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -20,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <!--Title, Position, Lucidity and Date-->
-        <Grid Grid.Row="0" Margin="0 5 0 0">
+        <Grid Grid.Row="0" Margin="0 5 0 0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -30,23 +34,25 @@
                 <ColumnDefinition Width="200" SharedSizeGroup="FirstColumn"/>
                 <ColumnDefinition Width="200" SharedSizeGroup="FirstColumn"/>
                 <ColumnDefinition Width="200" SharedSizeGroup="FirstColumn"/>
-                <ColumnDefinition Width="200" SharedSizeGroup="SecondColumn"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0"
                        Grid.Column="0"
-                       Text="Title"
+                       Text="Position"
             />
 
-            <TextBox Grid.Row="1"
-                     Grid.Column="0"
-                     FontSize="16"
-                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+            <ComboBox Grid.Row="1"
+                      Grid.Column="0"
+                      FontSize="16"
+                      ItemsSource="{Binding SleepingPositions}"
+                      SelectedItem="{Binding SleepingPosition, UpdateSourceTrigger=PropertyChanged}"
+                      Text="{Binding SleepingPosition, UpdateSourceTrigger=PropertyChanged}"
             />
+
 
             <TextBlock Grid.Row="0"
                        Grid.Column="1"
-                       Text="Position"
+                       Text="Lucidity"
                        Margin="10 0 0 0"
                        
             />
@@ -55,35 +61,19 @@
                       Grid.Column="1"
                       FontSize="16"
                       Margin="10 0 0 0"
-                      ItemsSource="{Binding SleepingPositions}"
-                      SelectedItem="{Binding SleepingPosition, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding LucidityLevels}"
+                      SelectedItem="{Binding LucidityLevel, UpdateSourceTrigger=PropertyChanged}"
+                      Text="{Binding LucidityLevel, UpdateSourceTrigger=PropertyChanged}"
             />
-
 
             <TextBlock Grid.Row="0"
                        Grid.Column="2"
-                       Text="Lucidity"
-                       Margin="10 0 0 0"
-                       
-            />
-
-            <ComboBox Grid.Row="1"
-                      Grid.Column="2"
-                      FontSize="16"
-                      Margin="10 0 0 0"
-                      ItemsSource="{Binding LucidityLevels}"
-                      SelectedItem="{Binding LucidityLevel, UpdateSourceTrigger=PropertyChanged}"
-                     
-            />
-
-            <TextBlock Grid.Row="0"
-                       Grid.Column="3"
                        Text="Dream Time"
                        Margin="10 0 0 0"
             />
 
             <mah:DateTimePicker Grid.Row="1"
-                     Grid.Column="3"
+                     Grid.Column="2"
                      FontSize="16"
                      Margin="10 0 0 0"
                      SelectedDateTime="{Binding DreamDateTime, UpdateSourceTrigger=PropertyChanged}"
@@ -92,7 +82,7 @@
         </Grid>
 
         <!--Content-->
-        <Grid Grid.Row="1" Margin="0 5 0 0">
+        <Grid Grid.Row="1" Margin="0 5 0 0" Grid.ColumnSpan="2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -107,8 +97,8 @@
                      FontSize="16"
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
-                     Height="250"
-                     Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                     Height="200"
+                     Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"
                      
             />
 
@@ -116,8 +106,8 @@
 
         <!--Signs-->
         <Grid Grid.Row="2" 
-              Margin="0 5 0 0"
-              Visibility="Collapsed">
+              Margin="0,5,0,116"
+              Visibility="Collapsed" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -136,7 +126,7 @@
         </Grid>
 
         <!--Notes-->
-        <Grid Grid.Row="3" Margin="0 5 0 0">
+        <Grid Grid.Row="3" Margin="0 5 0 0" Grid.ColumnSpan="2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -161,9 +151,9 @@
         <!--Action buttons-->
         <StackPanel Grid.Row="4"
                     Orientation="Horizontal"
-                    Margin="0 10 0 0"
                     FlowDirection="RightToLeft"
-                    VerticalAlignment="Bottom"
+                    VerticalAlignment="Bottom" Grid.ColumnSpan="2"
+                    Margin="0 10 0 0"
                     >
 
             <Button Content="Ok" 

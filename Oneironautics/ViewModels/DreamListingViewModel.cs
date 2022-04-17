@@ -19,15 +19,27 @@ namespace Oneironautics.ViewModels
     {
         public ICommand AddNewDreamAction { get; }
         public ICommand OpenDreamAction { get; }
+        public ICommand SelectionChanged { get; }
+
+        
 
         public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
-     //   public IDream SelectedDream => 
+        public IDream SelectedDream { get; set; } 
 
         public DreamListingViewModel(NavigationStore navigationStore, JournalStore journalStore)
         {
+            DreamListingCommands.SelectionChangedCommand.SelectionHasChanged += OnSelectionChanged;
+            
             AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
             OpenDreamAction = new DreamListingCommands.OpenDreamEditor(navigationStore, journalStore, this);
+            SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
+          
             ShowDreams(journalStore.Dreams);
+        }
+
+        public void OnSelectionChanged(IDream obj)
+        {
+            SelectedDream = obj;
         }
 
         private void ShowDreams(IEnumerable<IDream> dreamsFromJournalStore)
@@ -38,5 +50,6 @@ namespace Oneironautics.ViewModels
                 Dreams.Add(dream);
             }
         }
+
     }
 }

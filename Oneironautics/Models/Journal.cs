@@ -10,6 +10,11 @@ namespace DesktopApp.Models
 {
     public class Journal
     {
+        public void UpdateDream(IDream dream)
+        {
+            Storage.DreamsRepository.Update(dream);
+        }
+
         public void AddDream(IDream dream)
         {
             Storage.DreamsRepository.Add(dream);

@@ -51,7 +51,11 @@ namespace DesktopApp.Stores
 
         internal void UpdateDream(IDream dream)
         {
-            throw new NotImplementedException();
+            // Save to DB
+            _journal.UpdateDream(dream);
+
+            var index = _dreams.FindIndex(d => d.Id == dream.Id);
+            _dreams[index] = dream;
         }
     }
 }

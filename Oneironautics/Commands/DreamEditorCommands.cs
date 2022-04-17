@@ -48,6 +48,7 @@ namespace Oneironautics.Commands
                 }
 
                 _navigationStore.CurrentViewModel = new DreamListingViewModel(_navigationStore, _journalStore);
+
             }
         }
     }

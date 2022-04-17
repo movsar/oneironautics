@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:Oneironautics.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:DreamListingViewModel}"
         mc:Ignorable="d"
-    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -17,9 +17,27 @@
         <ListView Grid.Row="0"
                   Name="lvDreams"
                   ItemsSource="{Binding Dreams}">
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction
+                        Command="{Binding SelectionChanged}" 
+                        CommandParameter="{Binding Path=SelectedItems, ElementName=lvDreams}" />
+                </i:EventTrigger>
+
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding OpenDreamAction}" 
+                        CommandParameter="{Binding ElementName=lvDreams, Path=SelectedItem}" />
+                </i:EventTrigger>
+
+            </i:Interaction.Triggers>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Grid.IsSharedSizeScope="True" Margin="0 5 0 5">
+                    <Grid Grid.IsSharedSizeScope="True" 
+                          Margin="0 5 0 5"
+                          >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>

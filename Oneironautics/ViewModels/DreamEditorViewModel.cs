@@ -79,8 +79,8 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        private DateTimeOffset _dreamDateTime = DateTime.Now;
-        public DateTimeOffset DreamDateTime
+        private DateTime _dreamDateTime = DateTime.Now;
+        public DateTime DreamDateTime
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Oneironautics.ViewModels
                 Title = dream.Title;
                 Content = dream.Content;
                 Notes = dream.Notes;
-                DreamDateTime = dream.DreamDateTime;
+                DreamDateTime = new DateTime(dream.DreamDateTime.Ticks);
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
             }

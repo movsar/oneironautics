@@ -8,11 +8,22 @@ using Oneironautics.ViewModels;
 using DesktopApp.Stores;
 using Oneironautics.Views;
 using Data.Models;
+using System.Windows.Input;
 
 namespace Oneironautics.Commands
 {
     internal class DreamListingCommands
     {
+        internal class SelectionChangedCommand : CommandBase
+        {
+            public static event Action<IDream>? SelectionHasChanged;
+
+            public override void Execute(object? parameter)
+            {
+                SelectionHasChanged?.Invoke(parameter as IDream);
+            }
+        }
+
         internal class AddNewDream : CommandBase
         {
             private readonly NavigationStore _navigationStore;
@@ -46,7 +57,7 @@ namespace Oneironautics.Commands
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_navigationStore, _journalStore, _dreamListingViewModel.SelectedDream);
+                var dreamEditorWindow = new DreamEditorView(_navigationStore, _journalStore, parameter as IDream);
                 dreamEditorWindow.Show();
             }
         }
