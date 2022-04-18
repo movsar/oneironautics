@@ -10,19 +10,25 @@ namespace DesktopApp.Models
 {
     public class Journal
     {
+        private Storage _storage;
+        public Journal(Storage storage)
+        {
+            _storage = storage;
+        }
+
         public void UpdateDream(IDream dream)
         {
-            Storage.DreamsRepository.Update(dream);
+            _storage.DreamsRepository.Update(dream);
         }
 
         public void AddDream(IDream dream)
         {
-            Storage.DreamsRepository.Add(dream);
+            _storage.DreamsRepository.Add(dream);
         }
 
         public IEnumerable<IDream> GetAllDreams()
         {
-            return Storage.DreamsRepository.GetAll<Dream>();
+            return _storage.DreamsRepository.GetAll<Dream>();
         }
     }
 }

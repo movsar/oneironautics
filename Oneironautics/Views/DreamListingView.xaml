@@ -90,6 +90,7 @@
                             Width="750"
                             Height="auto"
                             Text="{Binding Content}"
+                            MaxHeight="150"
                             HorizontalAlignment="Left"
                         />
 

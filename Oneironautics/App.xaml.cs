@@ -1,6 +1,8 @@
 ﻿using Data;
 using DesktopApp.Models;
 using DesktopApp.Stores;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Oneironautics.Commands;
 using Oneironautics.Stores;
 using Oneironautics.ViewModels;
@@ -16,36 +18,57 @@ namespace Oneironautics
 {
     public partial class App : Application
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly JournalStore _journalStore;
-        private readonly Journal _journal;
+        private readonly IHost _host;
+
         public App()
         {
+            Storage storage;
             try
             {
-                Storage.Initialize(false);
+                storage = new Storage(false);
             }
             catch
             {
-                Storage.Initialize(true);
+                storage = new Storage(true);
             }
 
-            _journal = new Journal();
-            _journalStore = new JournalStore(_journal);
-            _navigationStore = new NavigationStore();
+            _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
+            {
+                services.AddSingleton(storage);
+                services.AddSingleton<Journal>();
+
+                services.AddSingleton<JournalStore>();
+                services.AddSingleton<NavigationStore>();
+
+                services.AddSingleton<MainViewModel>();
+                services.AddSingleton((s) => new MainWindow()
+                {
+                    DataContext = s.GetRequiredService<MainViewModel>()
+                });
+
+                services.AddTransient<DreamListingViewModel>();
+            }).Build();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = new DreamListingViewModel(_navigationStore, _journalStore);
+            // Configure services
+            _host.Start();
 
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(_navigationStore)
-            };
+            // Set main window view to dream listing view
+            var navigationStore = _host.Services.GetRequiredService<NavigationStore>();
+            navigationStore.CurrentViewModel = _host.Services.GetRequiredService<DreamListingViewModel>();
 
+            // Show main window
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
             base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _host.Dispose();
+            base.OnExit(e);
         }
     }
 }

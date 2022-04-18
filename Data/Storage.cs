@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public static class Storage
+    public class Storage
     {
-        private static Realm _realmInstance;
+        private readonly Realm _realmInstance;
 
-        public static DreamRepository DreamsRepository { get; set; }
+        public DreamRepository DreamsRepository { get; }
 
-        public static void Initialize(bool cleanStart = false, string databasePath = "dreambase.realm")
+        public Storage(bool cleanStart = false, string databasePath = "dreambase.realm")
         {
             RealmConfiguration DbConfiguration = new(databasePath);
 
@@ -28,7 +28,7 @@ namespace Data
             DreamsRepository = new DreamRepository(_realmInstance);
         }
 
-        public static void DropDatabase(string dbPath)
+        public void DropDatabase(string dbPath)
         {
             Realm.DeleteRealm(new RealmConfiguration(dbPath));
         }
