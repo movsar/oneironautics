@@ -1,3 +1,3 @@
-# oneironautics
+# Oneironautics | A dream journal
 
-A dream journal
+Copyright (c) Movsar Bekaev
