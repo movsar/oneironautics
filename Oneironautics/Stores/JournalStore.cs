@@ -49,13 +49,23 @@ namespace DesktopApp.Stores
             _dreams.AddRange(dreamsFromDb);
         }
 
+        public void DeleteDream(IDream dream)
+        {
+            var index = _dreams.FindIndex(d => d.Id == dream.Id);
+            _dreams[index] = dream;
+
+            // Remove from DB
+            _journal.DeleteDream(dream);
+        }
+
         internal void UpdateDream(IDream dream)
         {
+            var index = _dreams.FindIndex(d => d.Id == dream.Id);
+            _dreams[index] = dream;
+            
             // Save to DB
             _journal.UpdateDream(dream);
 
-            var index = _dreams.FindIndex(d => d.Id == dream.Id);
-            _dreams[index] = dream;
         }
     }
 }

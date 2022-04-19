@@ -47,6 +47,11 @@ namespace Oneironautics
                 });
 
                 services.AddTransient<DreamListingViewModel>();
+
+                services.AddTransient<DreamListingCommands.SelectionChangedCommand>();
+                services.AddTransient<DreamListingCommands.AddNewDream>();
+                services.AddTransient<DreamListingCommands.OpenDreamEditor>();
+
             }).Build();
         }
 

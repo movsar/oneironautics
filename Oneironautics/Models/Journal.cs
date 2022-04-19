@@ -16,6 +16,11 @@ namespace DesktopApp.Models
             _storage = storage;
         }
 
+        public void DeleteDream(IDream dream)
+        {
+            _storage.DreamsRepository.Delete(dream);
+        }
+
         public void UpdateDream(IDream dream)
         {
             _storage.DreamsRepository.Update(dream);

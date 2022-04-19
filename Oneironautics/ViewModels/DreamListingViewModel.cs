@@ -20,20 +20,20 @@ namespace Oneironautics.ViewModels
         public ICommand AddNewDreamAction { get; }
         public ICommand OpenDreamAction { get; }
         public ICommand SelectionChanged { get; }
-
+        public ICommand DeleteSelectedDream { get; }
         
-
-        public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
         public IDream SelectedDream { get; set; } 
 
+        public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
         public DreamListingViewModel(NavigationStore navigationStore, JournalStore journalStore)
         {
             DreamListingCommands.SelectionChangedCommand.SelectionHasChanged += OnSelectionChanged;
             
+            SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
             AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
             OpenDreamAction = new DreamListingCommands.OpenDreamEditor(navigationStore, journalStore, this);
-            SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
-          
+            DeleteSelectedDream = new DreamListingCommands.DeleteDream(navigationStore, journalStore, this);
+
             ShowDreams(journalStore.Dreams);
         }
 

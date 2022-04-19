@@ -14,6 +14,25 @@ namespace Oneironautics.Commands
 {
     internal class DreamListingCommands
     {
+        internal class DeleteDream : CommandBase
+        {
+            private readonly NavigationStore _navigationStore;
+            private readonly JournalStore _journalStore;
+            private readonly DreamListingViewModel _dreamListingViewModel;
+
+            public DeleteDream(NavigationStore navigationStore, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            {
+                _navigationStore = navigationStore;
+                _journalStore = journalStore;
+                _dreamListingViewModel = dreamListingViewModel;
+            }
+
+            public override void Execute(object? parameter)
+            {
+                _journalStore.DeleteDream(_dreamListingViewModel.SelectedDream);
+            }
+        }
+
         internal class SelectionChangedCommand : CommandBase
         {
             public static event Action<IDream>? SelectionHasChanged;
