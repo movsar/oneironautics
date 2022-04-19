@@ -1,5 +1,5 @@
 ﻿using ControlzEx.Theming;
-using Data.Models;
+using Data.Interfaces;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using MahApps.Metro.Controls;
@@ -28,7 +28,7 @@ namespace DesktopApp.Views
         public DreamEditorView(JournalStore journalStore, IDream? dream = null)
         {
             InitializeComponent();
-            ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
+            ThemeManager.Current.ChangeTheme(this, "Light.Blue");
             WindowActions windowActions = new WindowActions(() => { this.Close(); });
             DataContext = new DreamEditorViewModel(journalStore, windowActions, dream);
         }

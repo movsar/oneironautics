@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 using Data;
-using Data.Models;
+using Data.Interfaces;
 using System.Linq;
 using Realms;
 using System.Diagnostics;

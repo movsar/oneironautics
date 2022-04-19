@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DesktopApp.ViewModels;
 using DesktopApp.Stores;
 using DesktopApp.Views;
-using Data.Models;
+using Data.Interfaces;
 using System.Windows.Input;
 using System.Windows.Controls;
 

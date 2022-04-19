@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Models
+namespace DesktopApp.Models
 {
-    public abstract class ModelBase : INotifyPropertyChanged
+    public abstract class ItemModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

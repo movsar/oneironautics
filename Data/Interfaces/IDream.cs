@@ -1,7 +1,8 @@
 ﻿using MongoDB.Bson;
 using System;
+using Data.Enums;
 
-namespace Data.Models
+namespace Data.Interfaces
 {
     public interface IDream : IModelBase
     {

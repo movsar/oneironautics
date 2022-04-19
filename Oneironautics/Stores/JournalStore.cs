@@ -1,5 +1,5 @@
 ﻿using Data;
-using Data.Models;
+using Data.Interfaces;
 using DesktopApp.Models;
 using System;
 using System.Collections.Generic;

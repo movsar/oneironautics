@@ -7,14 +7,78 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="Azure">
-        <TreeView>
-            <TreeViewItem Header="Cold Drinks">
+        <TreeView FontSize="16">
+            <TreeViewItem>
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Awareness" Width="70"></TextBlock>
+                        <Button Content="+" HorizontalAlignment="Right"></Button>
+                    </StackPanel>                        
+                </TreeViewItem.Header>
                 <TreeView>
                     <TreeViewItem>
                         <TreeViewItem.Header>
-                            <CheckBox Name="IcedTeaCheckBox">
+                            <CheckBox>
+                                <TextBlock Text="I feel good"></TextBlock>
+                            </CheckBox>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+                </TreeView>
+            </TreeViewItem>
+
+            <TreeViewItem>
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Action" Width="70"></TextBlock>
+                        <Button Content="+" HorizontalAlignment="Right"></Button>
+                    </StackPanel>
+                </TreeViewItem.Header>
+                <TreeView>
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <CheckBox>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Iced Tea"></TextBlock>
+                                    <TextBlock Text="I kill people"></TextBlock>
+                                </StackPanel>
+                            </CheckBox>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+                </TreeView>
+            </TreeViewItem>
+
+            <TreeViewItem>
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Form" Width="70"></TextBlock>
+                        <Button Content="+" HorizontalAlignment="Right"></Button>
+                    </StackPanel>
+                </TreeViewItem.Header>
+                <TreeView>
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <CheckBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Laptop is a circle"></TextBlock>
+                                </StackPanel>
+                            </CheckBox>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+                </TreeView>
+            </TreeViewItem>
+
+            <TreeViewItem>
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Context" Width="70"></TextBlock>
+                        <Button Content="+" HorizontalAlignment="Right"></Button>
+                    </StackPanel>
+                </TreeViewItem.Header>
+                <TreeView>
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <CheckBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Everyone is panicking"></TextBlock>
                                 </StackPanel>
                             </CheckBox>
                         </TreeViewItem.Header>
@@ -22,7 +86,6 @@
 
                 </TreeView>
             </TreeViewItem>
-            <TreeViewItem Header="Pepsi"/>
         </TreeView>
 
     </Grid>

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Data.Models;
+using Data.Interfaces;
 using MongoDB.Bson;
 using Realms;
+using Data.Enums;
 
 namespace Data.Entities
 {
-    public class DreamEntity : RealmObject, IDream
+    public class DreamEntity : RealmObject, IDream, IEntityBase
     {
         [PrimaryKey]
         public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
@@ -37,12 +38,16 @@ namespace Data.Entities
             set { PositionId = (int)value; }
         }
 
+        public RealmList<SignEntity> Signs;
+
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
         public DateTimeOffset ModifiedAt { get; set; } = DateTimeOffset.Now;
 
         // A utility metohd to assist when converting from RealmObject to a plain object and vice versa
-        public void SetFromModel(IDream dream)
+        public void SetFromModel(IModelBase model)
         {
+            var dream = model as IDream;
+
             Index = dream.Index;
             Position = dream.Position;
             Lucidity = dream.Lucidity;

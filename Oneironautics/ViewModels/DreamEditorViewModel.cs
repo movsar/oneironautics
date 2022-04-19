@@ -1,14 +1,11 @@
-﻿using Data.Models;
+﻿using Data.Interfaces;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using DesktopApp.Commands;
-using DesktopApp.Stores;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using Data.Enums;
 
 namespace DesktopApp.ViewModels
 {

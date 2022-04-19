@@ -1,6 +1,6 @@
 ﻿using ControlzEx.Theming;
 using Data;
-using Data.Models;
+using Data.Interfaces;
 using DesktopApp.Stores;
 using DesktopApp.Commands;
 using System;

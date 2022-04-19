@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace Data.Models
+namespace Data.Interfaces
 {
-    public class SignToDream : ModelBase
+    public class SignToDream //: ModelBase
     {
         public string SignToDreamId { get; set; }
         public string DreamId { get; set; }

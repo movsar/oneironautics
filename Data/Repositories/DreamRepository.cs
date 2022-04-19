@@ -1,5 +1,5 @@
 ﻿using Data.Entities;
-using Data.Models;
+using Data.Interfaces;
 using MongoDB.Bson;
 using Realms;
 using System;
@@ -23,7 +23,7 @@ namespace Data.Repositories
 
         public override void Add<TModel>(TModel model)
         {
-            var dream = model as Dream;
+            var dream = model as IDream;
 
             var lastDream = _realmInstance.All<DreamEntity>().LastOrDefault();
             dream.Index = lastDream == null ? 1 : lastDream.Index + 1;
@@ -31,10 +31,10 @@ namespace Data.Repositories
             base.Add(dream);
         }
 
-        public IEnumerable<Dream> FindByContents(string str)
+        public IEnumerable<IDream> FindByContents(string str)
         {
             var result = _realmInstance.All<DreamEntity>().Where(dreamEntity => dreamEntity.Content.Contains(str));
-            return EntitiesToModels<DreamEntity, Dream>(result);
+            return EntitiesToModels<DreamEntity, IDream>(result);
         }
     }
 }
