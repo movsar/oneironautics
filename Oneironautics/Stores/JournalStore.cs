@@ -13,18 +13,11 @@ namespace DesktopApp.Stores
     public class JournalStore
     {
         private readonly Journal _journal;
-
         public ObservableCollection<IDream> Dreams = new();
 
         public JournalStore(Journal journal)
         {
             _journal = journal;
-
-            Initialize();
-        }
-
-        private void Initialize()
-        {
             LoadAllDreams();
         }
 
