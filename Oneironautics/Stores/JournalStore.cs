@@ -50,14 +50,23 @@ namespace DesktopApp.Stores
             }
         }
 
-        public void DeleteDream(IDream dream)
+        public void DeleteDreams(IEnumerable<IDream> dreamsToDelete)
         {
-            // Delete from runtime collection
-            var index = Dreams.ToList().FindIndex(d => d.Id == dream.Id);
-            Dreams[index] = dream;
-
             // Remove from DB
-            _journal.DeleteDream(dream);
+            foreach (var dream in dreamsToDelete)
+            {
+                _journal.DeleteDream(dream);
+            }
+
+            // Remove from collection
+            var ids = dreamsToDelete.Select(d => d.Id).ToList();
+            var dreamsAsList = Dreams.ToList();
+
+            foreach (var id in ids)
+            {
+                var index = dreamsAsList.FindIndex(d => d.Id == id);
+                Dreams.RemoveAt(index);
+            }
         }
 
         internal void UpdateDream(IDream dream)

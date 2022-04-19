@@ -8,6 +8,7 @@ using DesktopApp.Stores;
 using DesktopApp.Views;
 using Data.Models;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace DesktopApp.Commands
 {
@@ -20,24 +21,52 @@ namespace DesktopApp.Commands
 
             public DeleteDream(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
-                
+
                 _journalStore = journalStore;
                 _dreamListingViewModel = dreamListingViewModel;
             }
 
             public override void Execute(object? parameter)
             {
-                _journalStore.DeleteDream(parameter as IDream);
+                _journalStore.DeleteDreams(_dreamListingViewModel.SelectedDreams);
+            }
+        }
+
+        internal class KeyPressCommand : CommandBase
+        {
+            private JournalStore _journalStore;
+            private DreamListingViewModel _dreamListingViewModel;
+
+            public KeyPressCommand(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            {
+                _journalStore = journalStore;
+                _dreamListingViewModel = dreamListingViewModel;
+            }
+            public override void Execute(object? parameter)
+            {
+                var keyEventArgs = parameter as KeyEventArgs;
+
+                switch (keyEventArgs.Key)
+                {
+                    case Key.Delete:
+                        _journalStore.DeleteDreams(_dreamListingViewModel.SelectedDreams);
+
+                        break;
+                    default:
+                        return;
+                }
             }
         }
 
         internal class SelectionChangedCommand : CommandBase
         {
-            public static event Action<IDream>? SelectionHasChanged;
+            public static event Action<IEnumerable<IDream>>? SelectionHasChanged;
 
             public override void Execute(object? parameter)
             {
-                SelectionHasChanged?.Invoke(parameter as IDream);
+                var selectedItems = parameter as System.Collections.IList;
+
+                SelectionHasChanged?.Invoke(selectedItems.Cast<IDream>());
             }
         }
 
@@ -47,7 +76,7 @@ namespace DesktopApp.Commands
 
             public AddNewDream(JournalStore journalStore)
             {
-                
+
                 _journalStore = journalStore;
             }
 
@@ -65,7 +94,7 @@ namespace DesktopApp.Commands
 
             public OpenDreamEditor(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
-                
+
                 _journalStore = journalStore;
                 _dreamListingViewModel = dreamListingViewModel;
             }

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DesktopApp.Views"
         xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:DreamListingViewModel}"
         mc:Ignorable="d"
@@ -45,6 +44,13 @@
                         CommandParameter="{Binding ElementName=lvDreams, Path=SelectedItem}" />
                 </i:EventTrigger>
 
+                <i:EventTrigger EventName="KeyUp">
+                    <i:InvokeCommandAction 
+                        Command="{Binding KeyPressCommand}" 
+                        PassEventArgsToCommand="True"
+                        />
+                </i:EventTrigger>
+
             </i:Interaction.Triggers>
 
             <ListView.ItemContainerStyle>
@@ -52,7 +58,7 @@
                     <Setter Property="Background" Value="Transparent"/>
                 </Style>
             </ListView.ItemContainerStyle>
-
+         
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0 5 0 5" Background="Transparent" Width="auto">
@@ -61,23 +67,17 @@
                             <ContextMenu>
                                 <MenuItem 
                                     Header="Delete"
-                                    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}, 
-                                                          Path=DataContext, 
-                                                          UpdateSourceTrigger=PropertyChanged}"
-                                
-                               Command="{Binding DeleteSelectedDream}" 
-                                      CommandParameter="{Binding DeleteSelectedDream, 
-                                                                 RelativeSource={RelativeSource 
-                                                                 Mode=FindAncestor,
-                                                                 AncestorType={x:Type ListViewItem}}}"
+                                    Command="{Binding DataContext.DeleteSelectedDream, Source={x:Reference lvDreams}}"
+                                    CommandParameter="{Binding}"
                                 />
                             </ContextMenu>
                         </Grid.ContextMenu>
 
-                        <Grid.InputBindings>
+                        <!--<Grid.InputBindings>
                             <KeyBinding Key="Delete"
-                                        Command="{Binding DeleteSelectedDream}"/>
-                        </Grid.InputBindings>
+                                        Command="{Binding DataContext.DeleteSelectedDream, Source={x:Reference lvDreams}}"
+                                        CommandParameter="{Binding}"/>
+                        </Grid.InputBindings>-->
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
