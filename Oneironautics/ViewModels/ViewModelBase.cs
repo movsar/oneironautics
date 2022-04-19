@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oneironautics.ViewModels
+namespace DesktopApp.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

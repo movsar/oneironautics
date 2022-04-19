@@ -3,8 +3,8 @@ using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using MahApps.Metro.Controls;
-using Oneironautics.Stores;
-using Oneironautics.ViewModels;
+using DesktopApp.Stores;
+using DesktopApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +19,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Oneironautics.Views
+namespace DesktopApp.Views
 {
     /// <summary>
     /// Interaction logic for DreamEditor.xaml
     /// </summary>
     public partial class DreamEditorView : MetroWindow
     {
-        public DreamEditorView(NavigationStore navigationStore, JournalStore journalStore, IDream? dream = null)
+        public DreamEditorView(JournalStore journalStore, IDream? dream = null)
         {
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
             WindowActions windowActions = new WindowActions(() => { this.Close(); });
-            DataContext = new DreamEditorViewModel(navigationStore, journalStore, windowActions, dream);
+            DataContext = new DreamEditorViewModel(journalStore, windowActions, dream);
         }
     }
 }

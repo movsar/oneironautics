@@ -1,35 +1,33 @@
-﻿using Oneironautics.Stores;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Oneironautics.ViewModels;
+using DesktopApp.ViewModels;
 using DesktopApp.Stores;
-using Oneironautics.Views;
+using DesktopApp.Views;
 using Data.Models;
 using System.Windows.Input;
 
-namespace Oneironautics.Commands
+namespace DesktopApp.Commands
 {
     internal class DreamListingCommands
     {
         internal class DeleteDream : CommandBase
         {
-            private readonly NavigationStore _navigationStore;
             private readonly JournalStore _journalStore;
             private readonly DreamListingViewModel _dreamListingViewModel;
 
-            public DeleteDream(NavigationStore navigationStore, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            public DeleteDream(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
-                _navigationStore = navigationStore;
+                
                 _journalStore = journalStore;
                 _dreamListingViewModel = dreamListingViewModel;
             }
 
             public override void Execute(object? parameter)
             {
-                _journalStore.DeleteDream(_dreamListingViewModel.SelectedDream);
+                _journalStore.DeleteDream(parameter as IDream);
             }
         }
 
@@ -45,38 +43,36 @@ namespace Oneironautics.Commands
 
         internal class AddNewDream : CommandBase
         {
-            private readonly NavigationStore _navigationStore;
             private readonly JournalStore _journalStore;
 
-            public AddNewDream(NavigationStore navigationStore, JournalStore journalStore)
+            public AddNewDream(JournalStore journalStore)
             {
-                _navigationStore = navigationStore;
+                
                 _journalStore = journalStore;
             }
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_navigationStore, _journalStore);
+                var dreamEditorWindow = new DreamEditorView(_journalStore);
                 dreamEditorWindow.Show();
             }
         }
 
         internal class OpenDreamEditor : CommandBase
         {
-            private static NavigationStore? _navigationStore;
             private static JournalStore? _journalStore;
             private DreamListingViewModel _dreamListingViewModel;
 
-            public OpenDreamEditor(NavigationStore navigationStore, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            public OpenDreamEditor(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
-                _navigationStore = navigationStore;
+                
                 _journalStore = journalStore;
                 _dreamListingViewModel = dreamListingViewModel;
             }
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_navigationStore, _journalStore, parameter as IDream);
+                var dreamEditorWindow = new DreamEditorView(_journalStore, parameter as IDream);
                 dreamEditorWindow.Show();
             }
         }

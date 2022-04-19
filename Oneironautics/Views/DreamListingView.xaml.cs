@@ -1,28 +1,21 @@
-﻿using Oneironautics.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace Oneironautics.Views
+namespace DesktopApp.Views
 {
     /// <summary>
     /// Interaction logic for DreamListingView.xaml
     /// </summary>
-    public partial class DreamListingView : UserControl
+    public partial class DreamListingView : MetroWindow
     {
         public DreamListingView()
         {
             InitializeComponent();
+            ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
+
+            // Move focus from window to the view
+            Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Last));
         }
     }
 }

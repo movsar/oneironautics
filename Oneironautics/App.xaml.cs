@@ -3,9 +3,9 @@ using DesktopApp.Models;
 using DesktopApp.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Oneironautics.Commands;
-using Oneironautics.Stores;
-using Oneironautics.ViewModels;
+using DesktopApp.Commands;
+using DesktopApp.ViewModels;
+using DesktopApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Oneironautics
+namespace DesktopApp
 {
     public partial class App : Application
     {
@@ -38,15 +38,12 @@ namespace Oneironautics
                 services.AddSingleton<Journal>();
 
                 services.AddSingleton<JournalStore>();
-                services.AddSingleton<NavigationStore>();
-
-                services.AddSingleton<MainViewModel>();
-                services.AddSingleton((s) => new MainWindow()
-                {
-                    DataContext = s.GetRequiredService<MainViewModel>()
-                });
 
                 services.AddTransient<DreamListingViewModel>();
+                services.AddSingleton((s) => new DreamListingView()
+                {
+                    DataContext = s.GetRequiredService<DreamListingViewModel>()
+                });
 
                 services.AddTransient<DreamListingCommands.SelectionChangedCommand>();
                 services.AddTransient<DreamListingCommands.AddNewDream>();
@@ -60,12 +57,8 @@ namespace Oneironautics
             // Configure services
             _host.Start();
 
-            // Set main window view to dream listing view
-            var navigationStore = _host.Services.GetRequiredService<NavigationStore>();
-            navigationStore.CurrentViewModel = _host.Services.GetRequiredService<DreamListingViewModel>();
-
             // Show main window
-            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow = _host.Services.GetRequiredService<DreamListingView>();
             MainWindow.Show();
             base.OnStartup(e);
         }

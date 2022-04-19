@@ -2,8 +2,7 @@
 using Data;
 using Data.Models;
 using DesktopApp.Stores;
-using Oneironautics.Commands;
-using Oneironautics.Stores;
+using DesktopApp.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,26 +12,26 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Oneironautics.ViewModels
+namespace DesktopApp.ViewModels
 {
     internal class DreamListingViewModel : ViewModelBase
     {
         public ICommand AddNewDreamAction { get; }
         public ICommand OpenDreamAction { get; }
         public ICommand SelectionChanged { get; }
-        public ICommand DeleteSelectedDream { get; }
-        
-        public IDream SelectedDream { get; set; } 
+        public ICommand DeleteSelectedDream { get; }        
+        public IDream SelectedDream { get; set; }
 
         public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
-        public DreamListingViewModel(NavigationStore navigationStore, JournalStore journalStore)
+        public DreamListingViewModel(JournalStore journalStore)
         {
+
             DreamListingCommands.SelectionChangedCommand.SelectionHasChanged += OnSelectionChanged;
             
             SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
-            AddNewDreamAction = new DreamListingCommands.AddNewDream(navigationStore, journalStore);
-            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(navigationStore, journalStore, this);
-            DeleteSelectedDream = new DreamListingCommands.DeleteDream(navigationStore, journalStore, this);
+            AddNewDreamAction = new DreamListingCommands.AddNewDream(journalStore);
+            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(journalStore, this);
+            DeleteSelectedDream = new DreamListingCommands.DeleteDream(journalStore, this);
 
             ShowDreams(journalStore.Dreams);
         }

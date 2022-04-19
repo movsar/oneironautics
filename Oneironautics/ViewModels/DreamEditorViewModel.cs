@@ -1,8 +1,8 @@
 ﻿using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
-using Oneironautics.Commands;
-using Oneironautics.Stores;
+using DesktopApp.Commands;
+using DesktopApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Oneironautics.ViewModels
+namespace DesktopApp.ViewModels
 {
     internal class DreamEditorViewModel : ViewModelBase
     {
@@ -84,7 +84,7 @@ namespace Oneironautics.ViewModels
             }
         }
 
-        public DreamEditorViewModel(NavigationStore navigationStore, JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
+        public DreamEditorViewModel(JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
         {
             // Load dream data (when opening existing dream)
             if (dream != null)
@@ -97,7 +97,7 @@ namespace Oneironautics.ViewModels
             }
             
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
-            SaveDreamAction = new DreamEditorCommands.Save(navigationStore, journalStore, windowActions, this, dream);
+            SaveDreamAction = new DreamEditorCommands.Save(journalStore, windowActions, this, dream);
         }
     }
 }

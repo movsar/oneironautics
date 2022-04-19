@@ -1,11 +1,11 @@
 ﻿<mah:MetroWindow
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        x:Class="Oneironautics.Views.DreamEditorView"
+        x:Class="DesktopApp.Views.DreamEditorView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Oneironautics.Views" xmlns:viewmodels="clr-namespace:Oneironautics.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
+        xmlns:local="clr-namespace:DesktopApp.Views" xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
              mc:Ignorable="d"      
         Width="625"
         Height="474"

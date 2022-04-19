@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Oneironautics.Commands
+namespace DesktopApp.Commands
 {
     internal abstract class CommandBase : ICommand
     {

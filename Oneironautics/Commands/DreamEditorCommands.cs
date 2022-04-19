@@ -2,8 +2,7 @@
 using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
-using Oneironautics.Stores;
-using Oneironautics.ViewModels;
+using DesktopApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Oneironautics.Commands
+namespace DesktopApp.Commands
 {
     internal class DreamEditorCommands
     {
@@ -32,15 +31,14 @@ namespace Oneironautics.Commands
 
         internal class Save : CommandBase
         {
-            private readonly NavigationStore _navigationStore;
             private readonly JournalStore _journalStore;
             private readonly DreamEditorViewModel _dreamEditorViewModel;
             private readonly IDream _dream;
             private readonly WindowActions _dreamEditorWindowActions;
 
-            public Save(NavigationStore navigationStore, JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
+            public Save(JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
             {
-                _navigationStore = navigationStore;
+                
                 _journalStore = journalStore;
                 _dreamEditorViewModel = dreamEditorViewModel;
                 _dream = dream ?? new Dream();
@@ -64,7 +62,6 @@ namespace Oneironautics.Commands
                     _journalStore.AddDream(_dream);
                 }
 
-                _navigationStore.CurrentViewModel = new DreamListingViewModel(_navigationStore, _journalStore);
                 _dreamEditorWindowActions.CLose();
             }
         }

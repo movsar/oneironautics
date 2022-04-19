@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace Oneironautics.Entities
+namespace DesktopApp.Entities
 {
     public class Sign : BaseEntity
     {
