@@ -5,10 +5,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DesktopApp.Views" xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
+        xmlns:local="clr-namespace:DesktopApp.Views" 
+    xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
              mc:Ignorable="d"      
         Width="625"
-        Height="474"
+        Height="475"
         >
 
     <mah:MetroWindow.InputBindings>
@@ -24,8 +25,9 @@
 
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="719*"/>
-            <ColumnDefinition Width="81*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -36,7 +38,7 @@
         </Grid.RowDefinitions>
 
         <!--Title, Position, Lucidity and Date-->
-        <Grid Grid.Row="0" Margin="0 5 0 0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Margin="0 5 0 0" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -116,27 +118,6 @@
 
         </Grid>
 
-        <!--Signs-->
-        <Grid Grid.Row="2" 
-              Margin="0,5,0,116"
-              Visibility="Collapsed" Grid.ColumnSpan="2" Grid.RowSpan="2">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0"
-                       Text="Signs"
-                       Margin="0 0 0 0"
-            />
-
-            <TextBox Grid.Row="1" 
-                     FontSize="16"
-            />
-
-        </Grid>
-
         <!--Notes-->
         <Grid Grid.Row="3" Margin="0 5 0 0" Grid.ColumnSpan="2">
 
@@ -154,17 +135,33 @@
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
                      Height="100"
+                     Width="400"
                      Text="{Binding Notes}"
+                     HorizontalAlignment="Left"
                      
             />
 
+         
         </Grid>
 
+        <!--Signs-->
+        <TextBlock Grid.Row="1"
+                   Grid.Column="2"
+                   Margin="10 5 0 0"
+                   Text="Signs"
+            />
+        <local:SignSelectionView Grid.Row="1" 
+                                 Grid.Column="2" 
+                                 Grid.RowSpan="3"
+                                 Height="auto" Width="200"
+                                 HorizontalAlignment="Right"
+                                 Margin="10 20 0 0"/>
+        
         <!--Action buttons-->
         <StackPanel Grid.Row="4"
                     Orientation="Horizontal"
                     FlowDirection="RightToLeft"
-                    VerticalAlignment="Bottom" Grid.ColumnSpan="2"
+                    VerticalAlignment="Bottom" Grid.ColumnSpan="3"
                     Margin="0 10 0 0"
                     >
 

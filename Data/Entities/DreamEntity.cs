@@ -12,7 +12,7 @@ namespace Data.Entities
     public class DreamEntity : RealmObject, IDream
     {
         [PrimaryKey]
-        public string Id { get; set; } = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         public int Index { get; set; }
 
