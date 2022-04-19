@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,16 @@ using MongoDB.Bson;
 
 namespace Data.Models
 {
-    public class Dream : IDream
+    public class Dream : ModelBase, IDream
     {
-        public string Id { get; set; }
         public int Index { get; set; }
-        public string Content { get; set; }
+        private string _content;
+        public string Content
+        {
+            get { return _content; }
+            set { SetProperty(ref _content, value, nameof(Content)); }
+        }
+
         public string Notes { get; set; }
         public DateTimeOffset DreamDateTime { get; set; }
 
@@ -29,9 +35,6 @@ namespace Data.Models
             get { return (SleepingPosition)PositionId; }
             set { PositionId = (int)value; }
         }
-
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset ModifiedAt { get; set;  }
     }
 
     public enum SleepingPosition

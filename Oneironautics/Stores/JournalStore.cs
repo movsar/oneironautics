@@ -14,13 +14,11 @@ namespace DesktopApp.Stores
     {
         private readonly Journal _journal;
 
-        private readonly List<IDream> _dreams;
-        public IEnumerable<IDream> Dreams => _dreams;
-        
+        public ObservableCollection<IDream> Dreams = new();
+
         public JournalStore(Journal journal)
         {
             _journal = journal;
-            _dreams = new List<IDream>();
 
             Initialize();
         }
@@ -34,9 +32,9 @@ namespace DesktopApp.Stores
         {
             // Add to DB
             _journal.AddDream(dream);
-            
+
             // Add to collection
-            _dreams.Add(dream);
+            Dreams.Add(dream);
         }
 
         internal void LoadAllDreams()
@@ -45,14 +43,18 @@ namespace DesktopApp.Stores
             IEnumerable<IDream> dreamsFromDb = _journal.GetAllDreams();
 
             // Refresh collection
-            _dreams.Clear();
-            _dreams.AddRange(dreamsFromDb);
+            Dreams.Clear();
+            foreach (IDream dream in dreamsFromDb)
+            {
+                Dreams.Add(dream);
+            }
         }
 
         public void DeleteDream(IDream dream)
         {
-            var index = _dreams.FindIndex(d => d.Id == dream.Id);
-            _dreams[index] = dream;
+            // Delete from runtime collection
+            var index = Dreams.ToList().FindIndex(d => d.Id == dream.Id);
+            Dreams[index] = dream;
 
             // Remove from DB
             _journal.DeleteDream(dream);
@@ -60,9 +62,10 @@ namespace DesktopApp.Stores
 
         internal void UpdateDream(IDream dream)
         {
-            var index = _dreams.FindIndex(d => d.Id == dream.Id);
-            _dreams[index] = dream;
-            
+            // Update in runtime collection
+            var index = Dreams.ToList().FindIndex(d => d.Id == dream.Id);
+            Dreams[index] = dream;
+
             // Save to DB
             _journal.UpdateDream(dream);
 

@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +8,9 @@ namespace Data.Models
 {
     public interface IModelBase
     {
-        string Id { get; set; }
+        public string Id { get; set; }
 
-        DateTimeOffset CreatedAt { get; set;  }
-        DateTimeOffset ModifiedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset ModifiedAt { get; set; }
     }
 }

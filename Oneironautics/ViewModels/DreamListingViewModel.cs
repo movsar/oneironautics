@@ -22,7 +22,7 @@ namespace DesktopApp.ViewModels
         public ICommand DeleteSelectedDream { get; }        
         public IDream SelectedDream { get; set; }
 
-        public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
+        public ObservableCollection<IDream> Dreams { get; }
         public DreamListingViewModel(JournalStore journalStore)
         {
 
@@ -33,7 +33,7 @@ namespace DesktopApp.ViewModels
             OpenDreamAction = new DreamListingCommands.OpenDreamEditor(journalStore, this);
             DeleteSelectedDream = new DreamListingCommands.DeleteDream(journalStore, this);
 
-            ShowDreams(journalStore.Dreams);
+            Dreams = journalStore.Dreams;
         }
 
         public void OnSelectionChanged(IDream obj)
@@ -41,14 +41,14 @@ namespace DesktopApp.ViewModels
             SelectedDream = obj;
         }
 
-        private void ShowDreams(IEnumerable<IDream> dreamsFromJournalStore)
-        {
-            Dreams.Clear();
-            foreach (var dream in dreamsFromJournalStore)
-            {
-                Dreams.Add(dream);
-            }
-        }
+        //private void ShowDreams(IEnumerable<IDream> dreamsFromJournalStore)
+        //{
+        //    Dreams.Clear();
+        //    foreach (var dream in dreamsFromJournalStore)
+        //    {
+        //        Dreams.Add(dream);
+        //    }
+        //}
 
     }
 }

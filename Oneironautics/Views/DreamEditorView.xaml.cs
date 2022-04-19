@@ -3,7 +3,6 @@ using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using MahApps.Metro.Controls;
-using DesktopApp.Stores;
 using DesktopApp.ViewModels;
 using System;
 using System.Collections.Generic;
