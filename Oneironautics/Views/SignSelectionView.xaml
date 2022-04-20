@@ -12,7 +12,6 @@
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Awareness" Width="70"></TextBlock>
-                        <Button Content="+" HorizontalAlignment="Right"></Button>
                     </StackPanel>                        
                 </TreeViewItem.Header>
                 <TreeView>
@@ -30,7 +29,6 @@
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Action" Width="70"></TextBlock>
-                        <Button Content="+" HorizontalAlignment="Right"></Button>
                     </StackPanel>
                 </TreeViewItem.Header>
                 <TreeView>
@@ -50,7 +48,6 @@
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Form" Width="70"></TextBlock>
-                        <Button Content="+" HorizontalAlignment="Right"></Button>
                     </StackPanel>
                 </TreeViewItem.Header>
                 <TreeView>
@@ -70,7 +67,6 @@
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Context" Width="70"></TextBlock>
-                        <Button Content="+" HorizontalAlignment="Right"></Button>
                     </StackPanel>
                 </TreeViewItem.Header>
                 <TreeView>

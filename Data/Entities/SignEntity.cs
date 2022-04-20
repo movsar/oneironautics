@@ -17,7 +17,7 @@ namespace Data.Entities
 
         [Required]
         public string Title { get; set; }
-
+        public string Description { get; set; }
         private int TypeId { get; set; }
         public SignType Type
         {

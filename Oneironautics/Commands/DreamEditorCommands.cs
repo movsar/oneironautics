@@ -3,6 +3,7 @@ using Data.Interfaces;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using DesktopApp.ViewModels;
+using DesktopApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,14 @@ namespace DesktopApp.Commands
 {
     internal class DreamEditorCommands
     {
+        internal class AddNewSign : CommandBase
+        {
+            public override void Execute(object? parameter)
+            {
+                var signEditorWindow = new SignEditorView();
+                signEditorWindow.Show();
+            }
+        }
         internal class Close : CommandBase
         {
             private readonly WindowActions _dreamEditorWindowActions;

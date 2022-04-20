@@ -13,6 +13,7 @@ namespace DesktopApp.ViewModels
     {
         public ICommand CloseWindowAction { get; }
         public ICommand SaveDreamAction { get; }
+        public ICommand AddNewSign { get; }
 
         public IEnumerable<string> SleepingPositions { get; set; } = Enum.GetNames(typeof(SleepingPosition));
         public IEnumerable<string> LucidityLevels { get; set; } = Enum.GetNames(typeof(LucidityLevel));
@@ -95,6 +96,7 @@ namespace DesktopApp.ViewModels
             
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
             SaveDreamAction = new DreamEditorCommands.Save(journalStore, windowActions, this, dream);
+            AddNewSign = new DreamEditorCommands.AddNewSign();
         }
     }
 }
