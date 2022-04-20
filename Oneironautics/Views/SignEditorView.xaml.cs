@@ -1,4 +1,8 @@
-﻿using MahApps.Metro.Controls;
+﻿using Data.Interfaces;
+using DesktopApp.Models;
+using DesktopApp.Stores;
+using DesktopApp.ViewModels;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +24,12 @@ namespace DesktopApp.Views
     /// </summary>
     public partial class SignEditorView : MetroWindow
     {
-        public SignEditorView()
+        public SignEditorView(JournalStore journalStore, ISign? sign= null)
         {
             InitializeComponent();
+
+            WindowActions windowActions = new WindowActions(() => { this.Close(); });
+            DataContext = new SignEditorViewModel(journalStore, windowActions, sign);
         }
     }
 }

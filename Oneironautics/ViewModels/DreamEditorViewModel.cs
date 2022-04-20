@@ -96,7 +96,7 @@ namespace DesktopApp.ViewModels
             
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
             SaveDreamAction = new DreamEditorCommands.Save(journalStore, windowActions, this, dream);
-            AddNewSign = new DreamEditorCommands.AddNewSign();
+            AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
         }
     }
 }

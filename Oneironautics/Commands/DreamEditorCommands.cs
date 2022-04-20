@@ -17,9 +17,15 @@ namespace DesktopApp.Commands
     {
         internal class AddNewSign : CommandBase
         {
+            private JournalStore _journalStore;
+
+            public AddNewSign(JournalStore journalStore)
+            {
+                _journalStore = journalStore;
+            }
             public override void Execute(object? parameter)
             {
-                var signEditorWindow = new SignEditorView();
+                var signEditorWindow = new SignEditorView(_journalStore);
                 signEditorWindow.Show();
             }
         }

@@ -1,4 +1,8 @@
 ﻿using Data.Enums;
+using Data.Interfaces;
+using DesktopApp.Commands;
+using DesktopApp.Models;
+using DesktopApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +15,11 @@ namespace DesktopApp.ViewModels
     public class SignEditorViewModel : ViewModelBase
     {
         public ICommand Save { get; }
+
+        internal SignEditorViewModel(JournalStore journalStore, WindowActions windowActions, ISign? sign)
+        {
+            Save = new SignEditorCommands.Save(journalStore, this, windowActions, sign);
+        }
 
         private string _title = "";
         public string Title

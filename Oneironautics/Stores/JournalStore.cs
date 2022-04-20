@@ -62,6 +62,16 @@ namespace DesktopApp.Stores
             }
         }
 
+        internal void AddSign(ISign sign)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void UpdateSign(ISign sign)
+        {
+            throw new NotImplementedException();
+        }
+
         internal void UpdateDream(IDream dream)
         {
             // Update in runtime collection
