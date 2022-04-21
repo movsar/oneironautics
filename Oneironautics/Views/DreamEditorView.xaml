@@ -160,6 +160,7 @@
         <local:SignSelectionView Grid.Row="1" 
                                  Grid.Column="3" 
                                  Grid.RowSpan="3"
+                                 DataContext="{Binding}"
                                  Height="auto" Width="200"
                                  HorizontalAlignment="Right"
                                  Margin="10 50 0 0"/>

@@ -8,26 +8,11 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.Models
 {
-    public abstract class ItemModelBase : INotifyPropertyChanged
+    public abstract class ItemModelBase : UiElementBase, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Id { get; set; }
-
+        public string? Id { get; set; }
         public DateTimeOffset CreatedAt { get; set;  }
         public DateTimeOffset ModifiedAt { get; set; }
 
-        protected void SetProperty<T>(ref T oldValue, T newValue, string fieldName)
-        {
-            if (!EqualityComparer<T>.Default.Equals(oldValue, newValue))
-            {
-                oldValue = newValue;
-                var handler = PropertyChanged;
-                if (handler != null)
-                {
-                    handler(this, new PropertyChangedEventArgs(fieldName));
-                }
-            }
-        }
     }
 }

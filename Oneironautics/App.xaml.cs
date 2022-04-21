@@ -36,18 +36,14 @@ namespace DesktopApp
             {
                 services.AddSingleton(storage);
                 services.AddSingleton<Journal>();
-
                 services.AddSingleton<JournalStore>();
 
                 services.AddTransient<DreamListingViewModel>();
+                
                 services.AddSingleton((s) => new DreamListingView()
                 {
                     DataContext = s.GetRequiredService<DreamListingViewModel>()
                 });
-
-                services.AddTransient<DreamListingCommands.SelectionChangedCommand>();
-                services.AddTransient<DreamListingCommands.AddNewDream>();
-                services.AddTransient<DreamListingCommands.OpenDreamEditor>();
 
             }).Build();
         }

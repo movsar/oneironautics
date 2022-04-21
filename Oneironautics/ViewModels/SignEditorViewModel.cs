@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace DesktopApp.ViewModels
 {
-    public class SignEditorViewModel : ViewModelBase
+    public class SignEditorViewModel : UiElementBase
     {
         public ICommand Save { get; }
         public IEnumerable<string> SignTypes { get; set; } = Enum.GetNames(typeof(SignType));
@@ -32,7 +32,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _title = value;
-                OnPropertyChanged(nameof(Title));
+                SetProperty(ref _title, value, nameof(Title));
             }
         }
 
@@ -46,7 +46,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _description = value;
-                OnPropertyChanged(nameof(Description));
+                SetProperty(ref _description, value, nameof(Description));
             }
         }
 
@@ -57,7 +57,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _signType = value;
-                OnPropertyChanged(nameof(SignType));
+                SetProperty(ref _signType, value, nameof(SignType));
             }
         }
 

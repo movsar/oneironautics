@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace DesktopApp.ViewModels
 {
-    internal class DreamListingViewModel : ViewModelBase
+    internal class DreamListingViewModel : UIElement
     {
         public ICommand AddNewDreamAction { get; }
         public ICommand OpenDreamAction { get; }

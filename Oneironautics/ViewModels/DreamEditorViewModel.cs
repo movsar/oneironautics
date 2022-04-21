@@ -6,14 +6,26 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Data.Enums;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DesktopApp.ViewModels
 {
-    internal class DreamEditorViewModel : ViewModelBase
+    internal class DreamEditorViewModel : UiElementBase
     {
         public ICommand CloseWindowAction { get; }
         public ICommand SaveDreamAction { get; }
         public ICommand AddNewSign { get; }
+
+        ObservableCollection<SignViewModel> Signs { get; } = new ObservableCollection<SignViewModel>();
+        public IEnumerable<SignViewModel> AwarenessSigns =>
+            Signs.Where(sign => sign.Type == SignType.InnerAwareness);
+        public IEnumerable<SignViewModel> ActionSigns =>
+            Signs.Where(sign => sign.Type == SignType.Action);
+        public IEnumerable<SignViewModel> FormSigns =>
+            Signs.Where(sign => sign.Type == SignType.Form);
+        public IEnumerable<SignViewModel> ContextSigns =>
+            Signs.Where(sign => sign.Type == SignType.Context);
 
         public IEnumerable<string> SleepingPositions { get; set; } = Enum.GetNames(typeof(SleepingPosition));
         public IEnumerable<string> LucidityLevels { get; set; } = Enum.GetNames(typeof(LucidityLevel));
@@ -25,7 +37,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _sleepingPosition = value;
-                OnPropertyChanged(nameof(SleepingPosition));
+                SetProperty(ref _sleepingPosition, value, nameof(SleepingPosition));
             }
         }
 
@@ -36,7 +48,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _lucidityLevel = value;
-                OnPropertyChanged(nameof(LucidityLevel));
+                SetProperty(ref _lucidityLevel, value, nameof(LucidityLevel));
             }
         }
 
@@ -50,7 +62,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _content = value;
-                OnPropertyChanged(nameof(Content));
+                SetProperty(ref _content, value, nameof(Content));
             }
         }
 
@@ -64,7 +76,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _notes = value;
-                OnPropertyChanged(nameof(Notes));
+                SetProperty(ref _notes, value, nameof(Notes));
             }
         }
 
@@ -78,7 +90,7 @@ namespace DesktopApp.ViewModels
             set
             {
                 _dreamDateTime = value;
-                OnPropertyChanged(nameof(DreamDateTime));
+                SetProperty(ref _dreamDateTime, value, nameof(DreamDateTime));
             }
         }
 
@@ -93,7 +105,21 @@ namespace DesktopApp.ViewModels
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
             }
-            
+
+            var signsAsViewModels = journalStore.Signs.Select(sign => new SignViewModel()
+            {
+                Id = sign.Id,
+                Title = sign.Title,
+                Type = sign.Type,
+                Description = sign.Description,
+                IsChecked = false
+            });
+
+            foreach (var signViewModel in signsAsViewModels)
+            {
+                Signs.Add(signViewModel);
+            }
+
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
             SaveDreamAction = new DreamEditorCommands.Save(journalStore, windowActions, this, dream);
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
