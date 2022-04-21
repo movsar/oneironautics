@@ -28,7 +28,7 @@ namespace DesktopApp.Commands
 
             public override void Execute(object? parameter)
             {
-                _journalStore.DeleteDreams(_dreamListingViewModel.SelectedDreams);
+                _journalStore.DeleteItems(_dreamListingViewModel.SelectedDreams);
             }
         }
 
@@ -49,7 +49,7 @@ namespace DesktopApp.Commands
                 switch (keyEventArgs.Key)
                 {
                     case Key.Delete:
-                        _journalStore.DeleteDreams(_dreamListingViewModel.SelectedDreams);
+                        _journalStore.DeleteItems(_dreamListingViewModel.SelectedDreams);
 
                         break;
                     default:

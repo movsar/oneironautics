@@ -20,15 +20,34 @@ namespace DesktopApp.Stores
         {
             _journal = journal;
             LoadAllDreams();
+            LoadAllSigns();
         }
 
-        internal void AddDream(IDream dream)
+        private ICollection<TModel> SelectCollection<TModel>() where TModel : IModelBase
+        {
+            var t = typeof(TModel);
+            switch (t)
+            {
+                case var _ when t.IsAssignableTo(typeof(IDream)):
+                case var _ when t.IsAssignableFrom(typeof(IDream)):
+                    return (ICollection<TModel>)Dreams;
+
+                case var _ when t.IsAssignableTo(typeof(ISign)):
+                case var _ when t.IsAssignableFrom(typeof(ISign)):
+                    return (ICollection<TModel>)Signs;
+
+                default:
+                    throw new Exception();
+            }
+        }
+
+        internal void AddItem<TModel>(IModelBase item) where TModel : IModelBase
         {
             // Add to DB
-            _journal.AddItem(dream);
+            _journal.AddItem<TModel>(item);
 
             // Add to collection
-            Dreams.Add(dream);
+            SelectCollection<TModel>().Add((TModel)item);
         }
 
         internal void LoadAllDreams()
@@ -57,55 +76,33 @@ namespace DesktopApp.Stores
             }
         }
 
-        public void DeleteDreams(IEnumerable<IDream> dreamsToDelete)
+        public void DeleteItems<TModel>(IEnumerable<TModel> itemsToDelete) where TModel : IModelBase
         {
             // Remove from DB
-            foreach (var dream in dreamsToDelete)
+            foreach (var item in itemsToDelete)
             {
-                _journal.DeleteItem(dream);
+                _journal.DeleteItem<TModel>(item);
             }
 
             // Remove from collection
-            var ids = dreamsToDelete.Select(d => d.Id).ToList();
-            var dreamsAsList = Dreams.ToList();
+            var ids = itemsToDelete.Select(d => d.Id).ToList();
+            var dreamsAsList = SelectCollection<TModel>().ToList();
 
             foreach (var id in ids)
             {
                 var index = dreamsAsList.FindIndex(d => d.Id == id);
-                Dreams.RemoveAt(index);
+                ((ObservableCollection<TModel>)SelectCollection<TModel>()).RemoveAt(index);
             }
         }
 
-        internal void AddSign(ISign sign)
-        {
-            // Add to DB
-            _journal.AddItem(sign);
-
-            // Add to collection
-            Signs.Add(sign);
-        }
-
-        internal void UpdateSign(ISign sign)
+        internal void UpdateItem<TModel>(IModelBase item) where TModel : IModelBase
         {
             // Update in runtime collection
-            var index = Signs.ToList().FindIndex(d => d.Id == sign.Id);
-            Signs[index] = sign;
+            var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == item.Id);
+            ((ObservableCollection<TModel>)SelectCollection<TModel>())[index] = (TModel)item;
 
             // Save to DB
-            _journal.UpdateItem(sign);
+            _journal.UpdateItem<TModel>(item);
         }
-
-        internal void UpdateDream(IDream dream)
-        {
-            // Update in runtime collection
-            var index = Dreams.ToList().FindIndex(d => d.Id == dream.Id);
-            Dreams[index] = dream;
-
-            // Save to DB
-            _journal.UpdateItem(dream);
-
-        }
-
-
     }
 }

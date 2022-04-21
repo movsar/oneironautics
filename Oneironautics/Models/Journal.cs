@@ -33,24 +33,24 @@ namespace DesktopApp.Models
             }
         }
 
-        public void DeleteItem(IModelBase item)
+        public void DeleteItem<TModel>(IModelBase item) where TModel : IModelBase
         {
-            SelectRepository<IModelBase>().Delete(item);
+            SelectRepository<TModel>().Delete(item);
         }
 
-        public void UpdateItem(IModelBase item)
+        public void UpdateItem<TModel>(IModelBase item) where TModel : IModelBase
         {
-            SelectRepository<IModelBase>().Update(item);
+            SelectRepository<TModel>().Update(item);
         }
 
-        public void AddItem(IModelBase item)
+        public void AddItem<TModel>(IModelBase item) where TModel : IModelBase
         {
-            SelectRepository<IModelBase>().Add(item);
+            SelectRepository<TModel>().Add(item);
         }
 
-        public IEnumerable<TClass> GetAll<TClass>() where TClass : IModelBase
+        public IEnumerable<TModel> GetAll<TModel>() where TModel : IModelBase
         {
-            return SelectRepository<TClass>().GetAll<TClass>();
+            return SelectRepository<TModel>().GetAll<TModel>();
         }
 
         public IEnumerable<IDream> FindDreamsByContent(string str)

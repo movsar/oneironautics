@@ -34,11 +34,11 @@ namespace DesktopApp.Commands
 
                 if (_sign.Id != null)
                 {
-                    _journalStore.UpdateSign(_sign);
+                  //  _journalStore.UpdateItem<ISign>(_sign);
                 }
                 else
                 {
-                    _journalStore.AddSign(_sign);
+                    _journalStore.AddItem<ISign>(_sign);
                 }
 
                 //_signEditorWindowActions.CLose();

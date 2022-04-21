@@ -53,7 +53,7 @@ namespace DesktopApp.Commands
 
             public Save(JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
             {
-                
+
                 _journalStore = journalStore;
                 _dreamEditorViewModel = dreamEditorViewModel;
                 _dream = dream ?? new Dream();
@@ -70,11 +70,11 @@ namespace DesktopApp.Commands
 
                 if (_dream.Id != null)
                 {
-                    _journalStore.UpdateDream(_dream);
+                    _journalStore.UpdateItem<IDream>(_dream);
                 }
                 else
                 {
-                    _journalStore.AddDream(_dream);
+                    _journalStore.AddItem<IDream>(_dream);
                 }
 
                 _dreamEditorWindowActions.CLose();
