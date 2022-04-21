@@ -1,7 +1,7 @@
 ﻿using Data.Interfaces;
 using System.Collections.Generic;
 
-namespace Data.Repositories
+namespace Data.Interfaces
 {
     public interface IRepository
     {

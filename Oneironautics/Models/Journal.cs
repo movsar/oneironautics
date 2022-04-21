@@ -15,30 +15,48 @@ namespace DesktopApp.Models
         {
             _storage = storage;
         }
+        private IRepository SelectRepository<TModel>()
+        {
+            var t = typeof(TModel);
+            switch (t)
+            {
+                case var _ when t.IsAssignableTo(typeof(IDream)):
+                case var _ when t.IsAssignableFrom(typeof(IDream)):
+                    return _storage.DreamsRepository;
+
+                case var _ when t.IsAssignableTo(typeof(ISign)):
+                case var _ when t.IsAssignableFrom(typeof(ISign)):
+                    return _storage.SignRepository;
+
+                default:
+                    throw new Exception();
+            }
+        }
 
         public void DeleteItem(IModelBase item)
         {
-            _storage.DeleteItem(item);
+            SelectRepository<IModelBase>().Delete(item);
         }
 
         public void UpdateItem(IModelBase item)
         {
-            _storage.UpdateItem(item);
+            SelectRepository<IModelBase>().Update(item);
         }
-
 
         public void AddItem(IModelBase item)
         {
-            _storage.AddItem(item);
+            SelectRepository<IModelBase>().Add(item);
         }
 
-        public IEnumerable<IDream> GetAllDreams()
+        public IEnumerable<TClass> GetAll<TClass>() where TClass : IModelBase
         {
-            return _storage.GetAll<Dream>();
+            return SelectRepository<TClass>().GetAll<TClass>();
         }
-        public IEnumerable<ISign> GetAllSigns()
+
+        public IEnumerable<IDream> FindDreamsByContent(string str)
         {
-            return _storage.GetAll<Sign>();
+            return _storage.DreamsRepository.FindByContents(str);
         }
+
     }
 }

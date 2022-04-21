@@ -34,7 +34,7 @@ namespace DesktopApp.Stores
         internal void LoadAllDreams()
         {
             // Load from DB
-            IEnumerable<IDream> dreamsFromDb = _journal.GetAllDreams();
+            IEnumerable<IDream> dreamsFromDb = _journal.GetAll<Dream>();
 
             // Refresh collection
             Dreams.Clear();
@@ -47,7 +47,7 @@ namespace DesktopApp.Stores
         internal void LoadAllSigns()
         {
             // Load from DB
-            IEnumerable<ISign> signsFromDb = _journal.GetAllSigns();
+            IEnumerable<ISign> signsFromDb = _journal.GetAll<Sign>();
 
             // Refresh collection
             Signs.Clear();
@@ -105,5 +105,7 @@ namespace DesktopApp.Stores
             _journal.UpdateItem(dream);
 
         }
+
+
     }
 }
