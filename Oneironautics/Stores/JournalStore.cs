@@ -86,11 +86,10 @@ namespace DesktopApp.Stores
 
             // Remove from collection
             var ids = itemsToDelete.Select(d => d.Id).ToList();
-            var dreamsAsList = SelectCollection<TModel>().ToList();
 
             foreach (var id in ids)
             {
-                var index = dreamsAsList.FindIndex(d => d.Id == id);
+                var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == id);
                 ((ObservableCollection<TModel>)SelectCollection<TModel>()).RemoveAt(index);
             }
         }
