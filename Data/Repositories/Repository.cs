@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class Repository<TEntity> where TEntity : RealmObject, new()
+    public class Repository<TEntity> : IRepository where TEntity : RealmObject, new()
     {
         private readonly Realm _realmInstance;
 
