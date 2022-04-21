@@ -10,8 +10,25 @@ namespace Data.Interfaces
 {
     public class Sign : ItemModelBase, ISign
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public SignType Type { get; set; }     
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value, nameof(Title)); }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get { return _description; }
+            set { SetProperty(ref _description, value, nameof(Description)); }
+        }
+
+        private int _typeId { get; set; }
+        public SignType Type
+        {
+            get { return (SignType)_typeId; }
+            set { _typeId = (int)value; }
+        }
     }
 }

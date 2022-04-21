@@ -15,13 +15,13 @@
                     </StackPanel>                        
                 </TreeViewItem.Header>
                 <TreeView>
-                    <TreeViewItem>
-                        <TreeViewItem.Header>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding AwarenessSigns}">
                             <CheckBox>
-                                <TextBlock Text="I feel good"></TextBlock>
+                                <TextBlock Text="{Binding Title}" />
                             </CheckBox>
-                        </TreeViewItem.Header>
-                    </TreeViewItem>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
                 </TreeView>
             </TreeViewItem>
 

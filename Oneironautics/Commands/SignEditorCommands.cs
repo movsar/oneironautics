@@ -18,10 +18,12 @@ namespace DesktopApp.Commands
             private readonly JournalStore _journalStore;
             private readonly SignEditorViewModel _signEditorViewModel;
             private readonly ISign _sign;
+            private WindowActions _windowActions;
 
             public Save(JournalStore journalStore, SignEditorViewModel signEditorViewModel, WindowActions windowActions, ISign? sign = null)
             {
                 _journalStore = journalStore;
+                _windowActions= windowActions;
                 _signEditorViewModel = signEditorViewModel;
                 _sign = sign ?? new Sign();
             }
@@ -34,14 +36,14 @@ namespace DesktopApp.Commands
 
                 if (_sign.Id != null)
                 {
-                  //  _journalStore.UpdateItem<ISign>(_sign);
+                    _journalStore.UpdateItem<ISign>(_sign);
                 }
                 else
                 {
                     _journalStore.AddItem<ISign>(_sign);
                 }
 
-                //_signEditorWindowActions.CLose();
+                _windowActions.CLose();
             }
         }
     }

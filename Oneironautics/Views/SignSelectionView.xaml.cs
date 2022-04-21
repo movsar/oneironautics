@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopApp.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace DesktopApp.Views
     /// </summary>
     public partial class SignSelectionView : UserControl
     {
-        public SignSelectionView()
+        public SignSelectionView(JournalStore journalStore)
         {
             InitializeComponent();
+            DataContext = new SignSelectionView(journalStore);
         }
     }
 }

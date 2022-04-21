@@ -21,21 +21,32 @@ namespace DesktopApp.Models
             set { SetProperty(ref _content, value, nameof(Content)); }
         }
 
-        public string Notes { get; set; }
-        public DateTimeOffset DreamDateTime { get; set; }
-
-        private int LucidityId { get; set; }
-        public LucidityLevel Lucidity
+        private string _notes;
+        public string Notes
         {
-            get { return (LucidityLevel)LucidityId; }
-            set { LucidityId = (int)value; }
+            get { return _notes; }
+            set { SetProperty(ref _notes, value, nameof(Notes)); }
         }
 
-        private int PositionId { get; set; }
+        private DateTimeOffset _dreamDateTime;
+        public DateTimeOffset DreamDateTime
+        {
+            get { return _dreamDateTime; }
+            set { SetProperty(ref _dreamDateTime, value, nameof(DreamDateTime)); }
+        }
+
+        private int _lucidityId { get; set; }
+        public LucidityLevel Lucidity
+        {
+            get { return (LucidityLevel)_lucidityId; }
+            set { _lucidityId = (int)value; }
+        }
+
+        private int _positionId { get; set; }
         public SleepingPosition Position
         {
-            get { return (SleepingPosition)PositionId; }
-            set { PositionId = (int)value; }
+            get { return (SleepingPosition)_positionId; }
+            set { _positionId = (int)value; }
         }
     }
 }

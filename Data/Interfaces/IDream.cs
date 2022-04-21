@@ -10,7 +10,6 @@ namespace Data.Interfaces
         string Content { get; set; }
         string Notes { get; set; }
         DateTimeOffset DreamDateTime { get; set; }
-
         LucidityLevel Lucidity { get; set; }
         SleepingPosition Position { get; set; }
     }
