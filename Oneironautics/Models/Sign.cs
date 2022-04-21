@@ -1,4 +1,5 @@
 ﻿using Data.Enums;
+using Data.Interfaces;
 using DesktopApp.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace Data.Interfaces
+namespace Data.Models
 {
     public class Sign : ItemModelBase, ISign
     {

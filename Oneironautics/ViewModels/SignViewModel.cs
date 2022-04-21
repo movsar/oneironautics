@@ -1,5 +1,5 @@
 ﻿using Data.Enums;
-using Data.Interfaces;
+using Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -11,16 +11,113 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
              >
+    <UserControl.Resources>
+        <Style x:Key="TreeViewItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border>
+                            <Rectangle Margin="0,0,0,0"
+             StrokeThickness="5"
+             Stroke="Black"
+             StrokeDashArray="1 2"
+             Opacity="0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Padding" Value="1,0,0,0"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Border Name="Bd"
+                              Grid.Column="1"                                
+                              Background="{TemplateBinding Background}"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="PART_Header"
+                                        ContentSource="Header"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader" Value="false"/>
+                                    <Condition Property="Width" Value="Auto"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header" Property="MinWidth" Value="75"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader" Value="false"/>
+                                    <Condition Property="Height" Value="Auto"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header" Property="MinHeight" Value="19"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid Background="Azure">
-        <TreeView FontSize="16" Name="SignTree">
-      
+        <TreeView FontSize="16" Name="SignTree" Margin="10 0 0 0">
+
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+
             <TreeViewItem>
                 <TreeViewItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Awareness" Width="70"></TextBlock>
-                    </StackPanel>
+                    <TextBlock Text="Awareness"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding AwarenessSigns}">
+
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
@@ -33,12 +130,11 @@
 
             <TreeViewItem>
                 <TreeViewItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Action" Width="70"></TextBlock>
-                    </StackPanel>
+                    <TextBlock Text="Action"></TextBlock>
                 </TreeViewItem.Header>
-                
+
                 <TreeView ItemsSource="{Binding ActionSigns}">
+
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
@@ -51,9 +147,7 @@
 
             <TreeViewItem>
                 <TreeViewItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Form" Width="70"></TextBlock>
-                    </StackPanel>
+                    <TextBlock Text="Form"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding FormSigns}">
                     <TreeView.ItemTemplate>
@@ -68,12 +162,11 @@
 
             <TreeViewItem>
                 <TreeViewItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Context" Width="70"></TextBlock>
-                    </StackPanel>
+                    <TextBlock Text="Context"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding ContextSigns}">
                     <TreeView.ItemTemplate>
+
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
                                 <TextBlock Text="{Binding Title}" />
@@ -82,7 +175,7 @@
                     </TreeView.ItemTemplate>
                 </TreeView>
             </TreeViewItem>
-            
+
         </TreeView>
     </Grid>
 </UserControl>
