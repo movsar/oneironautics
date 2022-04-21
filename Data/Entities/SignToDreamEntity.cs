@@ -9,11 +9,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Entities
 {
-    public class SignToDream : IModelBase, IEntityBase, ISignToDream
+    public class SignToDreamEntity : RealmObject, ISignToDream, IEntityBase
     {
         [PrimaryKey]
         public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
-
         public string DreamId { get; set; }
         public string SignId { get; set; }
 

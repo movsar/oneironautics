@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Interfaces
 {
-    internal interface IEntityBase
+    public interface IEntityBase
     {
         public abstract void SetFromModel(IModelBase model);
     }

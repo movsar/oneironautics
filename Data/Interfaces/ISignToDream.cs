@@ -1,8 +1,8 @@
 ﻿namespace Data.Interfaces
 {
-    public interface ISignToDream
+    public interface ISignToDream : IModelBase
     {
-        string DreamId { get; set; }
-        string SignId { get; set; }
+        string DreamId { get; }
+        string SignId { get; }
     }
 }

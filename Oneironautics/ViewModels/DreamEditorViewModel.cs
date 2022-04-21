@@ -17,7 +17,7 @@ namespace DesktopApp.ViewModels
         public ICommand SaveDreamAction { get; }
         public ICommand AddNewSign { get; }
 
-        ObservableCollection<SignViewModel> Signs { get; } = new ObservableCollection<SignViewModel>();
+        public ObservableCollection<SignViewModel> Signs { get; } = new();
         public IEnumerable<SignViewModel> AwarenessSigns =>
             Signs.Where(sign => sign.Type == SignType.InnerAwareness);
         public IEnumerable<SignViewModel> ActionSigns =>
@@ -94,9 +94,11 @@ namespace DesktopApp.ViewModels
             }
         }
 
-        public DreamEditorViewModel(JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
+        public DreamEditorViewModel(Journal journal, JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
         {
             // Load dream data (when opening existing dream)
+            string[]? checkedSignIds = null;
+
             if (dream != null)
             {
                 Content = dream.Content;
@@ -104,6 +106,8 @@ namespace DesktopApp.ViewModels
                 DreamDateTime = new DateTime(dream.DreamDateTime.Ticks);
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
+
+                checkedSignIds = journal.GetSignIdsByDreamAssociations(dream.Id);
             }
 
             var signsAsViewModels = journalStore.Signs.Select(sign => new SignViewModel()
@@ -112,7 +116,7 @@ namespace DesktopApp.ViewModels
                 Title = sign.Title,
                 Type = sign.Type,
                 Description = sign.Description,
-                IsChecked = false
+                IsChecked = checkedSignIds != null && checkedSignIds.Contains(sign.Id)
             });
 
             foreach (var signViewModel in signsAsViewModels)
@@ -121,7 +125,7 @@ namespace DesktopApp.ViewModels
             }
 
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
-            SaveDreamAction = new DreamEditorCommands.Save(journalStore, windowActions, this, dream);
+            SaveDreamAction = new DreamEditorCommands.Save(journal, journalStore, windowActions, this, dream);
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
         }
     }

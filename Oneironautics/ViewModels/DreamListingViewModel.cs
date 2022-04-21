@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using DesktopApp.Models;
 
 namespace DesktopApp.ViewModels
 {
@@ -24,14 +25,14 @@ namespace DesktopApp.ViewModels
         public IEnumerable<IDream> SelectedDreams { get; set; }
 
         public ObservableCollection<IDream> Dreams { get; }
-        public DreamListingViewModel(JournalStore journalStore)
+        public DreamListingViewModel(Journal journal, JournalStore journalStore)
         {
 
             DreamListingCommands.SelectionChangedCommand.SelectionHasChanged += OnSelectionChanged;
             
             SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
-            AddNewDreamAction = new DreamListingCommands.AddNewDream(journalStore);
-            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(journalStore, this);
+            AddNewDreamAction = new DreamListingCommands.AddNewDream(journal, journalStore);
+            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(journal, journalStore, this);
             DeleteSelectedDream = new DreamListingCommands.DeleteDream(journalStore, this);
             KeyPressCommand = new DreamListingCommands.KeyPressCommand(journalStore, this);
 

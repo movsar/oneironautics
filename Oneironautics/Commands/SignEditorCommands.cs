@@ -1,5 +1,4 @@
 ﻿using Data.Interfaces;
-using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using DesktopApp.ViewModels;

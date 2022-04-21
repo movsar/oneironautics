@@ -9,6 +9,7 @@ using DesktopApp.Views;
 using Data.Interfaces;
 using System.Windows.Input;
 using System.Windows.Controls;
+using DesktopApp.Models;
 
 namespace DesktopApp.Commands
 {
@@ -72,17 +73,18 @@ namespace DesktopApp.Commands
 
         internal class AddNewDream : CommandBase
         {
+            private readonly Journal _journal;
             private readonly JournalStore _journalStore;
 
-            public AddNewDream(JournalStore journalStore)
+            public AddNewDream(Journal journal, JournalStore journalStore)
             {
-
+                _journal = journal;
                 _journalStore = journalStore;
             }
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_journalStore);
+                var dreamEditorWindow = new DreamEditorView(_journal, _journalStore);
                 dreamEditorWindow.Show();
             }
         }
@@ -90,18 +92,20 @@ namespace DesktopApp.Commands
         internal class OpenDreamEditor : CommandBase
         {
             private static JournalStore? _journalStore;
+            private Journal _journal;
             private DreamListingViewModel _dreamListingViewModel;
 
-            public OpenDreamEditor(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            public OpenDreamEditor(Journal journal, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
 
                 _journalStore = journalStore;
+                _journal = journal;
                 _dreamListingViewModel = dreamListingViewModel;
             }
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_journalStore, parameter as IDream);
+                var dreamEditorWindow = new DreamEditorView(_journal, _journalStore, parameter as IDream);
                 dreamEditorWindow.Show();
             }
         }

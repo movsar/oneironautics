@@ -50,14 +50,16 @@ namespace DesktopApp.Commands
             private readonly DreamEditorViewModel _dreamEditorViewModel;
             private readonly IDream _dream;
             private readonly WindowActions _dreamEditorWindowActions;
+            private readonly Journal _journal;
 
-            public Save(JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
+            public Save(Journal journal, JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
             {
 
                 _journalStore = journalStore;
                 _dreamEditorViewModel = dreamEditorViewModel;
                 _dream = dream ?? new Dream();
                 _dreamEditorWindowActions = dreamEditorWindowActions;
+                _journal = journal;
             }
 
             public override void Execute(object? parameter)
@@ -76,6 +78,8 @@ namespace DesktopApp.Commands
                 {
                     _journalStore.AddItem<IDream>(_dream);
                 }
+
+                _journal.AssociateSignsWithDream(_dream.Id, _dreamEditorViewModel.Signs.Where(sign => sign.IsChecked == true).Select(sign => sign.Id));
 
                 _dreamEditorWindowActions.CLose();
             }

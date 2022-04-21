@@ -25,12 +25,12 @@ namespace DesktopApp.Views
     /// </summary>
     public partial class DreamEditorView : MetroWindow
     {
-        public DreamEditorView(JournalStore journalStore, IDream? dream = null)
+        public DreamEditorView(Journal journal, JournalStore journalStore, IDream? dream = null)
         {
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Light.Blue");
             WindowActions windowActions = new WindowActions(() => { this.Close(); });
-            DataContext = new DreamEditorViewModel(journalStore, windowActions, dream);
+            DataContext = new DreamEditorViewModel(journal, journalStore, windowActions, dream);
         }
     }
 }

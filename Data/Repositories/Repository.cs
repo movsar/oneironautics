@@ -70,7 +70,7 @@ namespace Data.Repositories
 
         #region EntitiesToModels
 
-        // These method takes RealmObjects and turns them into plain model objects
+        // These method takes RealmObjects and turns them into plain model objects, works only for retrieval
 
         internal IEnumerable<TTarget> EntitiesToModels<TSource, TTarget>(IEnumerable<TSource> realmObjects)
         {

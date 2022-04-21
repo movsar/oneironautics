@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace Data.Models
+namespace DesktopApp.Models
 {
     public class Sign : ItemModelBase, ISign
     {
