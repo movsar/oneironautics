@@ -13,7 +13,7 @@ namespace Data.Repositories
 {
     public class Repository<TEntity> where TEntity : RealmObject, new()
     {
-        private Realm _realmInstance;
+        private readonly Realm _realmInstance;
 
         internal Repository(Realm realm)
         {

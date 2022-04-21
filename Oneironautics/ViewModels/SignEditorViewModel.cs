@@ -15,6 +15,7 @@ namespace DesktopApp.ViewModels
     public class SignEditorViewModel : ViewModelBase
     {
         public ICommand Save { get; }
+        public IEnumerable<string> SignTypes { get; set; } = Enum.GetNames(typeof(SignType));
 
         internal SignEditorViewModel(JournalStore journalStore, WindowActions windowActions, ISign? sign)
         {

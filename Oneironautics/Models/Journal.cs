@@ -16,24 +16,28 @@ namespace DesktopApp.Models
             _storage = storage;
         }
 
-        public void DeleteDream(IDream dream)
+        public void DeleteItem(IModelBase item)
         {
-            _storage.DreamsRepository.Delete(dream);
+            _storage.DreamsRepository.Delete(item);
         }
 
-        public void UpdateDream(IDream dream)
+        public void UpdateItem(IModelBase item)
         {
-            _storage.DreamsRepository.Update(dream);
+            _storage.DreamsRepository.Update(item);
         }
 
-        public void AddDream(IDream dream)
+        public void AddItem(IModelBase item)
         {
-            _storage.DreamsRepository.Add(dream);
+            _storage.DreamsRepository.Add(item);
         }
 
         public IEnumerable<IDream> GetAllDreams()
         {
             return _storage.DreamsRepository.GetAll<Dream>();
+        }
+        public IEnumerable<ISign> GetAllSigns()
+        {
+            return _storage.SignRepository.GetAll<Sign>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Data.Repositories
 {
     public class DreamRepository : Repository<DreamEntity>
     {
-        static Realm _realmInstance;
+        private readonly Realm _realmInstance;
 
         public DreamRepository(Realm realmInstance) : base(realmInstance)
         {

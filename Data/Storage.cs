@@ -13,6 +13,7 @@ namespace Data
         private readonly Realm _realmInstance;
 
         public DreamRepository DreamsRepository { get; }
+        public SignRepository SignRepository { get; }
 
         public Storage(bool cleanStart = false, string databasePath = "dreambase.realm")
         {
@@ -26,6 +27,7 @@ namespace Data
             _realmInstance = Realm.GetInstance(DbConfiguration);
 
             DreamsRepository = new DreamRepository(_realmInstance);
+            SignRepository = new SignRepository(_realmInstance);
         }
 
         public void DropDatabase(string dbPath)

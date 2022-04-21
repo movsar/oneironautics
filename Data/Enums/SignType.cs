@@ -8,6 +8,7 @@ namespace Data.Enums
 {
     public enum SignType
     {
+        Other,
         InnerAwareness,
         Action,
         Form,

@@ -14,6 +14,7 @@ namespace DesktopApp.Stores
     {
         private readonly Journal _journal;
         public ObservableCollection<IDream> Dreams = new();
+        public ObservableCollection<ISign> Signs = new();
 
         public JournalStore(Journal journal)
         {
@@ -24,7 +25,7 @@ namespace DesktopApp.Stores
         internal void AddDream(IDream dream)
         {
             // Add to DB
-            _journal.AddDream(dream);
+            _journal.AddItem(dream);
 
             // Add to collection
             Dreams.Add(dream);
@@ -43,12 +44,25 @@ namespace DesktopApp.Stores
             }
         }
 
+        internal void LoadAllSigns()
+        {
+            // Load from DB
+            IEnumerable<ISign> signsFromDb = _journal.GetAllSigns();
+
+            // Refresh collection
+            Signs.Clear();
+            foreach (ISign sign in signsFromDb)
+            {
+                Signs.Add(sign);
+            }
+        }
+
         public void DeleteDreams(IEnumerable<IDream> dreamsToDelete)
         {
             // Remove from DB
             foreach (var dream in dreamsToDelete)
             {
-                _journal.DeleteDream(dream);
+                _journal.DeleteItem(dream);
             }
 
             // Remove from collection
@@ -64,12 +78,21 @@ namespace DesktopApp.Stores
 
         internal void AddSign(ISign sign)
         {
-            throw new NotImplementedException();
+            // Add to DB
+            _journal.AddItem(sign);
+
+            // Add to collection
+            Signs.Add(sign);
         }
 
         internal void UpdateSign(ISign sign)
         {
-            throw new NotImplementedException();
+            // Update in runtime collection
+            var index = Signs.ToList().FindIndex(d => d.Id == sign.Id);
+            Signs[index] = sign;
+
+            // Save to DB
+            _journal.UpdateItem(sign);
         }
 
         internal void UpdateDream(IDream dream)
@@ -79,7 +102,7 @@ namespace DesktopApp.Stores
             Dreams[index] = dream;
 
             // Save to DB
-            _journal.UpdateDream(dream);
+            _journal.UpdateItem(dream);
 
         }
     }

@@ -35,7 +35,8 @@
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1" Margin="10 0 0 0">
-            <ComboBox Text="{Binding SignType}"/>
+            <ComboBox ItemsSource="{Binding SignTypes}"
+                      Text="{Binding SignType}"/>
         </Grid>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
