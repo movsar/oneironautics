@@ -103,9 +103,17 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="Azure">
-        <TreeView FontSize="16" Name="SignTree" Margin="10 0 0 0">
-
+    <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem 
+                    Header="New Sign"
+                    Command="{Binding AddNewSign}"
+                />
+            </ContextMenu>
+        </Grid.ContextMenu>
+        
+        <TreeView FontSize="16" Name="SignTree" Margin="0 0 0 0">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="True" />
@@ -117,11 +125,21 @@
                     <TextBlock Text="Awareness"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding AwarenessSigns}">
-
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem 
+                                Header="Edit"
+                                Command="{Binding EditSign}"/>
+                            <MenuItem 
+                                Header="Delete"
+                                Command="{Binding DeleteSign}"/>
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
+                    
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
-                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock Text="{Binding Title}"/>
                             </CheckBox>
                         </DataTemplate>
                     </TreeView.ItemTemplate>
@@ -134,7 +152,16 @@
                 </TreeViewItem.Header>
 
                 <TreeView ItemsSource="{Binding ActionSigns}">
-
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem 
+                                Header="Edit"
+                                Command="{Binding EditSign}"/>
+                            <MenuItem 
+                                Header="Delete"
+                                Command="{Binding DeleteSign}"/>
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
@@ -150,6 +177,16 @@
                     <TextBlock Text="Form"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding FormSigns}">
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem 
+                                Header="Edit"
+                                Command="{Binding EditSign}"/>
+                            <MenuItem 
+                                Header="Delete"
+                                Command="{Binding DeleteSign}"/>
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
@@ -165,8 +202,17 @@
                     <TextBlock Text="Context"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding ContextSigns}">
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem 
+                                Header="Edit"
+                                Command="{Binding EditSign}"/>
+                            <MenuItem 
+                                Header="Delete"
+                                Command="{Binding DeleteSign}"/>
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
                     <TreeView.ItemTemplate>
-
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
                                 <TextBlock Text="{Binding Title}" />
