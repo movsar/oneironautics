@@ -41,7 +41,7 @@
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction 
                         Command="{Binding OpenDreamAction}" 
-                        CommandParameter="{Binding ElementName=lvDreams, Path=SelectedItem}" />
+                        PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
 
                 <i:EventTrigger EventName="KeyUp">

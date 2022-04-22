@@ -1,7 +1,20 @@
-1. Create MVVM Structure with two screens:
-	* Dream Listing
-	* Dream Editor (add, update, remove)
+Global:
+	* Ligh or Dark or Synchronized theme selection
+	* Create 4 FontStyles (Sizes) - {xsmall, small, normal, header)
 
-2. Add Dream Signs Manager
-	* Dream Signs Listing View
-	* Dream Sign Editor (add, update, remove)
+DreamListingView:
+	* Add confirmation dialog when deleting dreams - done
+	* Don't open edit window when clicking outside of any dream
+	
+DreamEditorView:
+	* Set default focus to Content
+	* Do not allow empty dreams
+	* Stick elements to different corners for graceful resize
+	
+	SignSelectionView:
+		* Add Delete menuitem with confirmation dialogue
+		* Add Edit menuitem
+		
+	SignEditorView:
+		* Make the window modal
+		* Anchor the Description and Button to the bottom

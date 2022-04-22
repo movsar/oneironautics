@@ -12,7 +12,7 @@ namespace DesktopApp.Views
         public DreamListingView()
         {
             InitializeComponent();
-            ThemeManager.Current.ChangeTheme(this, "Dark.Olive");
+            ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
 
             // Move focus from window to the view
             Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Last));

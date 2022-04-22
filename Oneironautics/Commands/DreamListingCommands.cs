@@ -10,11 +10,30 @@ using Data.Interfaces;
 using System.Windows.Input;
 using System.Windows.Controls;
 using DesktopApp.Models;
+using System.Windows;
 
 namespace DesktopApp.Commands
 {
     internal class DreamListingCommands
     {
+        private static void OpenDreamEditorAction(Journal journal, JournalStore journalStore, IDream? dream = null)
+        {
+            var dreamEditorWindow = new DreamEditorView(journal, journalStore, dream);
+            dreamEditorWindow.Show();
+        }
+        private static void DeleteAction(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+        {
+            var result = MessageBox.Show($"Please approva removal of {dreamListingViewModel.SelectedDreams.Count()} dream(s)",
+                                             "Confirmation",
+                                             MessageBoxButton.YesNo,
+                                             MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                journalStore.DeleteItems(dreamListingViewModel.SelectedDreams);
+            }
+        }
+
         internal class DeleteDream : CommandBase
         {
             private readonly JournalStore _journalStore;
@@ -22,21 +41,20 @@ namespace DesktopApp.Commands
 
             public DeleteDream(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
-
                 _journalStore = journalStore;
                 _dreamListingViewModel = dreamListingViewModel;
             }
 
             public override void Execute(object? parameter)
             {
-                _journalStore.DeleteItems(_dreamListingViewModel.SelectedDreams);
+                DeleteAction(_journalStore, _dreamListingViewModel);
             }
         }
 
         internal class KeyPressCommand : CommandBase
         {
-            private JournalStore _journalStore;
-            private DreamListingViewModel _dreamListingViewModel;
+            private readonly JournalStore _journalStore;
+            private readonly DreamListingViewModel _dreamListingViewModel;
 
             public KeyPressCommand(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
@@ -47,14 +65,9 @@ namespace DesktopApp.Commands
             {
                 var keyEventArgs = parameter as KeyEventArgs;
 
-                switch (keyEventArgs.Key)
+                if (keyEventArgs!.Key == Key.Delete)
                 {
-                    case Key.Delete:
-                        _journalStore.DeleteItems(_dreamListingViewModel.SelectedDreams);
-
-                        break;
-                    default:
-                        return;
+                    DeleteAction(_journalStore, _dreamListingViewModel);
                 }
             }
         }
@@ -66,7 +79,6 @@ namespace DesktopApp.Commands
             public override void Execute(object? parameter)
             {
                 var selectedItems = parameter as System.Collections.IList;
-
                 SelectionHasChanged?.Invoke(selectedItems.Cast<IDream>());
             }
         }
@@ -84,8 +96,7 @@ namespace DesktopApp.Commands
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_journal, _journalStore);
-                dreamEditorWindow.Show();
+                OpenDreamEditorAction(_journal, _journalStore);
             }
         }
 
@@ -93,20 +104,20 @@ namespace DesktopApp.Commands
         {
             private static JournalStore? _journalStore;
             private Journal _journal;
-            private DreamListingViewModel _dreamListingViewModel;
 
             public OpenDreamEditor(Journal journal, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
-
                 _journalStore = journalStore;
                 _journal = journal;
-                _dreamListingViewModel = dreamListingViewModel;
             }
 
             public override void Execute(object? parameter)
             {
-                var dreamEditorWindow = new DreamEditorView(_journal, _journalStore, parameter as IDream);
-                dreamEditorWindow.Show();
+                // Get the source where mouse has been clicked, if it's not over a dream, open new dream window
+                dynamic eventArgs = parameter as MouseButtonEventArgs;
+                var dream = eventArgs!.OriginalSource.DataContext as IDream;
+
+                OpenDreamEditorAction(_journal, _journalStore, dream);
             }
         }
     }
