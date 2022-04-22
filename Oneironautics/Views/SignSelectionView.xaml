@@ -117,6 +117,7 @@
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="True" />
+                    <Setter Property="Margin" Value="0 2 0 0"/>
                 </Style>
             </TreeView.ItemContainerStyle>
 
@@ -125,6 +126,11 @@
                     <TextBlock Text="Awareness"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding AwarenessSigns}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Margin" Value="0 2 0 0"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
                     <TreeView.ContextMenu>
                         <ContextMenu>
                             <MenuItem 
@@ -152,6 +158,11 @@
                 </TreeViewItem.Header>
 
                 <TreeView ItemsSource="{Binding ActionSigns}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Margin" Value="0 2 0 0"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
                     <TreeView.ContextMenu>
                         <ContextMenu>
                             <MenuItem 
@@ -177,6 +188,11 @@
                     <TextBlock Text="Form"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding FormSigns}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Margin" Value="0 2 0 0"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
                     <TreeView.ContextMenu>
                         <ContextMenu>
                             <MenuItem 
@@ -202,6 +218,11 @@
                     <TextBlock Text="Context"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding ContextSigns}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Margin" Value="0 2 0 0"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
                     <TreeView.ContextMenu>
                         <ContextMenu>
                             <MenuItem 

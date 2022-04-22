@@ -8,8 +8,8 @@
         xmlns:local="clr-namespace:DesktopApp.Views" 
         xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
         mc:Ignorable="d"      
-        Width="800"
-        Height="600"
+        Width="800" MinWidth="800" MaxWidth="800"
+        Height="555" MinHeight="555" MaxHeight="555"
         >
 
     <mah:MetroWindow.InputBindings>
@@ -25,9 +25,7 @@
           Margin="10,0,10,10" 
           HorizontalAlignment="Stretch"    
           VerticalAlignment="Top" 
-          FocusManager.FocusedElement="{Binding ElementName=txtContent}"
-         
-          >
+          FocusManager.FocusedElement="{Binding ElementName=txtContent}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -97,7 +95,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0" Margin="0 15 0 0" Grid.RowSpan="4" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1" Grid.Column="0" Margin="0 15 0 0" Grid.RowSpan="4" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -146,7 +144,7 @@
         </Grid>
 
         <!--Action buttons-->
-        <Grid Grid.Row="2" Grid.Column="2" Margin="0 0 10 0">
+        <Grid Grid.Row="3" Grid.Column="1" Margin="0 0 10 0">
             <Button
                     Width="100"
                     Command="{Binding SaveDreamAction}"
