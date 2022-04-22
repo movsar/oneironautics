@@ -20,8 +20,20 @@ namespace DesktopApp.ViewModels
         public ICommand EditSign { get; }
 
         public ObservableCollection<SignViewModel> Signs { get; } = new();
-        public IEnumerable<SignViewModel> AwarenessSigns =>
-            Signs.Where(sign => sign.Type == SignType.InnerAwareness);
+        public ObservableCollection<SignViewModel> AwarenessSigns
+        {
+            get
+            {
+                var innerAwarenessSigns = Signs.Where(sign => sign.Type == SignType.InnerAwareness);
+                var signs = new ObservableCollection<SignViewModel>();
+                foreach (var sign in innerAwarenessSigns)
+                {
+                    signs.Add(sign);
+                }
+                return signs;
+            }
+        }
+
         public IEnumerable<SignViewModel> ActionSigns =>
             Signs.Where(sign => sign.Type == SignType.Action);
         public IEnumerable<SignViewModel> FormSigns =>
@@ -96,10 +108,31 @@ namespace DesktopApp.ViewModels
             }
         }
 
+        private string[] _checkedSignIds;
+
+        private void LoadSignsForTheDream()
+        {
+            var signsAsViewModels = _journalStore.Signs.Select(sign => new SignViewModel()
+            {
+                Id = sign.Id,
+                Title = sign.Title,
+                Type = sign.Type,
+                Description = sign.Description,
+                IsChecked = _checkedSignIds != null && _checkedSignIds.Contains(sign.Id)
+            });
+
+            Signs.Clear();
+
+            foreach (var signViewModel in signsAsViewModels)
+            {
+                Signs.Add(signViewModel);
+            }
+        }
+        private readonly JournalStore _journalStore;
         public DreamEditorViewModel(Journal journal, JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
         {
             // Load dream data (when opening existing dream)
-            string[]? checkedSignIds = null;
+            _journalStore = journalStore;
 
             if (dream != null)
             {
@@ -109,29 +142,40 @@ namespace DesktopApp.ViewModels
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
 
-                checkedSignIds = journal.GetSignIdsByDreamAssociations(dream.Id);
+                _checkedSignIds = journal.GetSignIdsByDreamAssociations(dream.Id);
             }
 
-            var signsAsViewModels = journalStore.Signs.Select(sign => new SignViewModel()
-            {
-                Id = sign.Id,
-                Title = sign.Title,
-                Type = sign.Type,
-                Description = sign.Description,
-                IsChecked = checkedSignIds != null && checkedSignIds.Contains(sign.Id)
-            });
-
-            foreach (var signViewModel in signsAsViewModels)
-            {
-                Signs.Add(signViewModel);
-            }
+            LoadSignsForTheDream();
 
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
             SaveDreamAction = new DreamEditorCommands.Save(journal, journalStore, windowActions, this, dream);
-            
+
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
             EditSign = new DreamEditorCommands.EditSign(journalStore);
-            DeleteSign = new DreamEditorCommands.DeleteSign(journalStore);
+            DeleteSign = new DreamEditorCommands.DeleteSign(journalStore, this);
+
+            journalStore.SignDeleted += OnSignDeleted;
+        }
+
+        private void OnSignDeleted(ISign sign)
+        {
+            LoadSignsForTheDream();
+            switch (sign.Type)
+            {
+                case SignType.InnerAwareness:
+                    OnPropertyChanged(nameof(AwarenessSigns));
+                    break;
+                case SignType.Action:
+                    OnPropertyChanged(nameof(ActionSigns));
+                    break;
+                case SignType.Form:
+                    OnPropertyChanged(nameof(FormSigns));
+                    break;
+                case SignType.Context:
+                    OnPropertyChanged(nameof(ContextSigns));
+                    break;
+            }
+
         }
     }
 }

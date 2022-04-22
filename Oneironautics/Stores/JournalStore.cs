@@ -23,6 +23,19 @@ namespace DesktopApp.Stores
             LoadAllSigns();
         }
 
+        public event Action<ISign> SignDeleted;
+
+        public void DeleteSign(ISign sign)
+        {
+            DeleteItems(sign);
+            OnSignDeleted(sign);
+        }
+
+        private void OnSignDeleted(ISign sign)
+        {
+            SignDeleted?.Invoke(sign);
+        }
+
         private ICollection<TModel> SelectCollection<TModel>() where TModel : IModelBase
         {
             var t = typeof(TModel);

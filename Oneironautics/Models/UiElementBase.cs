@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.Models
 {
-    public abstract class UiElementBase
+    public abstract class UiElementBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -22,6 +22,11 @@ namespace DesktopApp.Models
                     handler(this, new PropertyChangedEventArgs(fieldName));
                 }
             }
+        }
+
+        public void OnPropertyChanged(string fieldName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(fieldName));
         }
     }
 }

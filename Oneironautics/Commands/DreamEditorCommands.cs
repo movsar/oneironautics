@@ -6,6 +6,7 @@ using DesktopApp.ViewModels;
 using DesktopApp.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,15 +36,16 @@ namespace DesktopApp.Commands
         internal class DeleteSign : CommandBase
         {
             private JournalStore _journalStore;
+            private DreamEditorViewModel _dreamEditorViewModel;
 
-            public DeleteSign(JournalStore journalStore)
+            public DeleteSign(JournalStore journalStore, DreamEditorViewModel dreamEditorViewModel)
             {
                 _journalStore = journalStore;
+                _dreamEditorViewModel = dreamEditorViewModel;
             }
             public override void Execute(object? parameter)
             {
                 var signVM = parameter as SignViewModel;
-
                 // TODO: Check refs
 
                 var result = MessageBox.Show($"Are you sure you want to delete this sign?",
@@ -51,11 +53,12 @@ namespace DesktopApp.Commands
                                            MessageBoxButton.YesNo,
                                            MessageBoxImage.Question);
 
-                _journalStore.Signs.Remove(_journalStore.Signs.Where(sign => sign.Id == signVM.Id).First());
+                var index = _dreamEditorViewModel.Signs.ToList().FindIndex(d => d.Id == signVM.Id);
+                _dreamEditorViewModel.Signs.RemoveAt(index);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    _journalStore.DeleteItems(_journalStore.Signs.Where(sign => sign.Id == signVM.Id));
+                    _journalStore.DeleteSign(signVM);
                 }
 
             }
