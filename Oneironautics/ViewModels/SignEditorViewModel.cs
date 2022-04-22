@@ -20,6 +20,13 @@ namespace DesktopApp.ViewModels
         internal SignEditorViewModel(JournalStore journalStore, WindowActions windowActions, ISign? sign)
         {
             Save = new SignEditorCommands.Save(journalStore, this, windowActions, sign);
+
+            if (sign != null)
+            {
+                Title = sign.Title;
+                Description = sign.Description;
+                SignType = sign.Type;
+            }
         }
 
         private string _title = "";

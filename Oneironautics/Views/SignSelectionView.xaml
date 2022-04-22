@@ -112,7 +112,7 @@
                 />
             </ContextMenu>
         </Grid.ContextMenu>
-        
+
         <TreeView FontSize="16" Name="SignTree" Margin="0 0 0 0">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
@@ -131,20 +131,23 @@
                             <Setter Property="Margin" Value="0 2 0 0"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
-                    <TreeView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem 
-                                Header="Edit"
-                                Command="{Binding EditSign}"/>
-                            <MenuItem 
-                                Header="Delete"
-                                Command="{Binding DeleteSign}"/>
-                        </ContextMenu>
-                    </TreeView.ContextMenu>
-                    
+
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            Header="Edit"
+                                            Command="{Binding DataContext.EditSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                        <MenuItem 
+                                            Header="Delete"
+                                            Command="{Binding DataContext.DeleteSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>        
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+
                                 <TextBlock Text="{Binding Title}"/>
                             </CheckBox>
                         </DataTemplate>
@@ -156,27 +159,29 @@
                 <TreeViewItem.Header>
                     <TextBlock Text="Action"></TextBlock>
                 </TreeViewItem.Header>
-
                 <TreeView ItemsSource="{Binding ActionSigns}">
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="Margin" Value="0 2 0 0"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
-                    <TreeView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem 
-                                Header="Edit"
-                                Command="{Binding EditSign}"/>
-                            <MenuItem 
-                                Header="Delete"
-                                Command="{Binding DeleteSign}"/>
-                        </ContextMenu>
-                    </TreeView.ContextMenu>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
-                                <TextBlock Text="{Binding Title}" />
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            Header="Edit"
+                                            Command="{Binding DataContext.EditSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                        <MenuItem 
+                                            Header="Delete"
+                                            Command="{Binding DataContext.DeleteSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+
+                                <TextBlock Text="{Binding Title}"/>
                             </CheckBox>
                         </DataTemplate>
                     </TreeView.ItemTemplate>
@@ -193,20 +198,23 @@
                             <Setter Property="Margin" Value="0 2 0 0"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
-                    <TreeView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem 
-                                Header="Edit"
-                                Command="{Binding EditSign}"/>
-                            <MenuItem 
-                                Header="Delete"
-                                Command="{Binding DeleteSign}"/>
-                        </ContextMenu>
-                    </TreeView.ContextMenu>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
-                                <TextBlock Text="{Binding Title}" />
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            Header="Edit"
+                                            Command="{Binding DataContext.EditSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                        <MenuItem 
+                                            Header="Delete"
+                                            Command="{Binding DataContext.DeleteSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+
+                                <TextBlock Text="{Binding Title}"/>
                             </CheckBox>
                         </DataTemplate>
                     </TreeView.ItemTemplate>
@@ -223,20 +231,23 @@
                             <Setter Property="Margin" Value="0 2 0 0"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
-                    <TreeView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem 
-                                Header="Edit"
-                                Command="{Binding EditSign}"/>
-                            <MenuItem 
-                                Header="Delete"
-                                Command="{Binding DeleteSign}"/>
-                        </ContextMenu>
-                    </TreeView.ContextMenu>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked}">
-                                <TextBlock Text="{Binding Title}" />
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            Header="Edit"
+                                            Command="{Binding DataContext.EditSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                        <MenuItem 
+                                            Header="Delete"
+                                            Command="{Binding DataContext.DeleteSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+
+                                <TextBlock Text="{Binding Title}"/>
                             </CheckBox>
                         </DataTemplate>
                     </TreeView.ItemTemplate>

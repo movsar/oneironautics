@@ -16,6 +16,8 @@ namespace DesktopApp.ViewModels
         public ICommand CloseWindowAction { get; }
         public ICommand SaveDreamAction { get; }
         public ICommand AddNewSign { get; }
+        public ICommand DeleteSign { get; }
+        public ICommand EditSign { get; }
 
         public ObservableCollection<SignViewModel> Signs { get; } = new();
         public IEnumerable<SignViewModel> AwarenessSigns =>
@@ -126,7 +128,10 @@ namespace DesktopApp.ViewModels
 
             CloseWindowAction = new DreamEditorCommands.Close(windowActions);
             SaveDreamAction = new DreamEditorCommands.Save(journal, journalStore, windowActions, this, dream);
+            
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
+            EditSign = new DreamEditorCommands.EditSign(journalStore);
+            DeleteSign = new DreamEditorCommands.DeleteSign(journalStore);
         }
     }
 }

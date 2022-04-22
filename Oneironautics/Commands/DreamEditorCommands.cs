@@ -9,12 +9,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace DesktopApp.Commands
 {
     internal class DreamEditorCommands
     {
+        internal class EditSign : CommandBase
+        {
+            private JournalStore _journalStore;
+
+            public EditSign(JournalStore journalStore)
+            {
+                _journalStore = journalStore;
+            }
+            public override void Execute(object? parameter)
+            {
+                var signVm = parameter as SignViewModel;
+                var signEditorWindow = new SignEditorView(_journalStore, signVm);
+                signEditorWindow.ShowDialog();
+            }
+        }
+
+        internal class DeleteSign : CommandBase
+        {
+            private JournalStore _journalStore;
+
+            public DeleteSign(JournalStore journalStore)
+            {
+                _journalStore = journalStore;
+            }
+            public override void Execute(object? parameter)
+            {
+                var signVM = parameter as SignViewModel;
+
+                // TODO: Check refs
+
+                var result = MessageBox.Show($"Are you sure you want to delete this sign?",
+                                           "Confirmation",
+                                           MessageBoxButton.YesNo,
+                                           MessageBoxImage.Question);
+
+                _journalStore.Signs.Remove(_journalStore.Signs.Where(sign => sign.Id == signVM.Id).First());
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _journalStore.DeleteItems(_journalStore.Signs.Where(sign => sign.Id == signVM.Id));
+                }
+
+            }
+        }
         internal class AddNewSign : CommandBase
         {
             private JournalStore _journalStore;
@@ -26,7 +71,7 @@ namespace DesktopApp.Commands
             public override void Execute(object? parameter)
             {
                 var signEditorWindow = new SignEditorView(_journalStore);
-                signEditorWindow.Show();
+                signEditorWindow.ShowDialog();
             }
         }
         internal class Close : CommandBase
@@ -63,7 +108,7 @@ namespace DesktopApp.Commands
 
             public override void Execute(object? parameter)
             {
-                if (_dreamEditorViewModel.Content == null|| _dreamEditorViewModel.Content.Trim().Length == 0)
+                if (_dreamEditorViewModel.Content == null || _dreamEditorViewModel.Content.Trim().Length == 0)
                 {
                     return;
                 }

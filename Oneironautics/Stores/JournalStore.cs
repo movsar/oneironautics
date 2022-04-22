@@ -76,6 +76,11 @@ namespace DesktopApp.Stores
             }
         }
 
+        public void DeleteItems<TModel>(TModel itemToDelete) where TModel : IModelBase
+        {
+            DeleteItems<TModel>(new List<TModel>() { itemToDelete });
+        }
+
         public void DeleteItems<TModel>(IEnumerable<TModel> itemsToDelete) where TModel : IModelBase
         {
             // Remove from DB

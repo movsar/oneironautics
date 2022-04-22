@@ -6,20 +6,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopApp.Views" xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SignEditorViewModel}"
                   mc:Ignorable="d"
-        Title="SignEditView" Height="300" Width="450">
+        Title="SignEditView" Height="300" Width="450" MinHeight="200" MinWidth="350">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
@@ -46,7 +46,6 @@
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
             <TextBox TextWrapping="Wrap"
                      AcceptsReturn="True"
-                     Height="100" 
                      Text="{Binding Description}"/>
         </Grid>
 
