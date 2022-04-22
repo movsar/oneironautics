@@ -21,8 +21,14 @@
                     Command="{Binding SaveDreamAction}"/>
     </mah:MetroWindow.InputBindings>
 
-    <Grid Grid.IsSharedSizeScope="True" Margin="10,0,10,10" Height="auto" Width="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
-
+    <Grid Grid.IsSharedSizeScope="True" 
+          Margin="10,0,10,10" 
+          Height="auto" 
+          Width="600" 
+          HorizontalAlignment="Left" 
+          VerticalAlignment="Top" 
+          FocusManager.FocusedElement="{Binding ElementName=txtContent}"
+          >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -107,7 +113,7 @@
                        Text="Content"
             />
 
-            <TextBox Grid.Row="1" 
+            <TextBox Name="txtContent" Grid.Row="1" 
                      FontSize="16"
                      TextWrapping="Wrap"
                      AcceptsReturn="True"

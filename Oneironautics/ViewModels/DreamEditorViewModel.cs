@@ -52,7 +52,7 @@ namespace DesktopApp.ViewModels
             }
         }
 
-        private string _content = "";
+        private string _content;
         public string Content
         {
             get
@@ -66,7 +66,7 @@ namespace DesktopApp.ViewModels
             }
         }
 
-        private string _notes = "";
+        private string _notes;
         public string Notes
         {
             get

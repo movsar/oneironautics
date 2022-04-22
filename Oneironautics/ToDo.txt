@@ -4,11 +4,11 @@ Global:
 
 DreamListingView:
 	* Add confirmation dialog when deleting dreams - done
-	* Don't open edit window when clicking outside of any dream
+	* Don't open edit window when clicking outside of any dream - done
 	
 DreamEditorView:
-	* Set default focus to Content
-	* Do not allow empty dreams
+	* Set default focus to Content - done
+	* Do not allow empty dreams - done
 	* Stick elements to different corners for graceful resize
 	
 	SignSelectionView:

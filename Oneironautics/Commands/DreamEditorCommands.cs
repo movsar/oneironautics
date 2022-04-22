@@ -54,7 +54,6 @@ namespace DesktopApp.Commands
 
             public Save(Journal journal, JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
             {
-
                 _journalStore = journalStore;
                 _dreamEditorViewModel = dreamEditorViewModel;
                 _dream = dream ?? new Dream();
@@ -64,6 +63,11 @@ namespace DesktopApp.Commands
 
             public override void Execute(object? parameter)
             {
+                if (_dreamEditorViewModel.Content == null|| _dreamEditorViewModel.Content.Trim().Length == 0)
+                {
+                    return;
+                }
+
                 _dream.Content = _dreamEditorViewModel.Content;
                 _dream.Notes = _dreamEditorViewModel.Notes;
                 _dream.DreamDateTime = _dreamEditorViewModel.DreamDateTime;
