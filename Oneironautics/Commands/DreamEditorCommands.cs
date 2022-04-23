@@ -21,7 +21,6 @@ namespace DesktopApp.Commands
         internal class EditSign : CommandBase
         {
             private JournalStore _journalStore;
-
             public EditSign(JournalStore journalStore)
             {
                 _journalStore = journalStore;
@@ -38,12 +37,9 @@ namespace DesktopApp.Commands
         internal class DeleteSign : CommandBase
         {
             private JournalStore _journalStore;
-            private DreamEditorViewModel _dreamEditorViewModel;
-
-            public DeleteSign(JournalStore journalStore, DreamEditorViewModel dreamEditorViewModel)
+            public DeleteSign(JournalStore journalStore)
             {
                 _journalStore = journalStore;
-                _dreamEditorViewModel = dreamEditorViewModel;
             }
             public override void Execute(object? parameter)
             {
@@ -113,11 +109,11 @@ namespace DesktopApp.Commands
 
                 if (_dream.Id != null)
                 {
-                    _journalStore.UpdateItem<ISign>(_dream);
+                    _journalStore.UpdateItem<IDream>(_dream);
                 }
                 else
                 {
-                    _journalStore.AddItem<ISign>(_dream);
+                    _journalStore.AddItem<IDream>(_dream);
                 }
 
                 CloseCurrentWindow();

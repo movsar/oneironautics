@@ -131,7 +131,7 @@ namespace DesktopApp.ViewModels
 
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
             EditSign = new DreamEditorCommands.EditSign(journalStore);
-            DeleteSign = new DreamEditorCommands.DeleteSign(journalStore, this);
+            DeleteSign = new DreamEditorCommands.DeleteSign(journalStore);
 
             journalStore.ItemAdded += OnSignAdded;
             journalStore.ItemUpdated += OnSignUpdated;
