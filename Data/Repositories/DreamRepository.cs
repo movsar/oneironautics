@@ -64,16 +64,17 @@ namespace Data.Repositories
                 _realmInstance.RemoveRange(existingAssociations);
             });
         }
-
+        private void SetIndex(IDream dream)
+        {
+            var lastDream = _realmInstance.All<DreamEntity>().LastOrDefault();
+            dream.Index = lastDream == null ? 1 : lastDream.Index + 1;
+        }
         public override void Add<TModel>(TModel model)
         {
             var dream = model as IDream;
-
-            var lastDream = _realmInstance.All<DreamEntity>().LastOrDefault();
-            dream.Index = lastDream == null ? 1 : lastDream.Index + 1;
+            SetIndex(dream);
 
             base.Add(dream);
-
             UpdateSignAssociations(dream);
         }
 

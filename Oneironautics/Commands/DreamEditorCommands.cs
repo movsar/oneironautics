@@ -59,7 +59,7 @@ namespace DesktopApp.Commands
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    _journalStore.DeleteSign(sign);
+                    _journalStore.DeleteItem(sign);
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace DesktopApp.Commands
             private readonly DreamEditorViewModel _dreamEditorViewModel;
             private readonly IDream _dream;
 
-            public Save(Journal journal, JournalStore journalStore, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
+            public Save(JournalStore journalStore, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
             {
                 _journalStore = journalStore;
                 _dreamEditorViewModel = dreamEditorViewModel;

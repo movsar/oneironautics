@@ -16,9 +16,9 @@ namespace DesktopApp.Commands
 {
     internal class DreamListingCommands
     {
-        private static void OpenDreamEditorAction(Journal journal, JournalStore journalStore, IDream? dream = null)
+        private static void OpenDreamEditorAction(JournalStore journalStore, IDream? dream = null)
         {
-            var dreamEditorWindow = new DreamEditorView(journal, journalStore, dream);
+            var dreamEditorWindow = new DreamEditorView(journalStore, dream);
             dreamEditorWindow.Show();
         }
         private static void DeleteAction(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
@@ -85,30 +85,26 @@ namespace DesktopApp.Commands
 
         internal class AddNewDream : CommandBase
         {
-            private readonly Journal _journal;
             private readonly JournalStore _journalStore;
 
-            public AddNewDream(Journal journal, JournalStore journalStore)
+            public AddNewDream(JournalStore journalStore)
             {
-                _journal = journal;
                 _journalStore = journalStore;
             }
 
             public override void Execute(object? parameter)
             {
-                OpenDreamEditorAction(_journal, _journalStore);
+                OpenDreamEditorAction(_journalStore);
             }
         }
 
         internal class OpenDreamEditor : CommandBase
         {
             private static JournalStore? _journalStore;
-            private Journal _journal;
 
-            public OpenDreamEditor(Journal journal, JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
+            public OpenDreamEditor(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
             {
                 _journalStore = journalStore;
-                _journal = journal;
             }
 
             public override void Execute(object? parameter)
@@ -117,7 +113,7 @@ namespace DesktopApp.Commands
                 dynamic eventArgs = parameter as MouseButtonEventArgs;
                 var dream = eventArgs!.OriginalSource.DataContext as IDream;
 
-                OpenDreamEditorAction(_journal, _journalStore, dream);
+                OpenDreamEditorAction(_journalStore, dream);
             }
         }
     }

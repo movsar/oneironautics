@@ -14,8 +14,8 @@ namespace DesktopApp.Stores
     public class JournalStore
     {
         private readonly Journal _journal;
-        public ObservableCollection<IDream> Dreams = new();
-        public ObservableCollection<ISign> Signs = new();
+        public List<IDream> Dreams = new();
+        public List<ISign> Signs = new();
 
         public JournalStore(Journal journal)
         {
@@ -24,31 +24,22 @@ namespace DesktopApp.Stores
             LoadAllSigns();
         }
 
-        public event Action<ISign> SignDeleted;
+        public event Action<IModelBase> ItemAdded;
+        public event Action<IModelBase> ItemUpdated;
+        public event Action<IModelBase> ItemDeleted;
 
-        public void DeleteSign(ISign sign)
-        {
-            DeleteItems(sign);
-            OnSignDeleted(sign);
-        }
-
-        private void OnSignDeleted(ISign sign)
-        {
-            SignDeleted?.Invoke(sign);
-        }
-
-        private ICollection<TModel> SelectCollection<TModel>() where TModel : IModelBase
+        private IList<TModel> SelectCollection<TModel>() where TModel : IModelBase
         {
             var t = typeof(TModel);
             switch (t)
             {
                 case var _ when t.IsAssignableTo(typeof(IDream)):
                 case var _ when t.IsAssignableFrom(typeof(IDream)):
-                    return (ICollection<TModel>)Dreams;
+                    return (IList<TModel>)Dreams;
 
                 case var _ when t.IsAssignableTo(typeof(ISign)):
                 case var _ when t.IsAssignableFrom(typeof(ISign)):
-                    return (ICollection<TModel>)Signs;
+                    return (IList<TModel>)Signs;
 
                 default:
                     throw new Exception();
@@ -62,6 +53,9 @@ namespace DesktopApp.Stores
 
             // Add to collection
             SelectCollection<TModel>().Add((TModel)item);
+
+            // Let everybody know
+            ItemAdded?.Invoke(item);
         }
 
         internal void LoadAllDreams()
@@ -90,26 +84,24 @@ namespace DesktopApp.Stores
             }
         }
 
-        public void DeleteItems<TModel>(TModel itemToDelete) where TModel : IModelBase
+        public void DeleteItem<TModel>(TModel item) where TModel : IModelBase
         {
-            DeleteItems<TModel>(new List<TModel>() { itemToDelete });
+            // Remove from DB
+            _journal.DeleteItem<TModel>(item);
+
+            // Remove from collection
+            var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == item.Id);
+            SelectCollection<TModel>().RemoveAt(index);
+
+            // Let everybody know
+            ItemDeleted?.Invoke(item);
         }
 
         public void DeleteItems<TModel>(IEnumerable<TModel> itemsToDelete) where TModel : IModelBase
         {
-            // Remove from DB
             foreach (var item in itemsToDelete)
             {
-                _journal.DeleteItem<TModel>(item);
-            }
-
-            // Remove from collection
-            var ids = itemsToDelete.Select(d => d.Id).ToList();
-
-            foreach (var id in ids)
-            {
-                var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == id);
-                ((ObservableCollection<TModel>)SelectCollection<TModel>()).RemoveAt(index);
+               DeleteItem(item);
             }
         }
 
@@ -121,6 +113,9 @@ namespace DesktopApp.Stores
 
             // Save to DB
             _journal.UpdateItem<TModel>(item);
+
+            // Let everybody know
+            ItemUpdated?.Invoke(item);
         }
     }
 }

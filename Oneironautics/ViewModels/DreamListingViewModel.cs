@@ -25,18 +25,27 @@ namespace DesktopApp.ViewModels
         public IEnumerable<IDream> SelectedDreams { get; set; }
 
         public ObservableCollection<IDream> Dreams { get; }
-        public DreamListingViewModel(Journal journal, JournalStore journalStore)
+        public DreamListingViewModel(JournalStore journalStore)
         {
 
             DreamListingCommands.SelectionChangedCommand.SelectionHasChanged += OnSelectionChanged;
             
             SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
-            AddNewDreamAction = new DreamListingCommands.AddNewDream(journal, journalStore);
-            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(journal, journalStore, this);
+            AddNewDreamAction = new DreamListingCommands.AddNewDream(journalStore);
+            OpenDreamAction = new DreamListingCommands.OpenDreamEditor(journalStore, this);
             DeleteSelectedDream = new DreamListingCommands.DeleteDream(journalStore, this);
             KeyPressCommand = new DreamListingCommands.KeyPressCommand(journalStore, this);
 
-            Dreams = journalStore.Dreams;
+            RefreshDreams(journalStore);
+        }
+
+        private void RefreshDreams(JournalStore journalStore)
+        {
+            Dreams.Clear();
+            foreach (var dream in journalStore.Dreams)
+            {
+                Dreams.Add(dream);
+            }
         }
 
         public void OnSelectionChanged(IEnumerable<IDream> selectedDreams)

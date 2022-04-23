@@ -20,20 +20,8 @@ namespace DesktopApp.ViewModels
         public ICommand EditSign { get; }
 
         public ObservableCollection<SignViewModel> Signs { get; } = new();
-        public ObservableCollection<SignViewModel> AwarenessSigns
-        {
-            get
-            {
-                var innerAwarenessSigns = Signs.Where(sign => sign.SignType == SignType.InnerAwareness);
-                var signs = new ObservableCollection<SignViewModel>();
-                foreach (var sign in innerAwarenessSigns)
-                {
-                    signs.Add(sign);
-                }
-                return signs;
-            }
-        }
-
+        public IEnumerable<SignViewModel> AwarenessSigns =>
+            Signs.Where(sign => sign.SignType == SignType.InnerAwareness);
         public IEnumerable<SignViewModel> ActionSigns =>
             Signs.Where(sign => sign.SignType == SignType.Action);
         public IEnumerable<SignViewModel> FormSigns =>
@@ -108,24 +96,15 @@ namespace DesktopApp.ViewModels
             }
         }
 
-        private IList<string> _checkedSignIds;
-
-        private void LoadSignsForTheDream()
+        private void SetSignsCheckedStatus(IList<string> checkedSignIds)
         {
-            var signsAsViewModels = _journalStore.Signs
-                .Select(sign => new SignViewModel(
-                    sign, _checkedSignIds != null && _checkedSignIds.Contains(sign.Id))
-                );
-
-            Signs.Clear();
-
-            foreach (var signViewModel in signsAsViewModels)
+            foreach (var signViewModel in Signs)
             {
-                Signs.Add(signViewModel);
+                signViewModel.IsSelected = checkedSignIds.Contains(signViewModel.SignId);
             }
         }
         private readonly JournalStore _journalStore;
-        public DreamEditorViewModel(Journal journal, JournalStore journalStore, IDream? dream = null)
+        public DreamEditorViewModel(JournalStore journalStore, IDream? dream = null)
         {
             // Load dream data (when opening existing dream)
             _journalStore = journalStore;
@@ -137,24 +116,27 @@ namespace DesktopApp.ViewModels
                 DreamDateTime = new DateTime(dream.DreamDateTime.Ticks);
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
-                _checkedSignIds = dream.AssociatedSignIds;
+                SetSignsCheckedStatus(dream.AssociatedSignIds);
             }
 
-            LoadSignsForTheDream();
-
             Close = new DreamEditorCommands.Close();
-            Save = new DreamEditorCommands.Save(journal, journalStore, this, dream);
+            Save = new DreamEditorCommands.Save(journalStore, this, dream);
 
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
             EditSign = new DreamEditorCommands.EditSign(journalStore);
             DeleteSign = new DreamEditorCommands.DeleteSign(journalStore, this);
 
-            journalStore.SignDeleted += OnSignDeleted;
+            journalStore.ItemAdded += OnSignChanged;
+            journalStore.ItemUpdated += OnSignChanged;
+            journalStore.ItemDeleted += OnSignChanged;
         }
-
-        private void OnSignDeleted(ISign sign)
+        private void OnSignChanged(IModelBase model)
         {
-            LoadSignsForTheDream();
+            var sign = model as ISign;
+            if (sign == null)
+            {
+                return;
+            }
             switch (sign.Type)
             {
                 case SignType.InnerAwareness:
