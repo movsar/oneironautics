@@ -27,9 +27,7 @@ namespace DesktopApp.Views
         public SignEditorView(JournalStore journalStore, ISign? sign= null)
         {
             InitializeComponent();
-
-            WindowActions windowActions = new WindowActions(() => { this.Close(); });
-            DataContext = new SignEditorViewModel(journalStore, windowActions, sign);
+            DataContext = new SignEditorViewModel(journalStore, sign);
         }
     }
 }

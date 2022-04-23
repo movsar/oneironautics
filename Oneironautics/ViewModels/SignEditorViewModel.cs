@@ -12,14 +12,16 @@ using System.Windows.Input;
 
 namespace DesktopApp.ViewModels
 {
-    public class SignEditorViewModel : UiElementBase
+    public class SignEditorViewModel : ViewModelBase
     {
         public ICommand Save { get; }
+        public ICommand Close { get; }
         public IEnumerable<string> SignTypes { get; set; } = Enum.GetNames(typeof(SignType));
 
-        internal SignEditorViewModel(JournalStore journalStore, WindowActions windowActions, ISign? sign)
+        internal SignEditorViewModel(JournalStore journalStore, ISign? sign)
         {
-            Save = new SignEditorCommands.Save(journalStore, this, windowActions, sign);
+            Save = new SignEditorCommands.Save(journalStore, this, sign);
+            Close = new SignEditorCommands.Close();
 
             if (sign != null)
             {

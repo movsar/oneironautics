@@ -1,12 +1,22 @@
 ﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                   x:Class="DesktopApp.Views.SignEditorView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DesktopApp.Views" xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SignEditorViewModel}"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:DesktopApp.Views" xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SignEditorViewModel}"
                   mc:Ignorable="d"
-        Title="SignEditView" Height="300" Width="450" MinHeight="200" MinWidth="350">
+                  Title="SignEditView" Height="300" Width="450" MinHeight="200" MinWidth="350">
+    
+    <mah:MetroWindow.InputBindings>
+        <KeyBinding Key="Esc"
+                    Command="{Binding Close}"/>
+
+        <KeyBinding Modifiers="Ctrl" 
+                    Key="Return"
+                    Command="{Binding Save}"/>
+    </mah:MetroWindow.InputBindings>
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -61,6 +71,9 @@
                     Command="{Binding Save}"
                     />
         </Grid>
-        
+
     </Grid>
+
+
+
 </mah:MetroWindow>

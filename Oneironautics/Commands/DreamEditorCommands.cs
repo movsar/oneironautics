@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Interfaces;
+using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using DesktopApp.ViewModels;
@@ -27,8 +28,10 @@ namespace DesktopApp.Commands
             }
             public override void Execute(object? parameter)
             {
-                var signVm = parameter as SignViewModel;
-                var signEditorWindow = new SignEditorView(_journalStore, signVm);
+                var signViewModel = parameter as SignViewModel;
+                var sign = _journalStore.Signs.Where(sign => sign.Id == signViewModel?.SignId).First();
+
+                var signEditorWindow = new SignEditorView(_journalStore, sign!);
                 signEditorWindow.ShowDialog();
             }
         }
@@ -45,22 +48,19 @@ namespace DesktopApp.Commands
             }
             public override void Execute(object? parameter)
             {
-                var signVM = parameter as SignViewModel;
-                // TODO: Check refs
+                var signViewModel = parameter as SignViewModel;
+                var sign = _journalStore.Signs.Where(sign => sign.Id == signViewModel?.SignId).First();
 
+                // TODO: Check refs
                 var result = MessageBox.Show($"Are you sure you want to delete this sign?",
                                            "Confirmation",
                                            MessageBoxButton.YesNo,
                                            MessageBoxImage.Question);
 
-                var index = _dreamEditorViewModel.Signs.ToList().FindIndex(d => d.Id == signVM.Id);
-                _dreamEditorViewModel.Signs.RemoveAt(index);
-
                 if (result == MessageBoxResult.Yes)
                 {
-                    _journalStore.DeleteSign(signVM);
+                    _journalStore.DeleteSign(sign);
                 }
-
             }
         }
         internal class AddNewSign : CommandBase
@@ -79,16 +79,9 @@ namespace DesktopApp.Commands
         }
         internal class Close : CommandBase
         {
-            private readonly WindowActions _dreamEditorWindowActions;
-
-            public Close(WindowActions dreamEditorWindowActions)
-            {
-                _dreamEditorWindowActions = dreamEditorWindowActions;
-            }
-
             public override void Execute(object? parameter)
             {
-                _dreamEditorWindowActions.CLose();
+                CloseCurrentWindow();
             }
         }
 
@@ -97,16 +90,12 @@ namespace DesktopApp.Commands
             private readonly JournalStore _journalStore;
             private readonly DreamEditorViewModel _dreamEditorViewModel;
             private readonly IDream _dream;
-            private readonly WindowActions _dreamEditorWindowActions;
-            private readonly Journal _journal;
 
-            public Save(Journal journal, JournalStore journalStore, WindowActions dreamEditorWindowActions, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
+            public Save(Journal journal, JournalStore journalStore, DreamEditorViewModel dreamEditorViewModel, IDream? dream = null)
             {
                 _journalStore = journalStore;
                 _dreamEditorViewModel = dreamEditorViewModel;
                 _dream = dream ?? new Dream();
-                _dreamEditorWindowActions = dreamEditorWindowActions;
-                _journal = journal;
             }
 
             public override void Execute(object? parameter)
@@ -121,6 +110,7 @@ namespace DesktopApp.Commands
                 _dream.DreamDateTime = _dreamEditorViewModel.DreamDateTime;
                 _dream.Position = _dreamEditorViewModel.SleepingPosition;
                 _dream.Lucidity = _dreamEditorViewModel.LucidityLevel;
+                _dream.AssociatedSignIds = _dreamEditorViewModel.Signs.Where(sign => sign.IsSelected == true).Select(sign => sign.SignId).ToList();
 
                 if (_dream.Id != null)
                 {
@@ -131,9 +121,7 @@ namespace DesktopApp.Commands
                     _journalStore.AddItem<IDream>(_dream);
                 }
 
-                _journal.AssociateSignsWithDream(_dream.Id, _dreamEditorViewModel.Signs.Where(sign => sign.IsChecked == true).Select(sign => sign.Id));
-
-                _dreamEditorWindowActions.CLose();
+                CloseCurrentWindow();
             }
         }
     }

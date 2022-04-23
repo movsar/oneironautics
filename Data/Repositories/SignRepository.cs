@@ -28,26 +28,6 @@ namespace Data.Repositories
             return currentlyAssociatedSignIds.ToArray();
         }
 
-        public void CreateDreamAssociations(string dreamId, IEnumerable<string> newSignIds)
-        {
-            _realmInstance.Write(() =>
-            {
-                // Remove old ones
-                var previousAssociations = _realmInstance
-                    .All<SignToDreamEntity>()
-                    .Where(signToDream => signToDream.DreamId == dreamId);
-
-                foreach (var association in previousAssociations)
-                {
-                    _realmInstance.Remove(association);
-                }
-
-                // Add new ones
-                foreach (var signId in newSignIds)
-                {
-                    _realmInstance.Add(new SignToDreamEntity() { SignId = signId, DreamId = dreamId });
-                }
-            });
-        }
+      
     }
 }

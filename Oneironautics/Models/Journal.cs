@@ -10,19 +10,12 @@ namespace DesktopApp.Models
 {
     public class Journal
     {
-        private Storage _storage;
+        private readonly Storage _storage;
         public Journal(Storage storage)
         {
             _storage = storage;
         }
-        public void AssociateSignsWithDream(string dreamId, IEnumerable<string> signIds)
-        {
-            _storage.SignRepository.CreateDreamAssociations(dreamId, signIds);
-        }
-        public string[] GetSignIdsByDreamAssociations(string dreamId)
-        {
-            return _storage.SignRepository.GetSignIdsByDreamAssociations(dreamId);
-        }
+     
         private IRepository SelectRepository<TModel>()
         {
             var t = typeof(TModel);

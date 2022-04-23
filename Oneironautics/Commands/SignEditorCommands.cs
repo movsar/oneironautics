@@ -1,4 +1,5 @@
 ﻿using Data.Interfaces;
+using Data.Models;
 using DesktopApp.Models;
 using DesktopApp.Stores;
 using DesktopApp.ViewModels;
@@ -8,22 +9,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DesktopApp.Commands
 {
     public class SignEditorCommands
     {
+        internal class Close : CommandBase
+        {
+            public override void Execute(object? parameter)
+            {
+                CloseCurrentWindow();
+            }
+        }
         internal class Save : CommandBase
         {
             private readonly JournalStore _journalStore;
             private readonly SignEditorViewModel _signEditorViewModel;
             private readonly ISign _sign;
-            private WindowActions _windowActions;
 
-            public Save(JournalStore journalStore, SignEditorViewModel signEditorViewModel, WindowActions windowActions, ISign? sign = null)
+            public Save(JournalStore journalStore, SignEditorViewModel signEditorViewModel, ISign? sign = null)
             {
                 _journalStore = journalStore;
-                _windowActions= windowActions;
                 _signEditorViewModel = signEditorViewModel;
                 _sign = sign ?? new Sign();
             }
@@ -42,8 +49,7 @@ namespace DesktopApp.Commands
                 {
                     _journalStore.AddItem<ISign>(_sign);
                 }
-
-                _windowActions.CLose();
+                CloseCurrentWindow();
             }
         }
     }

@@ -42,7 +42,7 @@ namespace Data.Repositories
             model.Id = entity.Id;
         }
 
-        public void Update<TModel>(TModel model) where TModel : IModelBase
+        public virtual void Update<TModel>(TModel model) where TModel : IModelBase
         {
             dynamic entity = _realmInstance.Find<TEntity>(model.Id);
             _realmInstance.Write(() =>
@@ -51,7 +51,7 @@ namespace Data.Repositories
             });
         }
 
-        public void Delete<TModel>(TModel model) where TModel : IModelBase
+        public virtual void Delete<TModel>(TModel model) where TModel : IModelBase
         {
             var entity = _realmInstance.Find<TEntity>(model.Id);
             _realmInstance.Write(() =>
@@ -60,7 +60,7 @@ namespace Data.Repositories
             });
         }
 
-        public IEnumerable<TModel> GetAll<TModel>() where TModel : IModelBase
+        public virtual IEnumerable<TModel> GetAll<TModel>() where TModel : IModelBase
         {
             var entries = _realmInstance.All<TEntity>();
             return EntitiesToModels<TEntity, TModel>(entries);

@@ -1,4 +1,5 @@
 ﻿using Data.Enums;
+using Data.Interfaces;
 using DesktopApp.Models;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,18 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.ViewModels
 {
-    internal class SignViewModel : Sign
+    internal class SignViewModel : ViewModelBase
     {
-        private bool _isChecked;
-        public bool IsChecked
+        private readonly ISign _sign;
+        public SignViewModel(ISign sign, bool isSelected)
         {
-            get { return _isChecked; }
-            set { SetProperty(ref _isChecked, value, nameof(IsChecked)); }
+            _sign = sign;
+            IsSelected = isSelected;
         }
+        public string SignId => _sign.Id;
+        public string Title => _sign.Title;
+        public string Description => _sign.Description;
+        public SignType SignType => _sign.Type;
+        public bool IsSelected { get; set; }
     }
 }

@@ -134,7 +134,7 @@
 
                     <TreeView.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsChecked}">
+                            <CheckBox IsChecked="{Binding IsSelected}">
                                 <CheckBox.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem 
@@ -167,7 +167,7 @@
                     </TreeView.ItemContainerStyle>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsChecked}">
+                            <CheckBox IsChecked="{Binding IsSelected}">
                                 <CheckBox.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem 
@@ -200,7 +200,7 @@
                     </TreeView.ItemContainerStyle>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsChecked}">
+                            <CheckBox IsChecked="{Binding IsSelected}">
                                 <CheckBox.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem 
@@ -233,7 +233,7 @@
                     </TreeView.ItemContainerStyle>
                     <TreeView.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsChecked}">
+                            <CheckBox IsChecked="{Binding IsSelected}">
                                 <CheckBox.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem 

@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using System;
 using Data.Enums;
+using System.Collections.Generic;
 
 namespace Data.Interfaces
 {
@@ -12,5 +13,6 @@ namespace Data.Interfaces
         DateTimeOffset DreamDateTime { get; set; }
         LucidityLevel Lucidity { get; set; }
         SleepingPosition Position { get; set; }
+        IList<string> AssociatedSignIds { get; set; }
     }
 }

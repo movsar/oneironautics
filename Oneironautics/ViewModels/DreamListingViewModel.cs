@@ -15,7 +15,7 @@ using DesktopApp.Models;
 
 namespace DesktopApp.ViewModels
 {
-    internal class DreamListingViewModel : UIElement
+    internal class DreamListingViewModel : ViewModelBase
     {
         public ICommand AddNewDreamAction { get; }
         public ICommand OpenDreamAction { get; }

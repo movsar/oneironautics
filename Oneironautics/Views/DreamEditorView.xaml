@@ -14,11 +14,11 @@
 
     <mah:MetroWindow.InputBindings>
         <KeyBinding Key="Esc"
-                    Command="{Binding CloseWindowAction}"/>
+                    Command="{Binding Close}"/>
 
         <KeyBinding Modifiers="Ctrl" 
                     Key="Return"
-                    Command="{Binding SaveDreamAction}"/>
+                    Command="{Binding Save}"/>
     </mah:MetroWindow.InputBindings>
 
     <Grid
@@ -147,7 +147,7 @@
         <Grid Grid.Row="3" Grid.Column="1" Margin="0 0 10 0">
             <Button
                     Width="100"
-                    Command="{Binding SaveDreamAction}"
+                    Command="{Binding Save}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Content="Ok"

@@ -37,8 +37,8 @@ namespace Data.Entities
             get { return (SleepingPosition)PositionId; }
             set { PositionId = (int)value; }
         }
-
-        public RealmList<SignEntity> Signs;
+        [Ignored]
+        public IList<string> AssociatedSignIds { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
         public DateTimeOffset ModifiedAt { get; set; } = DateTimeOffset.Now;

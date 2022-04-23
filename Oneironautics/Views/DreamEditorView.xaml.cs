@@ -29,8 +29,7 @@ namespace DesktopApp.Views
         {
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Light.Blue");
-            WindowActions windowActions = new WindowActions(() => { this.Close(); });
-            DataContext = new DreamEditorViewModel(journal, journalStore, windowActions, dream);
+            DataContext = new DreamEditorViewModel(journal, journalStore, dream);
         }
     }
 }

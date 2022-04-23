@@ -11,10 +11,10 @@ using System.Linq;
 
 namespace DesktopApp.ViewModels
 {
-    internal class DreamEditorViewModel : UiElementBase
+    internal class DreamEditorViewModel : ViewModelBase
     {
-        public ICommand CloseWindowAction { get; }
-        public ICommand SaveDreamAction { get; }
+        public ICommand Close { get; }
+        public ICommand Save { get; }
         public ICommand AddNewSign { get; }
         public ICommand DeleteSign { get; }
         public ICommand EditSign { get; }
@@ -24,7 +24,7 @@ namespace DesktopApp.ViewModels
         {
             get
             {
-                var innerAwarenessSigns = Signs.Where(sign => sign.Type == SignType.InnerAwareness);
+                var innerAwarenessSigns = Signs.Where(sign => sign.SignType == SignType.InnerAwareness);
                 var signs = new ObservableCollection<SignViewModel>();
                 foreach (var sign in innerAwarenessSigns)
                 {
@@ -35,11 +35,11 @@ namespace DesktopApp.ViewModels
         }
 
         public IEnumerable<SignViewModel> ActionSigns =>
-            Signs.Where(sign => sign.Type == SignType.Action);
+            Signs.Where(sign => sign.SignType == SignType.Action);
         public IEnumerable<SignViewModel> FormSigns =>
-            Signs.Where(sign => sign.Type == SignType.Form);
+            Signs.Where(sign => sign.SignType == SignType.Form);
         public IEnumerable<SignViewModel> ContextSigns =>
-            Signs.Where(sign => sign.Type == SignType.Context);
+            Signs.Where(sign => sign.SignType == SignType.Context);
 
         public IEnumerable<string> SleepingPositions { get; set; } = Enum.GetNames(typeof(SleepingPosition));
         public IEnumerable<string> LucidityLevels { get; set; } = Enum.GetNames(typeof(LucidityLevel));
@@ -108,18 +108,14 @@ namespace DesktopApp.ViewModels
             }
         }
 
-        private string[] _checkedSignIds;
+        private IList<string> _checkedSignIds;
 
         private void LoadSignsForTheDream()
         {
-            var signsAsViewModels = _journalStore.Signs.Select(sign => new SignViewModel()
-            {
-                Id = sign.Id,
-                Title = sign.Title,
-                Type = sign.Type,
-                Description = sign.Description,
-                IsChecked = _checkedSignIds != null && _checkedSignIds.Contains(sign.Id)
-            });
+            var signsAsViewModels = _journalStore.Signs
+                .Select(sign => new SignViewModel(
+                    sign, _checkedSignIds != null && _checkedSignIds.Contains(sign.Id))
+                );
 
             Signs.Clear();
 
@@ -129,7 +125,7 @@ namespace DesktopApp.ViewModels
             }
         }
         private readonly JournalStore _journalStore;
-        public DreamEditorViewModel(Journal journal, JournalStore journalStore, WindowActions windowActions, IDream? dream = null)
+        public DreamEditorViewModel(Journal journal, JournalStore journalStore, IDream? dream = null)
         {
             // Load dream data (when opening existing dream)
             _journalStore = journalStore;
@@ -141,14 +137,13 @@ namespace DesktopApp.ViewModels
                 DreamDateTime = new DateTime(dream.DreamDateTime.Ticks);
                 SleepingPosition = dream.Position;
                 LucidityLevel = dream.Lucidity;
-
-                _checkedSignIds = journal.GetSignIdsByDreamAssociations(dream.Id);
+                _checkedSignIds = dream.AssociatedSignIds;
             }
 
             LoadSignsForTheDream();
 
-            CloseWindowAction = new DreamEditorCommands.Close(windowActions);
-            SaveDreamAction = new DreamEditorCommands.Save(journal, journalStore, windowActions, this, dream);
+            Close = new DreamEditorCommands.Close();
+            Save = new DreamEditorCommands.Save(journal, journalStore, this, dream);
 
             AddNewSign = new DreamEditorCommands.AddNewSign(journalStore);
             EditSign = new DreamEditorCommands.EditSign(journalStore);
