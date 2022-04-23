@@ -9,12 +9,15 @@ DreamListingView:
 DreamEditorView:
 	* Set default focus to Content - done
 	* Do not allow empty dreams - done
-	* Stick elements to different corners for graceful resize
+	* Stick elements to different corners for graceful resize - done
 	
 	SignSelectionView:
 		* Add Delete menuitem with confirmation dialogue
-		* Add Edit menuitem
+		* Add Edit menuitem - done
 		
 	SignEditorView:
-		* Make the window modal
-		* Anchor the Description and Button to the bottom
+		* Make the window modal - done
+		* Anchor the Description and Button to the bottom - done
+
+Bugs:
+	Ctrl+Enter in SignEditor doesn't work correctly

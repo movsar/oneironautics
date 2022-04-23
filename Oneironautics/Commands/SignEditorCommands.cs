@@ -38,6 +38,8 @@ namespace DesktopApp.Commands
 
             public override void Execute(object? parameter)
             {
+                if (String.IsNullOrEmpty(_signEditorViewModel.Title?.Trim())) return;
+
                 _sign.Title = _signEditorViewModel.Title;
                 _sign.Description = _signEditorViewModel.Description;
                 _sign.Type = _signEditorViewModel.SignType;

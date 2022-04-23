@@ -95,10 +95,7 @@ namespace DesktopApp.Commands
 
             public override void Execute(object? parameter)
             {
-                if (_dreamEditorViewModel.Content == null || _dreamEditorViewModel.Content.Trim().Length == 0)
-                {
-                    return;
-                }
+                if (String.IsNullOrEmpty(_dreamEditorViewModel.Content?.Trim())) return;
 
                 _dream.Content = _dreamEditorViewModel.Content;
                 _dream.Notes = _dreamEditorViewModel.Notes;
