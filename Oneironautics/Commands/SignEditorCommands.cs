@@ -22,10 +22,11 @@ namespace DesktopApp.Commands
                 CloseCurrentWindow();
             }
         }
+
         internal class Save : CommandBase
         {
             private readonly JournalStore _journalStore;
-            private readonly SignEditorViewModel _signEditorViewModel;
+            private SignEditorViewModel _signEditorViewModel;
             private readonly ISign _sign;
 
             public Save(JournalStore journalStore, SignEditorViewModel signEditorViewModel, ISign? sign = null)

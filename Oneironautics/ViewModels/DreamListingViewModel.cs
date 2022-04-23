@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using DesktopApp.Models;
+using Data.Models;
 
 namespace DesktopApp.ViewModels
 {
@@ -22,12 +23,12 @@ namespace DesktopApp.ViewModels
         public ICommand SelectionChanged { get; }
         public ICommand DeleteSelectedDream { get; }
         public ICommand KeyPressCommand { get; }        
-        public IEnumerable<IDream> SelectedDreams { get; set; }
-
-        public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
+        
+        public ObservableCollection<DreamViewModel> Dreams { get; }
+        public IEnumerable<DreamViewModel> SelectedDreams { get; set; }
+        
         public DreamListingViewModel(JournalStore journalStore)
         {
-
             DreamListingCommands.SelectionChangedCommand.SelectionHasChanged += OnSelectionChanged;
             
             SelectionChanged = new DreamListingCommands.SelectionChangedCommand();
@@ -36,22 +37,45 @@ namespace DesktopApp.ViewModels
             DeleteSelectedDream = new DreamListingCommands.DeleteDream(journalStore, this);
             KeyPressCommand = new DreamListingCommands.KeyPressCommand(journalStore, this);
 
-            RefreshDreams(journalStore);
-        }
-
-        private void RefreshDreams(JournalStore journalStore)
-        {
-            Dreams.Clear();
+            Dreams = new ObservableCollection<DreamViewModel>();
             foreach (var dream in journalStore.Dreams)
             {
-                Dreams.Add(dream);
+                Dreams.Add(new DreamViewModel(dream));
             }
-        }
 
-        public void OnSelectionChanged(IEnumerable<IDream> selectedDreams)
+            journalStore.ItemAdded += OnDreamAdded;
+            journalStore.ItemUpdated += OnDreamUpdated;
+            journalStore.ItemDeleted += OnDreamRemoved;
+        }
+        public void OnSelectionChanged(IEnumerable<DreamViewModel> selectedDreamVms)
         {
-            SelectedDreams = selectedDreams;
+            SelectedDreams = selectedDreamVms;
         }
 
+        private void OnDreamAdded(IModelBase model)
+        {
+            if (model.GetType().IsAssignableTo(typeof(IDream)) == false) return;
+
+            var dream = model as IDream;
+            Dreams.Add(new DreamViewModel(dream));
+        }
+
+        private void OnDreamUpdated(IModelBase model)
+        {
+            if (model.GetType().IsAssignableTo(typeof(IDream)) == false) return;
+
+            var dream = model as IDream;
+            var index = Dreams.ToList().FindIndex(d => d.DreamId == dream!.Id);
+            Dreams[index] = new DreamViewModel(dream);
+        }
+
+        private void OnDreamRemoved(IModelBase model)
+        {
+            if (model.GetType().IsAssignableTo(typeof(IDream)) == false) return;
+
+            var dream = model as IDream;
+            var index = Dreams.ToList().FindIndex(d => d.DreamId == dream!.Id);
+            Dreams.RemoveAt(index);
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace DesktopApp.Models
             return SelectRepository<TModel>().GetAll<TModel>();
         }
 
-        public IEnumerable<IDream> FindDreamsByContent(string str)
+        public IEnumerable<ISign> FindDreamsByContent(string str)
         {
             return _storage.DreamsRepository.FindByContents(str);
         }

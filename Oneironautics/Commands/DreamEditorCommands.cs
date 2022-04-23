@@ -1,4 +1,4 @@
-﻿using Data;
+﻿ using Data;
 using Data.Interfaces;
 using Data.Models;
 using DesktopApp.Models;
@@ -29,9 +29,8 @@ namespace DesktopApp.Commands
             public override void Execute(object? parameter)
             {
                 var signViewModel = parameter as SignViewModel;
-                var sign = _journalStore.Signs.Where(sign => sign.Id == signViewModel?.SignId).First();
 
-                var signEditorWindow = new SignEditorView(_journalStore, sign!);
+                var signEditorWindow = new SignEditorView(_journalStore, signViewModel?.SignId!);
                 signEditorWindow.ShowDialog();
             }
         }
@@ -114,11 +113,11 @@ namespace DesktopApp.Commands
 
                 if (_dream.Id != null)
                 {
-                    _journalStore.UpdateItem<IDream>(_dream);
+                    _journalStore.UpdateItem<ISign>(_dream);
                 }
                 else
                 {
-                    _journalStore.AddItem<IDream>(_dream);
+                    _journalStore.AddItem<ISign>(_dream);
                 }
 
                 CloseCurrentWindow();

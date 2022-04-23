@@ -16,9 +16,9 @@ namespace DesktopApp.Commands
 {
     internal class DreamListingCommands
     {
-        private static void OpenDreamEditorAction(JournalStore journalStore, IDream? dream = null)
+        private static void OpenDreamEditorAction(JournalStore journalStore, string? dreamId = null)
         {
-            var dreamEditorWindow = new DreamEditorView(journalStore, dream);
+            var dreamEditorWindow = new DreamEditorView(journalStore, dreamId);
             dreamEditorWindow.Show();
         }
         private static void DeleteAction(JournalStore journalStore, DreamListingViewModel dreamListingViewModel)
@@ -30,7 +30,7 @@ namespace DesktopApp.Commands
 
             if (result == MessageBoxResult.Yes)
             {
-                journalStore.DeleteItems(dreamListingViewModel.SelectedDreams);
+                journalStore.DeleteItems(journalStore.Dreams.Where(dream => dreamListingViewModel.SelectedDreams.Select(dvm => dvm.DreamId).Contains(dream.Id)));
             }
         }
 
@@ -74,12 +74,12 @@ namespace DesktopApp.Commands
 
         internal class SelectionChangedCommand : CommandBase
         {
-            public static event Action<IEnumerable<IDream>>? SelectionHasChanged;
+            public static event Action<IEnumerable<DreamViewModel>>? SelectionHasChanged;
 
             public override void Execute(object? parameter)
             {
                 var selectedItems = parameter as System.Collections.IList;
-                SelectionHasChanged?.Invoke(selectedItems.Cast<IDream>());
+                SelectionHasChanged?.Invoke(selectedItems.Cast<DreamViewModel>());
             }
         }
 
@@ -111,9 +111,9 @@ namespace DesktopApp.Commands
             {
                 // Get the source where mouse has been clicked, if it's not over a dream, open new dream window
                 dynamic eventArgs = parameter as MouseButtonEventArgs;
-                var dream = eventArgs!.OriginalSource.DataContext as IDream;
+                var dreamViewModel = eventArgs!.OriginalSource.DataContext as DreamViewModel;
 
-                OpenDreamEditorAction(_journalStore, dream);
+                OpenDreamEditorAction(_journalStore, dreamViewModel?.DreamId);
             }
         }
     }

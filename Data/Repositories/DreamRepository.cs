@@ -78,10 +78,10 @@ namespace Data.Repositories
             UpdateSignAssociations(dream);
         }
 
-        public IEnumerable<IDream> FindByContents(string str)
+        public IEnumerable<ISign> FindByContents(string str)
         {
             var result = _realmInstance.All<DreamEntity>().Where(dreamEntity => dreamEntity.Content.Contains(str));
-            return EntitiesToModels<DreamEntity, IDream>(result);
+            return EntitiesToModels<DreamEntity, ISign>(result);
         }
 
         public override void Update<TModel>(TModel model)

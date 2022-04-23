@@ -104,10 +104,17 @@ namespace DesktopApp.ViewModels
             }
         }
         private readonly JournalStore _journalStore;
-        public DreamEditorViewModel(JournalStore journalStore, IDream? dream = null)
+        public DreamEditorViewModel(JournalStore journalStore, string? dreamId = null)
         {
             // Load dream data (when opening existing dream)
             _journalStore = journalStore;
+            var dream = _journalStore.Dreams.FirstOrDefault(d => d.Id == dreamId);
+
+            // Load all signs
+            foreach (var sign in _journalStore.Signs)
+            {
+                Signs.Add(new SignViewModel(sign));
+            }
 
             if (dream != null)
             {
@@ -126,17 +133,42 @@ namespace DesktopApp.ViewModels
             EditSign = new DreamEditorCommands.EditSign(journalStore);
             DeleteSign = new DreamEditorCommands.DeleteSign(journalStore, this);
 
-            journalStore.ItemAdded += OnSignChanged;
-            journalStore.ItemUpdated += OnSignChanged;
-            journalStore.ItemDeleted += OnSignChanged;
+            journalStore.ItemAdded += OnSignAdded;
+            journalStore.ItemUpdated += OnSignUpdated;
+            journalStore.ItemDeleted += OnSignDeleted;
         }
-        private void OnSignChanged(IModelBase model)
+
+        private void OnSignAdded(IModelBase model)
         {
+            if (model.GetType().IsAssignableTo(typeof(ISign)) == false) return;
+
             var sign = model as ISign;
-            if (sign == null)
-            {
-                return;
-            }
+            Signs.Add(new SignViewModel(sign));
+            OnSignChanged(sign);
+        }
+
+        private void OnSignUpdated(IModelBase model)
+        {
+            if (model.GetType().IsAssignableTo(typeof(ISign)) == false) return;
+
+            var sign = model as ISign;
+            var index = Signs.ToList().FindIndex(s => s.SignId == sign!.Id);
+            Signs[index] = new SignViewModel(sign, Signs[index].IsSelected);
+            OnSignChanged(sign);
+        }
+
+        private void OnSignDeleted(IModelBase model)
+        {
+            if (model.GetType().IsAssignableTo(typeof(ISign)) == false) return;
+
+            var sign = model as ISign;
+            var index = Signs.ToList().FindIndex(s => s.SignId == sign!.Id);
+            Signs.RemoveAt(index);
+            OnSignChanged(sign);
+        }
+
+        private void OnSignChanged(ISign sign)
+        {
             switch (sign.Type)
             {
                 case SignType.InnerAwareness:

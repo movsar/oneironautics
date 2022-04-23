@@ -18,21 +18,24 @@ namespace DesktopApp.ViewModels
         public ICommand Close { get; }
         public IEnumerable<string> SignTypes { get; set; } = Enum.GetNames(typeof(SignType));
 
-        internal SignEditorViewModel(JournalStore journalStore, ISign? sign)
+        public SignEditorViewModel(JournalStore journalStore, string? signId)
         {
-            Save = new SignEditorCommands.Save(journalStore, this, sign);
-            Close = new SignEditorCommands.Close();
-
+            var sign = journalStore.Signs.FirstOrDefault(s => s.Id == signId);
             if (sign != null)
             {
                 Title = sign.Title;
                 Description = sign.Description;
                 SignType = sign.Type;
             }
+
+            var g = this;
+
+            Save = new SignEditorCommands.Save(journalStore, g, sign);
+            Close = new SignEditorCommands.Close();
         }
 
-        private string _title = "";
-        public string Title
+        private string? _title;
+        public string? Title
         {
             get
             {
@@ -42,11 +45,12 @@ namespace DesktopApp.ViewModels
             {
                 _title = value;
                 SetProperty(ref _title, value, nameof(Title));
+                OnPropertyChanged(Title);
             }
         }
 
-        private string _description = "";
-        public string Description
+        private string? _description;
+        public string? Description
         {
             get
             {

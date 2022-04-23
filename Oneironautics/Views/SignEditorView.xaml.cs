@@ -24,10 +24,10 @@ namespace DesktopApp.Views
     /// </summary>
     public partial class SignEditorView : MetroWindow
     {
-        public SignEditorView(JournalStore journalStore, ISign? sign= null)
+        public SignEditorView(JournalStore journalStore, string? signId = null)
         {
             InitializeComponent();
-            DataContext = new SignEditorViewModel(journalStore, sign);
+            DataContext = new SignEditorViewModel(journalStore, signId);
         }
     }
 }

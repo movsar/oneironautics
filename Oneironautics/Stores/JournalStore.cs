@@ -23,41 +23,59 @@ namespace DesktopApp.Stores
             LoadAllDreams();
             LoadAllSigns();
         }
+        public event Action<IEnumerable<IDream>>? DreamsCollectionChanged;
+        public event Action<IEnumerable<ISign>>? SignsCollectionChanged;
 
-        public event Action<IModelBase> ItemAdded;
-        public event Action<IModelBase> ItemUpdated;
-        public event Action<IModelBase> ItemDeleted;
-
-        private IList<TModel> SelectCollection<TModel>() where TModel : IModelBase
+        public event Action<IModelBase>? ItemAdded;
+        public event Action<IModelBase>? ItemUpdated;
+        public event Action<IModelBase>? ItemDeleted;
+        private void OnCollectionChanged(string collectionName)
+        {
+            switch (collectionName)
+            {
+                case nameof(Dreams):
+                    DreamsCollectionChanged?.Invoke(Dreams);
+                    break;
+                case nameof(Signs):
+                    SignsCollectionChanged?.Invoke(Signs);
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
+        private void OnItemAdded(IModelBase item, string collectionName)
+        {
+            ItemAdded?.Invoke(item);
+            OnCollectionChanged(collectionName);
+        }
+        private void OnItemUpdated(IModelBase item, string collectionName)
+        {
+            ItemUpdated?.Invoke(item);
+            OnCollectionChanged(collectionName);
+        }
+        private void OnItemDeleted(IModelBase item, string collectionName)
+        {
+            ItemDeleted?.Invoke(item);
+            OnCollectionChanged(collectionName);
+        }
+        private (string, IList<TModel>) SelectCollection<TModel>() where TModel : IModelBase
         {
             var t = typeof(TModel);
             switch (t)
             {
                 case var _ when t.IsAssignableTo(typeof(IDream)):
                 case var _ when t.IsAssignableFrom(typeof(IDream)):
-                    return (IList<TModel>)Dreams;
+                    return new(nameof(Dreams), (IList<TModel>)Dreams);
 
                 case var _ when t.IsAssignableTo(typeof(ISign)):
                 case var _ when t.IsAssignableFrom(typeof(ISign)):
-                    return (IList<TModel>)Signs;
+                    return new(nameof(Signs), (IList<TModel>)Signs);
 
                 default:
                     throw new Exception();
             }
         }
-
-        internal void AddItem<TModel>(IModelBase item) where TModel : IModelBase
-        {
-            // Add to DB
-            _journal.AddItem<TModel>(item);
-
-            // Add to collection
-            SelectCollection<TModel>().Add((TModel)item);
-
-            // Let everybody know
-            ItemAdded?.Invoke(item);
-        }
-
+      
         internal void LoadAllDreams()
         {
             // Load from DB
@@ -84,38 +102,54 @@ namespace DesktopApp.Stores
             }
         }
 
+        internal void AddItem<TModel>(IModelBase item) where TModel : IModelBase
+        {
+            // Add to DB
+            _journal.AddItem<TModel>(item);
+
+            // Add to collection
+            var (collectionName, items) = SelectCollection<TModel>();
+            items.Add((TModel)item);
+
+            // Let everybody know
+            OnItemAdded(item, collectionName);
+        }
+
         public void DeleteItem<TModel>(TModel item) where TModel : IModelBase
         {
             // Remove from DB
             _journal.DeleteItem<TModel>(item);
 
             // Remove from collection
-            var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == item.Id);
-            SelectCollection<TModel>().RemoveAt(index);
+            var (collectionName, items) = SelectCollection<TModel>();
+            var index = items.ToList().FindIndex(d => d.Id == item.Id);
+            items.RemoveAt(index);
 
             // Let everybody know
-            ItemDeleted?.Invoke(item);
+            OnItemDeleted(item, collectionName);
         }
 
         public void DeleteItems<TModel>(IEnumerable<TModel> itemsToDelete) where TModel : IModelBase
         {
-            foreach (var item in itemsToDelete)
+            var immutableItems = itemsToDelete.ToList();
+            foreach (var item in immutableItems)
             {
-               DeleteItem(item);
+                DeleteItem(item);
             }
         }
 
         internal void UpdateItem<TModel>(IModelBase item) where TModel : IModelBase
         {
             // Update in runtime collection
-            var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == item.Id);
-            SelectCollection<TModel>()[index] = (TModel)item;
+            var (collectionName, items) = SelectCollection<TModel>();
+            var index = items.ToList().FindIndex(d => d.Id == item.Id);
+            items[index] = (TModel)item;
 
             // Save to DB
             _journal.UpdateItem<TModel>(item);
 
             // Let everybody know
-            ItemUpdated?.Invoke(item);
+            OnItemUpdated(item, collectionName);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace DesktopApp.ViewModels
     internal class SignViewModel : ViewModelBase
     {
         private readonly ISign _sign;
-        public SignViewModel(ISign sign, bool isSelected)
+        public SignViewModel(ISign sign, bool isSelected = false)
         {
             _sign = sign;
             IsSelected = isSelected;
