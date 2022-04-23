@@ -24,7 +24,7 @@ namespace DesktopApp.ViewModels
         public ICommand KeyPressCommand { get; }        
         public IEnumerable<IDream> SelectedDreams { get; set; }
 
-        public ObservableCollection<IDream> Dreams { get; }
+        public ObservableCollection<IDream> Dreams { get; } = new ObservableCollection<IDream>();
         public DreamListingViewModel(JournalStore journalStore)
         {
 

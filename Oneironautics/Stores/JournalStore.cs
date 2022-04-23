@@ -109,7 +109,7 @@ namespace DesktopApp.Stores
         {
             // Update in runtime collection
             var index = SelectCollection<TModel>().ToList().FindIndex(d => d.Id == item.Id);
-            ((ObservableCollection<TModel>)SelectCollection<TModel>())[index] = (TModel)item;
+            SelectCollection<TModel>()[index] = (TModel)item;
 
             // Save to DB
             _journal.UpdateItem<TModel>(item);
