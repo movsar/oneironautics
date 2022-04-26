@@ -19,11 +19,10 @@ namespace DesktopApp.ViewModels
     internal class DreamListingViewModel : ViewModelBase
     {
         public ICommand AddNewDreamAction { get; }
-        public ICommand OpenDreamAction { get; }
+        public ICommand OpenDreamAction { get; }    
         public ICommand SelectionChanged { get; }
         public ICommand DeleteSelectedDream { get; }
         public ICommand KeyPressCommand { get; }        
-        
         public ObservableCollection<DreamViewModel> Dreams { get; }
         public IEnumerable<DreamViewModel> SelectedDreams { get; set; }
         

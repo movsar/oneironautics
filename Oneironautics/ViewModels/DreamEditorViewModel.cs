@@ -54,6 +54,20 @@ namespace DesktopApp.ViewModels
             }
         }
 
+        private string _title;
+        public string Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                SetProperty(ref _title, value, nameof(Title));
+            }
+        }
+
         private string _content;
         public string Content
         {
@@ -118,6 +132,7 @@ namespace DesktopApp.ViewModels
 
             if (dream != null)
             {
+                Title = dream.Title;
                 Content = dream.Content;
                 Notes = dream.Notes;
                 DreamDateTime = new DateTime(dream.DreamDateTime.Ticks);

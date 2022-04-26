@@ -97,6 +97,7 @@ namespace DesktopApp.Commands
             {
                 if (String.IsNullOrEmpty(_dreamEditorViewModel.Content?.Trim())) return;
 
+                _dream.Title = _dreamEditorViewModel.Title;
                 _dream.Content = _dreamEditorViewModel.Content;
                 _dream.Notes = _dreamEditorViewModel.Notes;
                 _dream.DreamDateTime = _dreamEditorViewModel.DreamDateTime;

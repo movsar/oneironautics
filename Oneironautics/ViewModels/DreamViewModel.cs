@@ -16,6 +16,7 @@ namespace DesktopApp.ViewModels
         private readonly IDream _dream;
         public DreamViewModel(IDream dream) => _dream = dream;
         public string DreamId => _dream.Id;
+        public string Title => _dream.Title;
         public string Index => $"#{_dream.Index}";
         public string Content => _dream.Content;
         public string Notes => _dream.Notes;

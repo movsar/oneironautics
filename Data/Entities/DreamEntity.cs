@@ -16,6 +16,7 @@ namespace Data.Entities
         public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         public int Index { get; set; }
+        public string Title { get; set; }
 
         [Required]
         public string Content { get; set; }
@@ -49,6 +50,7 @@ namespace Data.Entities
             var dream = model as IDream;
 
             Index = dream.Index;
+            Title = dream.Title;
             Position = dream.Position;
             Lucidity = dream.Lucidity;
             Content = dream.Content;

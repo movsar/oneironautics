@@ -6,8 +6,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopApp.Views" 
-        xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
-        mc:Ignorable="d"      
+        xmlns:viewmodels="clr-namespace:DesktopApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:DreamEditorViewModel}"
+        mc:Ignorable="d"
         Width="800" MinWidth="800" MaxWidth="800"
         Height="555" MinHeight="555" MaxHeight="555"
         >
@@ -38,25 +39,38 @@
         </Grid.RowDefinitions>
 
         <!--Title, Position, Lucidity and Date-->
-        <Grid Grid.Row="0" Grid.Column="0" Margin="0 5 0 0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+        <Grid Grid.Row="0" Grid.Column="0" Margin="0 5 0 0" Grid.ColumnSpan="2" HorizontalAlignment="Left">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="270"/>
+                <ColumnDefinition Width="150" SharedSizeGroup="ThirdColumn"/>
+                <ColumnDefinition Width="150" SharedSizeGroup="ThirdColumn"/>
                 <ColumnDefinition Width="200" SharedSizeGroup="ThirdColumn"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0"
                        Grid.Column="0"
+                       Text="Title"
+                       HorizontalAlignment="Left"
+            />
+
+            <TextBox  Grid.Row="1"
+                      Grid.Column="0"
+                      FontSize="16"
+                      Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"
+            />
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
                        Text="Position"
             />
 
             <ComboBox Grid.Row="1"
-                      Grid.Column="0"
+                      Grid.Column="1"
                       FontSize="16"
                       ItemsSource="{Binding SleepingPositions}"
                       SelectedItem="{Binding SleepingPosition, UpdateSourceTrigger=PropertyChanged}"
@@ -65,14 +79,14 @@
 
 
             <TextBlock Grid.Row="0"
-                       Grid.Column="1"
+                       Grid.Column="2"
                        Text="Lucidity"
                        Margin="10 0 0 0"
                        
             />
 
             <ComboBox Grid.Row="1"
-                      Grid.Column="1"
+                      Grid.Column="2"
                       FontSize="16"
                       Margin="10 0 0 0"
                       ItemsSource="{Binding LucidityLevels}"
@@ -81,13 +95,13 @@
             />
 
             <TextBlock Grid.Row="0"
-                       Grid.Column="2"
+                       Grid.Column="3"
                        Text="Dream Time"
                        Margin="10 0 0 0"
             />
 
             <mah:DateTimePicker Grid.Row="1"
-                     Grid.Column="2"
+                     Grid.Column="3"
                      FontSize="16"
                      Margin="10 0 0 0"
                      SelectedDateTime="{Binding DreamDateTime, UpdateSourceTrigger=PropertyChanged}"

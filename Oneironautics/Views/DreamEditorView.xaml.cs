@@ -28,7 +28,7 @@ namespace DesktopApp.Views
         public DreamEditorView(JournalStore journalStore, string? dreamId = null)
         {
             InitializeComponent();
-            ThemeManager.Current.ChangeTheme(this, "Light.Blue");
+            ThemeManager.Current.ChangeTheme(this, "Dark.Cyan");
             DataContext = new DreamEditorViewModel(journalStore, dreamId);
         }
     }
