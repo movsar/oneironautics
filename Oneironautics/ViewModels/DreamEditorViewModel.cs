@@ -1,13 +1,12 @@
 ﻿using Data.Interfaces;
-using DesktopApp.Models;
 using DesktopApp.Stores;
 using DesktopApp.Commands;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Data.Enums;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Data.Enums;
 
 namespace DesktopApp.ViewModels
 {
@@ -20,8 +19,12 @@ namespace DesktopApp.ViewModels
         public ICommand EditSign { get; }
 
         public ObservableCollection<SignViewModel> Signs { get; } = new();
+        public IEnumerable<SignViewModel> PersonSigns =>
+           Signs.Where(sign => sign.SignType == SignType.Person);
+        public IEnumerable<SignViewModel> ObjectSigns =>
+         Signs.Where(sign => sign.SignType == SignType.Object);
         public IEnumerable<SignViewModel> AwarenessSigns =>
-            Signs.Where(sign => sign.SignType == SignType.InnerAwareness);
+            Signs.Where(sign => sign.SignType == SignType.Awareness);
         public IEnumerable<SignViewModel> ActionSigns =>
             Signs.Where(sign => sign.SignType == SignType.Action);
         public IEnumerable<SignViewModel> FormSigns =>
@@ -186,7 +189,13 @@ namespace DesktopApp.ViewModels
         {
             switch (sign.Type)
             {
-                case SignType.InnerAwareness:
+                case SignType.Person:
+                    OnPropertyChanged(nameof(PersonSigns));
+                    break;
+                case SignType.Object:
+                    OnPropertyChanged(nameof(ObjectSigns));
+                    break;
+                case SignType.Awareness:
                     OnPropertyChanged(nameof(AwarenessSigns));
                     break;
                 case SignType.Action:

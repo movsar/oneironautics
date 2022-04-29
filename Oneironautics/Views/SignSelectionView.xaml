@@ -123,6 +123,72 @@
 
             <TreeViewItem>
                 <TreeViewItem.Header>
+                    <TextBlock Text="Person"></TextBlock>
+                </TreeViewItem.Header>
+                <TreeView ItemsSource="{Binding PersonSigns}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Margin" Value="0 2 0 0"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected}">
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            Header="Edit"
+                                            Command="{Binding DataContext.EditSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                        <MenuItem 
+                                            Header="Delete"
+                                            Command="{Binding DataContext.DeleteSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+
+                                <TextBlock Text="{Binding Title}"/>
+                            </CheckBox>
+                        </DataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </TreeViewItem>
+
+            <TreeViewItem>
+                <TreeViewItem.Header>
+                    <TextBlock Text="Object"></TextBlock>
+                </TreeViewItem.Header>
+                <TreeView ItemsSource="{Binding ObjectSigns}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Margin" Value="0 2 0 0"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected}">
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem 
+                                            Header="Edit"
+                                            Command="{Binding DataContext.EditSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                        <MenuItem 
+                                            Header="Delete"
+                                            Command="{Binding DataContext.DeleteSign, Source={x:Reference SignTree}}"
+                                            CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+
+                                <TextBlock Text="{Binding Title}"/>
+                            </CheckBox>
+                        </DataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </TreeViewItem>
+
+            <TreeViewItem>
+                <TreeViewItem.Header>
                     <TextBlock Text="Awareness"></TextBlock>
                 </TreeViewItem.Header>
                 <TreeView ItemsSource="{Binding AwarenessSigns}">
