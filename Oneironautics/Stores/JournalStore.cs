@@ -23,40 +23,22 @@ namespace DesktopApp.Stores
             LoadAllDreams();
             LoadAllSigns();
         }
-        public event Action<IEnumerable<IDream>>? DreamsCollectionChanged;
-        public event Action<IEnumerable<ISign>>? SignsCollectionChanged;
 
         public event Action<IModelBase>? ItemAdded;
         public event Action<IModelBase>? ItemUpdated;
         public event Action<IModelBase>? ItemDeleted;
-        private void OnCollectionChanged(string collectionName)
-        {
-            switch (collectionName)
-            {
-                case nameof(Dreams):
-                    DreamsCollectionChanged?.Invoke(Dreams);
-                    break;
-                case nameof(Signs):
-                    SignsCollectionChanged?.Invoke(Signs);
-                    break;
-                default:
-                    throw new Exception();
-            }
-        }
+    
         private void OnItemAdded(IModelBase item, string collectionName)
         {
             ItemAdded?.Invoke(item);
-            OnCollectionChanged(collectionName);
         }
         private void OnItemUpdated(IModelBase item, string collectionName)
         {
             ItemUpdated?.Invoke(item);
-            OnCollectionChanged(collectionName);
         }
         private void OnItemDeleted(IModelBase item, string collectionName)
         {
             ItemDeleted?.Invoke(item);
-            OnCollectionChanged(collectionName);
         }
         private (string, IList<TModel>) SelectCollection<TModel>() where TModel : IModelBase
         {
