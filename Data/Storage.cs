@@ -21,7 +21,7 @@ namespace Data
 
             if (cleanStart)
             {
-                Realm.DeleteRealm(DbConfiguration);
+                //Realm.DeleteRealm(DbConfiguration);
             }
 
             _realmInstance = Realm.GetInstance(DbConfiguration);

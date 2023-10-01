@@ -26,9 +26,9 @@
 
 
             <ListView.Background>
-                <ImageBrush ImageSource="/Views/Images/no-dreams-bg.jpg"
-                            Stretch="UniformToFill"
-                            />
+                <SolidColorBrush 
+                    Color="Black"
+                    />
             </ListView.Background>
 
             <i:Interaction.Triggers>

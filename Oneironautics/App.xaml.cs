@@ -3,15 +3,8 @@ using DesktopApp.Models;
 using DesktopApp.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DesktopApp.Commands;
 using DesktopApp.ViewModels;
 using DesktopApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace DesktopApp
