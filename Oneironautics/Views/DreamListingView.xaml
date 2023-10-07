@@ -25,10 +25,12 @@
                   ItemsSource="{Binding Dreams}">
 
 
+
             <ListView.Background>
-                <SolidColorBrush 
-                    Color="Black"
-                    />
+                <ImageBrush ImageSource="/Views/Images/weird-stuff.png"
+                            Stretch="UniformToFill"
+                            Opacity="0.1"
+                            />
             </ListView.Background>
 
             <i:Interaction.Triggers>

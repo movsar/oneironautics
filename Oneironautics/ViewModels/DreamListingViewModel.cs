@@ -37,7 +37,7 @@ namespace DesktopApp.ViewModels
             KeyPressCommand = new DreamListingCommands.KeyPressCommand(journalStore, this);
 
             Dreams = new ObservableCollection<DreamViewModel>();
-            foreach (var dream in journalStore.Dreams)
+            foreach (var dream in journalStore.Dreams.OrderByDescending(d => d.CreatedAt))
             {
                 Dreams.Add(new DreamViewModel(dream));
             }
@@ -56,7 +56,7 @@ namespace DesktopApp.ViewModels
             if (model.GetType().IsAssignableTo(typeof(IDream)) == false) return;
 
             var dream = model as IDream;
-            Dreams.Add(new DreamViewModel(dream));
+            Dreams.Insert(0, new DreamViewModel(dream));
         }
 
         private void OnDreamUpdated(IModelBase model)
