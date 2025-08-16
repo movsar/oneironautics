@@ -65,12 +65,10 @@ Oneironautics encodes these pillars directly in the data model and UI.
 - **Dream listing** and **sign-centric browsing** help you notice cues.  
 - The structure is designed for future stats (e.g., per-sign lucidity lift, position correlations, time-of-night effects).
 
-```
-
 ## Project Structure
 
 ```
-
+```
 Oneironautics/
 ├── Oneironautics/        # WPF desktop app (MVVM)
 │   ├── Views/            # XAML views (DreamEditor, DreamListing, SignEditor, etc.)
