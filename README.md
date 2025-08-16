@@ -133,7 +133,3 @@ dotnet test
 ## License
 
 Copyright (c) Movsar Bekaev.
-
----
-Would you like me to **include screenshots / mockup images** of the desktop app (from your Views/XAML) into the `README.md` for a more visual impression, or keep it text-only and professional?
-```
