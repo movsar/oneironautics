@@ -1,35 +1,71 @@
 # Oneironautics
-
-> A cross-platform dream journaling application with desktop UI, API service, and data layer.
+> A dream journaling suite inspired by Stephen LaBerge’s lucid dreaming methodology — with first-class support for **dream signs**, **lucidity levels**, and rich metadata.
 
 ---
 
 ## Overview
 
-**Oneironautics** is a software suite for recording, organizing, and exploring dreams.  
-It is designed for dream journaling enthusiasts, lucid dreamers, and researchers interested in tracking dream signs and patterns.
+**Oneironautics** is a .NET-based dream journaling system designed around Stephen LaBerge’s principles:
+- Systematic **recording** of dreams immediately after waking
+- Categorization of **dream signs** to train recognition
+- Tracking **lucidity** and sleep context (e.g., sleeping position)
+- Reviewing patterns to improve **prospective memory** and increase the frequency/clarity of lucid dreams
 
-The project consists of three main parts:
+The solution is split into three parts:
 
-- **Desktop App (WPF, MVVM)**  
-  A Windows desktop application that provides a clean UI for recording dreams, editing them, and associating dream signs.  
-- **API Service (ASP.NET Core Web API)**  
-  A REST service that exposes dream data for integration with other platforms or mobile clients.  
-- **Data Layer (.NET library)**  
-  A shared library containing entities, models, repositories, and enums that power both the API and the desktop app.
+- **Desktop App (WPF, MVVM)** — a clean UI to capture dreams, annotate them with signs, lucidity, and notes, and review your history.
+- **API Service (ASP.NET Core Web API)** — a REST layer intended for integrations (mobile/automation).
+- **Data Layer (.NET library)** — models, entities, repositories, and enums shared across the app and API.
+
+---
+
+## Why LaBerge’s Method?
+
+Stephen LaBerge’s approach emphasizes:
+1. **Dream journaling** — write dreams down ASAP to boost recall.
+2. **Dream signs** — identify recurring cues in your dreams.
+3. **Prospective memory training** — practice recognizing those cues while dreaming (e.g., via MILD/RC techniques).
+4. **Review & feedback** — analyze patterns to improve lucidity rate and stability.
+
+Oneironautics encodes these pillars directly in the data model and UI.
 
 ---
 
-## Features
+## Features (Mapped to LaBerge)
 
-- 📖 **Dream Journal** — record dreams with metadata such as lucidity level, sleeping position, and associated dream signs.  
-- ✍️ **Dream Editor** — add, edit, and manage dream entries through the desktop UI.  
-- 🏷 **Dream Signs** — define recurring dream signs (symbols, events, people, emotions) and link them to dreams.  
-- 🔍 **Search & Listing** — view and filter journal entries, browse by signs, and track patterns.  
-- 🌐 **API Integration** — access dream data via REST endpoints (`DreamsController`) for external apps.  
-- 🧪 **Unit Tests** — repository layer is tested with xUnit to ensure reliability.  
+### 1) Dream Journaling
+- **Title, Content, Notes, DateTime**  
+  Record detailed narratives as soon as you wake up.  
+  Model: `Dream` → `Title`, `Content`, `Notes`, `DreamDateTime`
 
----
+### 2) Dream Signs (LaBerge Taxonomy)
+- **Categorized signs** you can link to dreams:
+  - `Awareness` — odd states of mind (e.g., telepathy, missing time)
+  - `Action` — impossible or incongruent actions (e.g., flying)
+  - `Form` — shape/identity anomalies (e.g., distorted objects/people)
+  - `Context` — unlikely settings/situations (e.g., school as an adult)
+  - `Person` — specific recurring individuals
+  - `Object` — specific recurring objects
+- Model: `Sign (Title, Description, Type)` with `SignType` enum:  
+  **`Person, Object, Awareness, Action, Form, Context`**  
+- Relationships: Many-to-many via `SignToDream`
+
+### 3) Lucidity Tracking
+- **Lucidity levels** to measure experience quality over time:
+  - `None, Transient, Foggy, Clear, Total`
+- Model: `Dream.Lucidity` (`LucidityLevel` enum)
+
+### 4) Sleep Context Metadata
+- **Sleeping position** can be tracked to correlate with recall/lucidity:
+  - `Unknown, Right, Back, Left, Stomach`
+- Model: `Dream.Position` (`SleepingPosition` enum)
+- Plus **indexing and timestamps** to support trend analysis.
+
+### 5) Review & Pattern Discovery
+- **Dream listing** and **sign-centric browsing** help you notice cues.  
+- The structure is designed for future stats (e.g., per-sign lucidity lift, position correlations, time-of-night effects).
+
+```
 
 ## Project Structure
 
