@@ -68,7 +68,6 @@ Oneironautics encodes these pillars directly in the data model and UI.
 ## Project Structure
 
 ```
-```
 Oneironautics/
 ├── Oneironautics/        # WPF desktop app (MVVM)
 │   ├── Views/            # XAML views (DreamEditor, DreamListing, SignEditor, etc.)
@@ -91,7 +90,6 @@ Oneironautics/
 │   └── DreamRepositoryTest.cs
 │
 └── README.md
-
 ````
 
 ---
